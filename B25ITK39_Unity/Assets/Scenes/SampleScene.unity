@@ -390,7 +390,7 @@ GameObject:
   - component: {fileID: 1680741663}
   - component: {fileID: 1680741662}
   m_Layer: 0
-  m_Name: Plane
+  m_Name: "Om leser denne, legg til et object og push for \xE5 verifisere"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
