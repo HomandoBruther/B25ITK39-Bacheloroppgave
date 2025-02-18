@@ -6922,7 +6922,7 @@ WheelCollider:
   m_GameObject: {fileID: 1352582996}
   serializedVersion: 2
   m_Center: {x: 0, y: 0.16, z: 0}
-  m_Radius: 0.36
+  m_Radius: 0.34
   m_SuspensionSpring:
     spring: 70000
     damper: 9000
@@ -8102,7 +8102,7 @@ WheelCollider:
   m_GameObject: {fileID: 1539879540}
   serializedVersion: 2
   m_Center: {x: 0, y: 0.16, z: 0}
-  m_Radius: 0.36
+  m_Radius: 0.34
   m_SuspensionSpring:
     spring: 70000
     damper: 9000
@@ -8980,7 +8980,7 @@ WheelCollider:
   m_GameObject: {fileID: 1841916379}
   serializedVersion: 2
   m_Center: {x: 0, y: 0.16, z: 0}
-  m_Radius: 0.36
+  m_Radius: 0.34
   m_SuspensionSpring:
     spring: 70000
     damper: 9000
@@ -10081,7 +10081,7 @@ WheelCollider:
   m_GameObject: {fileID: 2001749795}
   serializedVersion: 2
   m_Center: {x: 0, y: 0.16, z: 0}
-  m_Radius: 0.36
+  m_Radius: 0.34
   m_SuspensionSpring:
     spring: 70000
     damper: 9000
