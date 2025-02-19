@@ -2959,6 +2959,9 @@ MonoBehaviour:
   motorForce: 1000
   breakForce: 3000
   maxSteerAngle: 30
+  dashForce: 10000
+  dashDuration: 0.2
+  dashCooldown: 2
   frontLeftWheelCollider: {fileID: 1352582998}
   frontRightWheelCollider: {fileID: 2001749797}
   rearLeftWheelCollider: {fileID: 1539879542}

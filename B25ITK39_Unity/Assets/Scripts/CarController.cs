@@ -1,16 +1,21 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CarController : MonoBehaviour
 {
     private float horizontalInput, verticalInput;
-    private float currentSteerAngle, currentbreakForce;
+    private float currentSteerAngle, currentBreakForce;
     private bool isBreaking;
 
-    // Settings
+    [Header("Settings")]
     [SerializeField] private float motorForce, breakForce, maxSteerAngle;
+
+    [Header("Dash Settings")]
+    [SerializeField] private float dashForce = 5000f;
+    [SerializeField] private float dashDuration = 0.2f;
+    [SerializeField] private float dashCooldown = 2f;
+    private bool canDash = true;
 
     // Wheel Colliders
     [SerializeField] private WheelCollider frontLeftWheelCollider, frontRightWheelCollider;
@@ -20,6 +25,13 @@ public class CarController : MonoBehaviour
     [SerializeField] private Transform frontLeftWheelTransform, frontRightWheelTransform;
     [SerializeField] private Transform rearLeftWheelTransform, rearRightWheelTransform;
 
+    private Rigidbody rb;
+
+    private void Start()
+    {
+        rb = GetComponent<Rigidbody>();
+    }
+
     private void FixedUpdate()
     {
         GetInput();
@@ -28,15 +40,18 @@ public class CarController : MonoBehaviour
         UpdateWheels();
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.E) && canDash)
+        {
+            StartCoroutine(Dash());
+        }
+    }
+
     private void GetInput()
     {
-        // Steering Input
         horizontalInput = Input.GetAxis("Horizontal");
-
-        // Acceleration Input
         verticalInput = Input.GetAxis("Vertical");
-
-        // Breaking Input
         isBreaking = Input.GetKey(KeyCode.Space);
     }
 
@@ -44,16 +59,16 @@ public class CarController : MonoBehaviour
     {
         frontLeftWheelCollider.motorTorque = verticalInput * motorForce;
         frontRightWheelCollider.motorTorque = verticalInput * motorForce;
-        currentbreakForce = isBreaking ? breakForce : 0f;
+        currentBreakForce = isBreaking ? breakForce : 0f;
         ApplyBreaking();
     }
 
     private void ApplyBreaking()
     {
-        frontRightWheelCollider.brakeTorque = currentbreakForce;
-        frontLeftWheelCollider.brakeTorque = currentbreakForce;
-        rearLeftWheelCollider.brakeTorque = currentbreakForce;
-        rearRightWheelCollider.brakeTorque = currentbreakForce;
+        frontRightWheelCollider.brakeTorque = currentBreakForce;
+        frontLeftWheelCollider.brakeTorque = currentBreakForce;
+        rearLeftWheelCollider.brakeTorque = currentBreakForce;
+        rearRightWheelCollider.brakeTorque = currentBreakForce;
     }
 
     private void HandleSteering()
@@ -73,10 +88,29 @@ public class CarController : MonoBehaviour
 
     private void UpdateSingleWheel(WheelCollider wheelCollider, Transform wheelTransform)
     {
-        Vector3 pos;
-        Quaternion rot;
-        wheelCollider.GetWorldPose(out pos, out rot);
-        wheelTransform.rotation = rot;
+        wheelCollider.GetWorldPose(out Vector3 pos, out Quaternion rot);
         wheelTransform.position = pos;
+        wheelTransform.rotation = rot;
     }
+
+    private IEnumerator Dash()
+    {
+        canDash = false;
+
+        // Get input direction
+        Vector3 inputDirection = transform.forward * verticalInput + transform.right * horizontalInput;
+
+        // If no input, default to forward
+        if (inputDirection == Vector3.zero)
+            inputDirection = transform.forward;
+
+        inputDirection.Normalize();
+
+        // Apply dash force in the calculated direction
+        rb.AddForce(inputDirection * dashForce, ForceMode.Impulse);
+        yield return new WaitForSeconds(dashDuration);
+        yield return new WaitForSeconds(dashCooldown);
+        canDash = true;
+    }
+
 }
