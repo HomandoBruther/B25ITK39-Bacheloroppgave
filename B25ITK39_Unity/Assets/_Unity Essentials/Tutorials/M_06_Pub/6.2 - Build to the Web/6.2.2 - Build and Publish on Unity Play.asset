@@ -1,0 +1,164 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff771ccdf4150419d9ff4d342b069aae, type: 3}
+  m_Name: 6.2.2 - Build and Publish on Unity Play
+  m_EditorClassIdentifier: 
+  Title:
+    m_Untranslated: Build and Publish on Unity Play
+  m_Paragraphs:
+    m_Items:
+    - m_Type: 8
+      Title:
+        m_Untranslated: 
+      Text:
+        m_Untranslated: 
+      m_CodeSample: 
+      m_PostInstructionImage: {fileID: 0}
+      m_Tutorial: {fileID: 0}
+      m_Image: {fileID: 0}
+      m_VideoUrl: https://storage.googleapis.com/learn-media-public/Essentials-Pathway/6.2%20-%20Publish%20to%20WebGL/WT-Get-Started-Click.webm
+      m_Video: {fileID: 0}
+      m_CriteriaCompletion: 0
+      m_Criteria:
+        m_Items: []
+      m_MaskingSettings:
+        m_MaskingEnabled: 1
+        m_UnmaskedViews:
+        - m_SelectorType: 1
+          m_ViewType:
+            m_TypeName: 
+          m_FocusEditorWindow: 0
+          m_EditorWindowType:
+            m_TypeName: Unity.Play.Publisher.Editor.PublisherWindow, Unity.Play.Publisher.Editor,
+              Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+          m_AlternateEditorWindowTypes:
+            m_Items: []
+          m_MaskType: 0
+          m_MaskSizeModifier: 0
+          m_UnmaskedControls: []
+      m_Summary: 
+      m_Description: 
+      m_InstructionBoxTitle: 
+      m_InstructionText: 
+      m_TutorialButtonText: 
+    - m_Type: 0
+      Title:
+        m_Untranslated: 
+      Text:
+        m_Untranslated: 'Unity provides a package called <b>WebGL Publisher,</b>
+          which is a tool that streamlines the building and publishing process of
+          your projects directly onto Unity Play.
+
+
+          <b>Note:</b>  This
+          step can take up to 30 minutes.'
+      m_CodeSample: 
+      m_PostInstructionImage: {fileID: 0}
+      m_Tutorial: {fileID: 0}
+      m_Image: {fileID: 0}
+      m_VideoUrl: 
+      m_Video: {fileID: 0}
+      m_CriteriaCompletion: 0
+      m_Criteria:
+        m_Items: []
+      m_MaskingSettings:
+        m_MaskingEnabled: 0
+        m_UnmaskedViews: []
+      m_Summary: 
+      m_Description: 
+      m_InstructionBoxTitle: 
+      m_InstructionText: 
+      m_TutorialButtonText: 
+    - m_Type: 1
+      Title:
+        m_Untranslated: Instructions
+      Text:
+        m_Untranslated: "<b>1.</b> From the top menu, go to <b>Publish</b> > <b>WebGL
+          project.</b>\n\n<b>2.</b>  In the Publish window, select <b>Build and Publish.</b>\n\n\u2022
+          If you are prompted to switch to WebGL, select <b>\"Switch to WebGL\"</b>
+          and choose a folder for your build in the window that appears. \n\n\u2022
+          You can use the default folder or create a new folder to store your build
+          files.\n\n<b>3.</b>  When your build is complete, select <b>Next</b> to
+          continue.\n\n<b>Note:</b>  If you are not signed in, you\u2019ll first
+          select <b>Get Started</b> to sign in, then you\u2019ll be able to build
+          and publish..\n"
+      m_CodeSample: 
+      m_PostInstructionImage: {fileID: 0}
+      m_Tutorial: {fileID: 0}
+      m_Image: {fileID: 0}
+      m_VideoUrl: 
+      m_Video: {fileID: 0}
+      m_CriteriaCompletion: 0
+      m_Criteria:
+        m_Items: []
+      m_MaskingSettings:
+        m_MaskingEnabled: 0
+        m_UnmaskedViews: []
+      m_Summary: 
+      m_Description: 
+      m_InstructionBoxTitle: 
+      m_InstructionText: 
+      m_TutorialButtonText: 
+  m_CameraSettings:
+    m_CameraMode: 0
+    m_FocusMode: 0
+    m_Orthographic: 0
+    m_Size: 0
+    m_Pivot: {x: 0, y: 0, z: 0}
+    m_Rotation: {x: 0, y: 0, z: 0, w: 0}
+    m_FrameObject:
+      m_SceneGuid: 
+      m_GameObjectGuid: 
+      m_SerializedComponentType:
+        m_TypeName: 
+      m_ComponentIndex: 0
+      m_AssetObject: {fileID: 0}
+      m_Prefab: {fileID: 0}
+    m_Enabled: 0
+  NextButton:
+    m_Untranslated: Next
+  DoneButton:
+    m_Untranslated: Done
+  m_CompletedSound: {fileID: 0}
+  m_AutoAdvance: 0
+  Showing:
+    m_PersistentCalls:
+      m_Calls: []
+  Shown:
+    m_PersistentCalls:
+      m_Calls: []
+  Staying:
+    m_PersistentCalls:
+      m_Calls: []
+  CriteriaValidated:
+    m_PersistentCalls:
+      m_Calls: []
+  MaskingSettingsChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  NonMaskingSettingsChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnBeforePageShown:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnAfterPageShown:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnTutorialPageStay:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnBeforeTutorialQuit:
+    m_PersistentCalls:
+      m_Calls: []
+  m_NextButton: Next
+  m_DoneButton: Done
