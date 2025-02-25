@@ -15,9 +15,8 @@ public class enemyAIPatrol : MonoBehaviour
     Vector3 destPoint;
     bool walkpointSet;
     [SerializeField] float walkRange;
-
-    //string playerCar = ("SportsCar_1");
-    string playerCar = ("BusNoWheel");
+    string playerCar;
+    
 
     //state change
     [SerializeField] float sightRange, attackRange;
@@ -26,6 +25,8 @@ public class enemyAIPatrol : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        if (PlayerData.PD.carChoice == 0) playerCar = ("SportCar_1");
+        if (PlayerData.PD.carChoice == 1) playerCar = ("BusNoWheel");
         agent = GetComponent<NavMeshAgent>();
         player = GameObject.Find(playerCar);
     }
