@@ -7,7 +7,7 @@ public class CarController : MonoBehaviour
     private float horizontalInput, verticalInput;
     private float currentSteerAngle, currentBreakForce;
     private bool isBreaking;
-    public int passengerCount = 0;
+    
 
     [Header("Settings")]
     [SerializeField] private float motorForce, breakForce, maxSteerAngle;
@@ -113,11 +113,5 @@ public class CarController : MonoBehaviour
         yield return new WaitForSeconds(dashCooldown);
         canDash = true;
     }
-
-    public void PickupPassengers(int amount)
-    {
-        passengerCount += amount;
-        Debug.Log("Total Passengers: " + passengerCount);
-    }
-
 }
+  
