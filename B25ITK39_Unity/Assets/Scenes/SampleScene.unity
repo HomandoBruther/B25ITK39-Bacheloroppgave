@@ -8099,8 +8099,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 10
-  m_fontSizeBase: 10
+  m_fontSize: 27.39
+  m_fontSizeBase: 27.39
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -12624,6 +12624,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7708123753015099069, guid: f64c8b9296ffeb5498cc79178c1936e3, type: 3}
+      propertyPath: passengerPrefab
+      value: 
+      objectReference: {fileID: 8924165295541564758, guid: 7690834c262e2c5468ce66884dbeb3d9, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 3935426897370473355, guid: f64c8b9296ffeb5498cc79178c1936e3, type: 3}

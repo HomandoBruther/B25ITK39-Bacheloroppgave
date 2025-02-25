@@ -19,29 +19,23 @@ public class PassengerPickup : MonoBehaviour
 
     private void SpawnPassengers()
     {
-        // Get the Collider of the trigger zone
-        Collider triggerCollider = GetComponent<Collider>();
+        Collider triggerCollider = GetComponent<Collider>(); // Get trigger box collider
 
-        // Calculate the bottom of the trigger zone (y-position of the bottom)
-        float spawnHeight = triggerCollider.bounds.min.y;
+        float minX = triggerCollider.bounds.min.x;
+        float maxX = triggerCollider.bounds.max.x;
+        float minZ = triggerCollider.bounds.min.z;
+        float maxZ = triggerCollider.bounds.max.z;
+        float spawnHeight = triggerCollider.bounds.min.y; // Ensure they spawn at ground level
 
         for (int i = 0; i < passengersAtStop; i++)
         {
-            // Offset the spawn position based on the trigger's bounds
-            Vector3 spawnPosition = new Vector3(
-                transform.position.x + (i * 1.5f),  // Offset for spacing
-                spawnHeight,  // Spawn at the bottom of the trigger zone
-                transform.position.z
-            );
+            // Generate a random position inside the trigger box
+            float randomX = Random.Range(minX, maxX);
+            float randomZ = Random.Range(minZ, maxZ);
+            Vector3 spawnPosition = new Vector3(randomX, spawnHeight, randomZ);
 
-            // Instantiate the passenger prefab
+            // Instantiate the studentTest prefab
             GameObject passenger = Instantiate(passengerPrefab, spawnPosition, Quaternion.identity);
-
-            // Make sure the passenger doesn't collide with the car
-            if (passenger.TryGetComponent<Collider>(out Collider collider))
-            {
-                collider.isTrigger = true;  // Set the passenger to be a trigger
-            }
 
             // Add to the list of spawned passengers
             spawnedPassengers.Add(passenger);
