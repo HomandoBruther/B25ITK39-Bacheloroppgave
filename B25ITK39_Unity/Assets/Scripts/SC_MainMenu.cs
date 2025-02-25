@@ -24,8 +24,9 @@ public class SC_MainMenu : MonoBehaviour
 
     public void vehicleSportsCarButton()
     {
-        https://www.reddit.com/r/Unity2D/comments/14dpepg/how_to_get_a_variable_from_another_gameobject_and/
+    https://www.reddit.com/r/Unity2D/comments/14dpepg/how_to_get_a_variable_from_another_gameobject_and/
         PlayerData.PD.carChoice = 0;
+        PlayerData.PD.maxPassengers = 1;
         UnityEngine.SceneManagement.SceneManager.LoadScene("GameLevel");
     }
 
@@ -33,6 +34,7 @@ public class SC_MainMenu : MonoBehaviour
     {
         https://www.reddit.com/r/Unity2D/comments/14dpepg/how_to_get_a_variable_from_another_gameobject_and/
         PlayerData.PD.carChoice = 1;
+        PlayerData.PD.maxPassengers = 30;
         UnityEngine.SceneManagement.SceneManager.LoadScene("GameLevel");
     }
 

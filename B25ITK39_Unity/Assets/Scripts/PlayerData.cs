@@ -92,6 +92,7 @@ public class PlayerData : MonoBehaviour
         currentScoring += EmptyImportantPassengers() * 1000;
 
         points += currentScoring;
+        money += currentScoring / 10;
 
         return currentScoring;
     }
