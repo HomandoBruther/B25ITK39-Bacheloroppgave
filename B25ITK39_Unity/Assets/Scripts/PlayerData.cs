@@ -8,15 +8,16 @@ public class PlayerData : MonoBehaviour
 
     //Car Stats
     public int carChoice;
-    public int health;
+    public int currentHealth;
+    public int maxHealth;
     public int currentPassengers;
     public int currentImportantPassengers;
     public int maxPassengers;
 
     //Player Stats
     public string name;
-    public int points;
-    public int money;
+    public int points = 0;
+    public int money = 0;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -85,7 +86,7 @@ public class PlayerData : MonoBehaviour
         return emptiedImporantPassengers;
     }
 
-    int scorePoints()
+    public int ScorePoints()
     {
         int currentScoring = 0;
         currentScoring += EmptyPassengers() * 100;
@@ -95,5 +96,21 @@ public class PlayerData : MonoBehaviour
         money += currentScoring / 10;
 
         return currentScoring;
+    }
+
+    public void SetCarChoiceToBus()
+    {
+        carChoice = 1;
+        maxPassengers = 30;
+        maxHealth = 1000;
+        currentHealth = maxHealth;
+    }
+
+    public void SetCarChoiceToSportsCar()
+    {
+        carChoice = 0;
+        maxPassengers = 1;
+        maxHealth = 250;
+        currentHealth = maxHealth;
     }
 }
