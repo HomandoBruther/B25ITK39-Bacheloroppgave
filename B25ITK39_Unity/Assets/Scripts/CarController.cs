@@ -7,7 +7,11 @@ public class CarController : MonoBehaviour
     private float horizontalInput, verticalInput;
     private float currentSteerAngle, currentBreakForce;
     private bool isBreaking;
-    public int passengerCount = 0;
+    public int passengerCount = 0; //Har gjort at PlayerData.PD håndterer passasjerer
+    //Da blir det litt mindre jobb for denne klassen.
+
+    SceneHandler sceneHandler;
+    GameObject theGameController;
 
     [Header("Settings")]
     [SerializeField] private float motorForce, breakForce, maxSteerAngle;
@@ -32,6 +36,8 @@ public class CarController : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
+        theGameController = GameObject.FindGameObjectWithTag("GameController");
+        sceneHandler = theGameController.GetComponent<SceneHandler>();
     }
 
     private void FixedUpdate()
@@ -48,6 +54,7 @@ public class CarController : MonoBehaviour
         {
             StartCoroutine(Dash());
         }
+        sceneHandler.speed = Mathf.FloorToInt(rb.linearVelocity.magnitude);
     }
 
     private void GetInput()
@@ -114,12 +121,12 @@ public class CarController : MonoBehaviour
         yield return new WaitForSeconds(dashCooldown);
         canDash = true;
     }
-    public void PickupPassengers(int amount)
+    //- Har gjort at PlayerData.PD håndterer passasjerer
+     public void PickupPassengers(int amount)
     {
         passengerCount += amount;
         Debug.Log("Total Passengers: " + passengerCount);
     }
-
 }
 
 
