@@ -673,7 +673,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   carChoice: 0
-  health: 0
+  currentHealth: 0
+  maxHealth: 0
+  currentPassengers: 0
+  currentImportantPassengers: 0
+  maxPassengers: 0
+  name: 
+  points: 0
+  money: 0
 --- !u!4 &422177078
 Transform:
   m_ObjectHideFlags: 0
@@ -2036,7 +2043,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Play Now
+  m_text: Play Now!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2538,7 +2545,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 691, y: 394.85715}
+  m_SizeDelta: {x: 1338.75, y: 765}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1868941530
 MonoBehaviour:
