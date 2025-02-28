@@ -43,7 +43,6 @@ public class enemyAIPatrol : MonoBehaviour
         if (!playerInSight && !playerInAttackRange) Patrol();
         if (playerInSight && !playerInAttackRange) Chase();
         if (playerInSight && playerInAttackRange) Attack();
-        Chase();
     }
 
     void Chase()
@@ -53,7 +52,8 @@ public class enemyAIPatrol : MonoBehaviour
 
     void Attack()
     {
-
+        animator.SetTrigger("Attack");
+        agent.SetDestination(transform.position);
     }
 
 
