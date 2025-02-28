@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1351467205789147638}
   - component: {fileID: 8956147110477206080}
   - component: {fileID: -5387465037170375841}
+  - component: {fileID: 7886036125798307910}
   m_Layer: 0
   m_Name: default
   m_TagString: Untagged
@@ -102,3 +103,26 @@ MonoBehaviour:
   projectileSpeed: 50
   impactForce: 100
   lifetime: 5
+--- !u!136 &7886036125798307910
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5451203608983926909}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.25151598
+  m_Height: 0.342256
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 1.274958}
