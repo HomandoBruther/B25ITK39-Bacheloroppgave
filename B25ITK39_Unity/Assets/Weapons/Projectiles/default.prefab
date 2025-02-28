@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6874942476669332956}
   - component: {fileID: 1351467205789147638}
   - component: {fileID: 8956147110477206080}
-  - component: {fileID: 8765298388985574989}
+  - component: {fileID: -5387465037170375841}
   m_Layer: 0
   m_Name: default
   m_TagString: Untagged
@@ -87,7 +87,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &8765298388985574989
+--- !u!114 &-5387465037170375841
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -99,5 +99,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f2c8944d35ab9643a52a63bed00a213, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectileSpeed: 45
-  lifetime: 1
+  projectileSpeed: 50
+  impactForce: 100
+  lifetime: 5

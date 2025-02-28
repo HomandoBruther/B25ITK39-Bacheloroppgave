@@ -3,6 +3,7 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     [SerializeField] private float projectileSpeed = 20f;
+    [SerializeField] private float impactForce = 100f;
     [SerializeField] private float lifetime = 5f; // Safety destroy if it doesn't hit anything
 
     private void Start()
@@ -17,11 +18,29 @@ public class Projectile : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        // Optional: Check for layers or tags to avoid hitting unwanted objects (like the turret itself)
-        if (collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Environment"))
+        if (collision.gameObject.CompareTag("Enemy"))
         {
-            // You can add damage logic here if needed
-            Destroy(gameObject); // Destroy projectile on impact
+            // Try to apply force to the ragdoll
+            RagdollEnabler ragdoll = collision.gameObject.GetComponentInParent<RagdollEnabler>();
+            if (ragdoll != null)
+            {
+                ragdoll.EnableRagdoll(); // Activate Ragdoll
+                ApplyForceToRagdoll(ragdoll, collision);
+            }
+
+            Destroy(gameObject); // Destroy the projectile
+        }
+    }
+
+    private void ApplyForceToRagdoll(RagdollEnabler ragdoll, Collision collision)
+    {
+        Rigidbody hitRigidbody = collision.rigidbody; // Get hit limb's Rigidbody
+        if (hitRigidbody != null)
+        {
+            Vector3 forceDirection = collision.contacts[0].point - transform.position;
+            forceDirection.Normalize();
+
+            hitRigidbody.AddForce(forceDirection * impactForce, ForceMode.Impulse);
         }
     }
 }
