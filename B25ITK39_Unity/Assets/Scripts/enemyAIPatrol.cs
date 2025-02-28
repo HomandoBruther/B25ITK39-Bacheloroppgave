@@ -11,6 +11,8 @@ public class enemyAIPatrol : MonoBehaviour
 
     [SerializeField] LayerMask groundLayer, playerLayer;
 
+    Animator animator;
+
     //patrol
     Vector3 destPoint;
     bool walkpointSet;
@@ -29,6 +31,7 @@ public class enemyAIPatrol : MonoBehaviour
         if (PlayerData.PD.carChoice == 1) playerCar = ("BusNoWheel");
         agent = GetComponent<NavMeshAgent>();
         player = GameObject.Find(playerCar);
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -52,6 +55,8 @@ public class enemyAIPatrol : MonoBehaviour
     {
 
     }
+
+
 
     void Patrol()
     {
