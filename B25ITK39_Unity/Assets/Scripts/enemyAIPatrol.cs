@@ -13,6 +13,8 @@ public class enemyAIPatrol : MonoBehaviour
 
     Animator animator;
 
+    BoxCollider boxLeftCollider;
+
     //patrol
     Vector3 destPoint;
     bool walkpointSet;
@@ -32,6 +34,8 @@ public class enemyAIPatrol : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         player = GameObject.Find(playerCar);
         animator = GetComponent<Animator>();
+
+        boxLeftCollider = GetComponentInChildren<BoxCollider>();
     }
 
     // Update is called once per frame
@@ -52,8 +56,12 @@ public class enemyAIPatrol : MonoBehaviour
 
     void Attack()
     {
-        animator.SetTrigger("Attack");
-        agent.SetDestination(transform.position);
+        if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Z_Attack 1"))
+        {
+            animator.SetTrigger("Attack");
+            agent.SetDestination(transform.position);
+        }
+        
     }
 
 
@@ -78,5 +86,24 @@ public class enemyAIPatrol : MonoBehaviour
             walkpointSet = true;
         }
 
+    }
+
+    void EnableLeftAttack()
+    {
+        boxLeftCollider.enabled = true;
+    }
+
+    void DisableLeftAttack()
+    {
+        boxLeftCollider.enabled = false;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        var player = other.GetComponent<CarController>();
+        if(player != null)
+        {
+            PlayerData.PD.currentHealth -= 10;
+        }
     }
 }
