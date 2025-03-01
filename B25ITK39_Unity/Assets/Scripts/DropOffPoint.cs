@@ -2,13 +2,19 @@ using UnityEngine;
 
 public class DropOffPoint : MonoBehaviour
 {
-    public GameObject highlightEffect; // Sett et synlig område her
+    public GameObject highlightEffect; // Sett highlight-plane her
+    public GameObject dropOffText; // Sett "DROP OFF HERE"-teksten her
 
     private void Start()
     {
         if (highlightEffect != null)
         {
-            highlightEffect.SetActive(true); // Alltid synlig til passasjerer er droppet av
+            highlightEffect.SetActive(true); // Highlight synlig fra start
+        }
+
+        if (dropOffText != null)
+        {
+            dropOffText.SetActive(true); // Tekst synlig fra start
         }
     }
 
@@ -22,10 +28,15 @@ public class DropOffPoint : MonoBehaviour
                 car.DropOffPassengers();
                 Debug.Log("Passengers dropped off!");
 
-                // Skjul highlight etter dropp-off
+                // Skjul både highlight og tekst
                 if (highlightEffect != null)
                 {
                     highlightEffect.SetActive(false);
+                }
+
+                if (dropOffText != null)
+                {
+                    dropOffText.SetActive(false);
                 }
             }
         }
