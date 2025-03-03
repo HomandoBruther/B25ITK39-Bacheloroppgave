@@ -1,7 +1,10 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class RagdollEnabler : MonoBehaviour
 {
+
     [SerializeField]
     private Animator Animator;
     [SerializeField]
@@ -13,23 +16,18 @@ public class RagdollEnabler : MonoBehaviour
     private CharacterJoint[] Joints;
     private Collider[] Colliders;
 
-    private void Awake()
-    {
-        Rigidbodies = RagdollRoot.GetComponentsInChildren<Rigidbody>();
-        Joints = RagdollRoot.GetComponentsInChildren<CharacterJoint>();
-        Colliders = RagdollRoot.GetComponentsInChildren<Collider>();
 
-        if (StartRagdoll)
-        {
-            EnableRagdoll();
-        }
-        else
-        {
-            EnableAnimator();
-        }
+
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        setRigidbodyState(true);
+        setColliderState(false);
+        GetComponent<Animator>().enabled = true;
     }
 
-    public void EnableRagdoll()
+    public void ragdollOnDeath()
     {
         Animator.enabled = false;
         foreach (CharacterJoint joint in Joints)
@@ -48,21 +46,33 @@ public class RagdollEnabler : MonoBehaviour
         }
     }
 
-    public void EnableAnimator()
+    void setRigidbodyState(bool state)
     {
-        Animator.enabled = true;
-        foreach (CharacterJoint joint in Joints)
+
+        Rigidbody[] rigidbodies = GetComponentsInChildren<Rigidbody>();
+
+        foreach (Rigidbody rigidbody in rigidbodies)
         {
-            joint.enableCollision = false;
+            rigidbody.isKinematic = state;
         }
-        foreach (Collider collider in Colliders)
-        {
-            collider.enabled = false;
-        }
-        foreach (Rigidbody rigidbody in Rigidbodies)
-        {
-            rigidbody.detectCollisions = false;
-            rigidbody.useGravity = false;
-        }
+
+        GetComponent<Rigidbody>().isKinematic = !state;
+
     }
+
+
+    void setColliderState(bool state)
+    {
+
+        Collider[] colliders = GetComponentsInChildren<Collider>();
+
+        foreach (Collider collider in colliders)
+        {
+            collider.enabled = state;
+        }
+
+        GetComponent<Collider>().enabled = !state;
+
+    }
+
 }
