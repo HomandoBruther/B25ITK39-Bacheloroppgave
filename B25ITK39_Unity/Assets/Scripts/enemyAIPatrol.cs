@@ -98,6 +98,8 @@ public class enemyAIPatrol : MonoBehaviour
         boxLeftCollider.enabled = false;
     }
 
+    //void ZombieDeath()
+
     private void OnTriggerEnter(Collider other)
     {
         var player = other.GetComponent<CarController>();
