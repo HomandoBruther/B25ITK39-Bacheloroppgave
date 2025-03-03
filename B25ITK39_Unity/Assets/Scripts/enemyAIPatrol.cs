@@ -11,6 +11,10 @@ public class enemyAIPatrol : MonoBehaviour
 
     [SerializeField] LayerMask groundLayer, playerLayer;
 
+    Animator animator;
+
+    BoxCollider boxLeftCollider;
+
     //patrol
     Vector3 destPoint;
     bool walkpointSet;
@@ -29,6 +33,9 @@ public class enemyAIPatrol : MonoBehaviour
         if (PlayerData.PD.carChoice == 1) playerCar = ("BusNoWheel");
         agent = GetComponent<NavMeshAgent>();
         player = GameObject.Find(playerCar);
+        animator = GetComponent<Animator>();
+
+        boxLeftCollider = GetComponentInChildren<BoxCollider>();
     }
 
     // Update is called once per frame
@@ -40,7 +47,6 @@ public class enemyAIPatrol : MonoBehaviour
         if (!playerInSight && !playerInAttackRange) Patrol();
         if (playerInSight && !playerInAttackRange) Chase();
         if (playerInSight && playerInAttackRange) Attack();
-        Chase();
     }
 
     void Chase()
@@ -50,8 +56,15 @@ public class enemyAIPatrol : MonoBehaviour
 
     void Attack()
     {
-
+        if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Z_Attack 1"))
+        {
+            animator.SetTrigger("Attack");
+            agent.SetDestination(transform.position);
+        }
+        
     }
+
+
 
     void Patrol()
     {
@@ -73,5 +86,26 @@ public class enemyAIPatrol : MonoBehaviour
             walkpointSet = true;
         }
 
+    }
+
+    void EnableLeftAttack()
+    {
+        boxLeftCollider.enabled = true;
+    }
+
+    void DisableLeftAttack()
+    {
+        boxLeftCollider.enabled = false;
+    }
+
+    //void ZombieDeath()
+
+    private void OnTriggerEnter(Collider other)
+    {
+        var player = other.GetComponent<CarController>();
+        if(player != null)
+        {
+            PlayerData.PD.currentHealth -= 10;
+        }
     }
 }
