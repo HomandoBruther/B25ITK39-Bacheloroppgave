@@ -1,10 +1,19 @@
 using UnityEngine;
 
-public class BillboardUI : MonoBehaviour
+
+public class Billboard : MonoBehaviour
 {
-    void Update()
+    private Transform cameraTransform;
+
+    private void Start()
     {
-        transform.LookAt(Camera.main.transform);
-        transform.Rotate(0, 180, 0);  // Flip it to face the camera
+        cameraTransform = Camera.main.transform; // Henter hovedkameraet
+    }
+
+    private void LateUpdate()
+    {
+        // Roter teksten mot kameraet
+        transform.LookAt(cameraTransform);
+        transform.rotation = Quaternion.LookRotation(cameraTransform.forward);
     }
 }
