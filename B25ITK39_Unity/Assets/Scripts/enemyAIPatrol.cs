@@ -108,4 +108,39 @@ public class enemyAIPatrol : MonoBehaviour
             PlayerData.PD.currentHealth -= 10;
         }
     }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        // Get the rigidbody of the object this script is attached to (zombie)
+        Rigidbody myRigidbody = GetComponent<Rigidbody>();
+        float mySpeed = myRigidbody != null ? myRigidbody.linearVelocity.magnitude : 0f;
+
+        // Check if the object colliding is a projectile
+        Projectile projectile = collision.gameObject.GetComponent<Projectile>();
+        if (projectile != null)
+        {
+            Debug.Log("Hit by projectile: " + projectile.name);
+            return;
+        }
+
+        // Check if the object colliding is the car
+        CarController carController = collision.gameObject.GetComponent<CarController>();
+        if (carController != null)
+        {
+            // Get the rigidbody of the car
+            Rigidbody carRigidbody = collision.gameObject.GetComponent<Rigidbody>();
+            float carSpeed = carRigidbody != null ? carRigidbody.linearVelocity.magnitude : 0f;
+
+            Debug.Log($"Hit by car. Car Speed: {carSpeed}, My Speed: {mySpeed}");
+
+            // Define a speed threshold
+            float speedThreshold = 5f; // Adjust as needed
+
+            if (carSpeed + mySpeed >= speedThreshold)
+            {
+                Debug.Log("Collision speed meets the threshold!");
+                // Do something when the speed is high enough
+            }
+        }
+    }
 }

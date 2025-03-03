@@ -32,6 +32,11 @@ public class SceneHandler : MonoBehaviour {
             bus.SetActive(false);
         }
 
+        if (PlayerData.PD == null)
+        {
+            bus.SetActive(true);
+            sportsCar.SetActive(false);
+        }
         
     }
 
