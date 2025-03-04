@@ -107,55 +107,72 @@ public class enemyAIPatrol : MonoBehaviour
 
     //void ZombieDeath()
 
-     private void OnTriggerEnter(Collider other)
-    {
-        var player = other.GetComponent<CarController>();
-        if(player != null)
-        {
-            PlayerData.PD.currentHealth -= 10;
-        }
-    }
+    /*private void OnTriggerEnter(Collider other)
+   {
+       var player = other.GetComponent<CarController>();
+       if(player != null)
+       {
+           PlayerData.PD.currentHealth -= 10;
+       }
+   }
+    */
 
-    
-    void OnCollisionEnter(Collision collision)
+    void OnTriggerEnter(Collider collision)
     {
-        // Get the rigidbody of the object this script is attached to (zombie)
+        // Get the rigidbody of the zombie
         Rigidbody myRigidbody = GetComponent<Rigidbody>();
         float mySpeed = myRigidbody != null ? myRigidbody.velocity.magnitude : 0f;
 
-        // Check if the object colliding is a projectile
-        /*
-        Projectile projectile = collision.gameObject.GetComponent<Projectile>();
-        if (projectile != null)
-        {
-            Debug.Log("Hit by projectile: " + projectile.name);
-            return;
-        }
-        */
-
-        // Check if the object colliding is the car
+        // Check if the colliding object is the car
         CarController carController = collision.gameObject.GetComponent<CarController>();
         if (carController != null)
         {
-            // Get the rigidbody of the car
             Rigidbody carRigidbody = collision.gameObject.GetComponent<Rigidbody>();
             float carSpeed = carRigidbody != null ? carRigidbody.velocity.magnitude : 0f;
 
             Debug.Log($"Hit by car. Car Speed: {carSpeed}, My Speed: {mySpeed}");
 
             // Define a speed threshold
-            float speedThreshold = 1f; // Adjust as needed
+            float speedThreshold = 1f;
 
             if (carSpeed + mySpeed >= speedThreshold)
             {
-                Debug.Log("Collision speed meets the threshold!" + ", Collision is: " + GetComponent<Animator>().enabled);
+                Debug.Log("Collision speed meets the threshold!");
+                /*
+                // Move the zombie slightly ahead of the car to prevent extreme physics effects
+                Vector3 forwardOffset = collision.transform.forward * 1.5f; // Adjust distance if needed
+                transform.position = collision.transform.position + forwardOffset;
+                */
 
-                // Disable animation and main collider
+                // Disable animation & collider to prevent animation interference
                 GetComponent<Animator>().enabled = false;
                 GetComponent<Collider>().enabled = false;
                 alive = false;
 
+                // Enable ragdoll physics
+                ActivateRagdoll();
+                Debug.Log(FindObjectsOfType<Rigidbody>().Length);
             }
+        }
+    }
+
+    void ActivateRagdoll()
+    {
+        // Disable the NavMeshAgent if it's present
+        NavMeshAgent agent = GetComponent<NavMeshAgent>();
+        if (agent != null) agent.enabled = false;
+
+        // Enable physics on all child rigidbodies
+        foreach (Rigidbody rb in GetComponentsInChildren<Rigidbody>())
+        {
+            rb.isKinematic = false; // Allow physics to take over
+            rb.useGravity = true;
+        }
+
+        // Disable the main Rigidbody (optional, to avoid conflicts)
+        if (GetComponent<Rigidbody>())
+        {
+            GetComponent<Rigidbody>().isKinematic = true;
         }
     }
 }
