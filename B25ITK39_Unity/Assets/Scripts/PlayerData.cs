@@ -7,9 +7,10 @@ public class PlayerData : MonoBehaviour
     public static PlayerData PD;
 
     //Car Stats
-    public int carChoice;
-    public int currentHealth;
+    public int carChoice = 1;
+    
     public int maxHealth;
+    public int currentHealth;
     public int currentPassengers;
     public int currentImportantPassengers;
     public int maxPassengers;
@@ -23,6 +24,9 @@ public class PlayerData : MonoBehaviour
     void Start()
     {
         MakeThisTheOnlyPlayerData();
+        maxHealth = 1000;
+        maxPassengers = 30;
+        currentHealth = maxHealth;
     }
 
     void MakeThisTheOnlyPlayerData()
@@ -96,21 +100,5 @@ public class PlayerData : MonoBehaviour
         money += currentScoring / 10;
 
         return currentScoring;
-    }
-
-    public void SetCarChoiceToBus()
-    {
-        carChoice = 1;
-        maxPassengers = 30;
-        maxHealth = 1000;
-        currentHealth = maxHealth;
-    }
-
-    public void SetCarChoiceToSportsCar()
-    {
-        carChoice = 0;
-        maxPassengers = 1;
-        maxHealth = 250;
-        currentHealth = maxHealth;
     }
 }

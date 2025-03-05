@@ -7,8 +7,7 @@ public class CarController : MonoBehaviour
     private float horizontalInput, verticalInput;
     private float currentSteerAngle, currentBreakForce;
     private bool isBreaking;
-    public int passengerCount = 0; //Har gjort at PlayerData.PD håndterer passasjerer
-    //Da blir det litt mindre jobb for denne klassen.
+    public int passengerCount = 0;
 
     SceneHandler sceneHandler;
     GameObject theGameController;

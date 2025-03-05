@@ -19,22 +19,10 @@ public class SC_MainMenu : MonoBehaviour
     {
         // Play Now Button has been pressed, here you can initialize your game (For example Load a Scene called GameLevel etc.)
         MainMenu.SetActive(false);
-        CarMenu.SetActive(true);
+        UnityEngine.SceneManagement.SceneManager.LoadScene("GameLevel");
+
     }
 
-    public void vehicleSportsCarButton()
-    {
-    https://www.reddit.com/r/Unity2D/comments/14dpepg/how_to_get_a_variable_from_another_gameobject_and/
-        PlayerData.PD.SetCarChoiceToSportsCar();
-        UnityEngine.SceneManagement.SceneManager.LoadScene("GameLevel");
-    }
-
-    public void vehicleBusButton()
-    {
-    https://www.reddit.com/r/Unity2D/comments/14dpepg/how_to_get_a_variable_from_another_gameobject_and/
-        PlayerData.PD.SetCarChoiceToBus();
-        UnityEngine.SceneManagement.SceneManager.LoadScene("GameLevel");
-    }
 
     public void CreditsButton()
     {
