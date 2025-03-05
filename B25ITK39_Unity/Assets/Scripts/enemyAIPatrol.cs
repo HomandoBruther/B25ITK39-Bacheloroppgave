@@ -109,11 +109,7 @@ public class enemyAIPatrol : MonoBehaviour
 
     /*private void OnTriggerEnter(Collider other)
    {
-       var player = other.GetComponent<CarController>();
-       if(player != null)
-       {
-           PlayerData.PD.currentHealth -= 10;
-       }
+       
    }
     */
 
@@ -150,29 +146,40 @@ public class enemyAIPatrol : MonoBehaviour
                 alive = false;
 
                 // Enable ragdoll physics
-                ActivateRagdoll();
-                Debug.Log(FindObjectsOfType<Rigidbody>().Length);
+                ActivateRagdoll(carRigidbody, carSpeed);
             }
+        }
+
+        var player = collision.GetComponent<CarController>();
+        if (player != null)
+        {
+            PlayerData.PD.currentHealth -= 10;
         }
     }
 
-    void ActivateRagdoll()
+    void ActivateRagdoll(Rigidbody collidingRigidbody, float RigidbodySpeed)
     {
         // Disable the NavMeshAgent if it's present
         NavMeshAgent agent = GetComponent<NavMeshAgent>();
         if (agent != null) agent.enabled = false;
+
+        Rigidbody zombieRigidBody = GetComponent<Rigidbody>();
 
         // Enable physics on all child rigidbodies
         foreach (Rigidbody rb in GetComponentsInChildren<Rigidbody>())
         {
             rb.isKinematic = false; // Allow physics to take over
             rb.useGravity = true;
+            rb.AddExplosionForce(10000f, transform.up + collidingRigidbody.transform.forward, 5000f, 2500f);
         }
 
-        // Disable the main Rigidbody (optional, to avoid conflicts)
-        if (GetComponent<Rigidbody>())
+        
+        if (zombieRigidBody)
         {
-            GetComponent<Rigidbody>().isKinematic = true;
+            zombieRigidBody.isKinematic = true;
         }
+        /*
+        zombieRigidBody.AddForce(collidingRigidbody.transform.up * RigidbodySpeed*2);
+        */
     }
 }
