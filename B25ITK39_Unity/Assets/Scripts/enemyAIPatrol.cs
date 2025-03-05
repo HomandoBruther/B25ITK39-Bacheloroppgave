@@ -19,7 +19,7 @@ public class enemyAIPatrol : MonoBehaviour
     Vector3 destPoint;
     bool walkpointSet;
     [SerializeField] float walkRange;
-    string playerCar;
+    string playerCar = ("BusNoWheel");
 
     bool alive = true;
     
@@ -31,8 +31,6 @@ public class enemyAIPatrol : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        if (PlayerData.PD.carChoice == 0) playerCar = ("SportCar_1");
-        if (PlayerData.PD.carChoice == 1) playerCar = ("BusNoWheel");
         agent = GetComponent<NavMeshAgent>();
         player = GameObject.Find(playerCar);
         animator = GetComponent<Animator>();
@@ -117,14 +115,14 @@ public class enemyAIPatrol : MonoBehaviour
     {
         // Get the rigidbody of the zombie
         Rigidbody myRigidbody = GetComponent<Rigidbody>();
-        float mySpeed = myRigidbody != null ? myRigidbody.velocity.magnitude : 0f;
+        float mySpeed = myRigidbody != null ? myRigidbody.linearVelocity.magnitude : 0f;
 
         // Check if the colliding object is the car
         CarController carController = collision.gameObject.GetComponent<CarController>();
         if (carController != null)
         {
             Rigidbody carRigidbody = collision.gameObject.GetComponent<Rigidbody>();
-            float carSpeed = carRigidbody != null ? carRigidbody.velocity.magnitude : 0f;
+            float carSpeed = carRigidbody != null ? carRigidbody.linearVelocity.magnitude : 0f;
 
             Debug.Log($"Hit by car. Car Speed: {carSpeed}, My Speed: {mySpeed}");
 

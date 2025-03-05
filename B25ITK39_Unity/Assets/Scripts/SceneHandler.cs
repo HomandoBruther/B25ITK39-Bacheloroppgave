@@ -22,21 +22,6 @@ public class SceneHandler : MonoBehaviour {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        if (PlayerData.PD.carChoice != 0)
-        {
-            sportsCar.SetActive(false);
-        }
-
-        if (PlayerData.PD.carChoice != 1)
-        {
-            bus.SetActive(false);
-        }
-
-        if (PlayerData.PD == null)
-        {
-            bus.SetActive(true);
-            sportsCar.SetActive(false);
-        }
         
     }
 
