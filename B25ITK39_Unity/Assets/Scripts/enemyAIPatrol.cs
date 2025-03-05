@@ -142,6 +142,7 @@ public class enemyAIPatrol : MonoBehaviour
                 GetComponent<Animator>().enabled = false;
                 GetComponent<Collider>().enabled = false;
                 alive = false;
+                PlayerData.PD.points += 100;
 
                 // Enable ragdoll physics
                 ActivateRagdoll(carRigidbody, carSpeed);
