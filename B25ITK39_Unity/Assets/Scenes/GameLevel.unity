@@ -16035,7 +16035,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1922909229}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.1601824, y: 8.785356e-11, z: -1.4256685e-11, w: 0.9870874}
+  m_LocalRotation: {x: 0.1601824, y: 8.7853565e-11, z: -1.4256684e-11, w: 0.9870875}
   m_LocalPosition: {x: 0.57006836, y: 85.229996, z: -150.76001}
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_ConstrainProportionsScale: 0
@@ -17957,7 +17957,7 @@ MonoBehaviour:
   motorForce: 5000
   breakForce: 100000
   maxSteerAngle: 30
-  dashForce: 15000
+  dashForce: 150000
   dashDuration: 0.2
   dashCooldown: 2
   frontLeftWheelCollider: {fileID: 1692656023}
