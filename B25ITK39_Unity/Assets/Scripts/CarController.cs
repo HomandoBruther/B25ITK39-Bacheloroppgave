@@ -7,8 +7,7 @@ public class CarController : MonoBehaviour
     private float horizontalInput, verticalInput;
     private float currentSteerAngle, currentBreakForce;
     private bool isBreaking;
-    public int passengerCount = 0; //Har gjort at PlayerData.PD håndterer passasjerer
-    //Da blir det litt mindre jobb for denne klassen.
+    public int passengerCount = 0;
 
     SceneHandler sceneHandler;
     GameObject theGameController;
@@ -124,10 +123,27 @@ public class CarController : MonoBehaviour
         canDash = true;
     }
     //- Har gjort at PlayerData.PD håndterer passasjerer
-     public void PickupPassengers(int amount)
+    public void PickupPassengers(int amount)
     {
-        passengerCount += amount;
-        Debug.Log("Total Passengers: " + passengerCount);
+        if (PlayerData.PD != null)
+        {
+            int leftover = PlayerData.PD.FillPassengers(amount);
+            Debug.Log("Total Passengers: " + PlayerData.PD.currentPassengers);
+
+            if (leftover > 0)
+            {
+                Debug.Log(leftover + " passengers couldn't fit!");
+            }
+        }
+    }
+
+    public void DropOffPassengers()
+    {
+        if (PlayerData.PD != null)
+        {
+            int pointsGained = PlayerData.PD.ScorePoints();
+            Debug.Log("Scored: " + pointsGained + " points!");
+        }
     }
 }
 

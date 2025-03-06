@@ -49,7 +49,7 @@ public class PassengerPickup : MonoBehaviour
             CarController car = other.GetComponent<CarController>();
             if (car != null)
             {
-                car.PickupPassengers(passengersAtStop);
+                int leftover = PlayerData.PD.FillPassengers(passengersAtStop);
                 pickedUp = true;
 
                 // Destroy all spawned passengers
@@ -60,8 +60,14 @@ public class PassengerPickup : MonoBehaviour
                 spawnedPassengers.Clear();
 
                 Debug.Log(passengersAtStop + " passengers picked up!");
+                if (leftover > 0)
+                {
+                    Debug.Log(leftover + " passengers couldn't fit in the vehicle!");
+                }
+
                 gameObject.SetActive(false);  // Disable pickup point after use
             }
         }
     }
+
 }
