@@ -32,7 +32,13 @@ public class LeaderboardManager : MonoBehaviour
     private void Start()
     {
         leaderboard = LoadLeaderboard();
-        DisplayLeaderboard(); // Ensure UI updates on the End Screen
+        DisplayLeaderboard();
+
+        // Enforce character limit in InputField
+        if (usernameInput != null)
+        {
+            usernameInput.characterLimit = 10;
+        }
     }
 
     public void SubmitScoreFromUI()
@@ -40,6 +46,15 @@ public class LeaderboardManager : MonoBehaviour
         if (hasSubmittedScore)
         {
             Debug.Log("Score already submitted!");
+            return;
+        }
+
+        string playerName = usernameInput.text.Trim();
+
+        // Check if username exceeds 10 characters
+        if (playerName.Length > 10)
+        {
+            Debug.Log("Username must be 10 characters or less!");
             return;
         }
 
@@ -54,14 +69,6 @@ public class LeaderboardManager : MonoBehaviour
     public void SubmitScore(int newScore)
     {
         string playerName = usernameInput.text.Trim();
-
-        // Prevent submission if name is too long
-        if (playerName.Length > 10)
-        {
-            Debug.Log("Username too long! Must be 10 characters or less.");
-            return; // Exit the method without submitting
-        }
-
         if (string.IsNullOrWhiteSpace(playerName))
             playerName = "Player"; // Default name
 
@@ -82,7 +89,6 @@ public class LeaderboardManager : MonoBehaviour
         // ✅ Display updated leaderboard
         DisplayLeaderboard();
     }
-
 
     private void SaveLeaderboard()
     {
@@ -117,8 +123,8 @@ public class LeaderboardManager : MonoBehaviour
 
         for (int i = 0; i < leaderboard.Count; i++)
         {
-            Debug.Log($"Rank {i + 1}: {leaderboard[i].score} - {leaderboard[i].username}");
-            leaderboardText.text += $"{i + 1}. {leaderboard[i].score} - {leaderboard[i].username}\n";
+            Debug.Log($"Rank {i + 1}: {leaderboard[i].username} - {leaderboard[i].score}");
+            leaderboardText.text += $"{i + 1}. {leaderboard[i].username} - {leaderboard[i].score}\n";
         }
 
         if (leaderboard.Count == 0)
