@@ -4,19 +4,31 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
-    public static bool GameIsPaused = false;
+    
     public GameObject pauseMenuUI;
+    public GameObject controlsUI;
+
+    public static bool GameIsPaused = false;
+    public static bool isShowControlActive = false;
 
     void Start() {
         pauseMenuUI.SetActive(false);
+        controlsUI.SetActive(false);
         GameIsPaused = false;
+        isShowControlActive = false;
         Time.timeScale = 1f;
     
     }
 
     void Update(){
-        if (Input.GetKeyDown(KeyCode.Escape )) {
-            if (GameIsPaused) {
+
+        if (Input.GetKeyDown(KeyCode.Escape)) {
+
+            if (isShowControlActive){
+                ReturnToPauseMenu();
+            }
+
+            else if (GameIsPaused) {
                 Resume(); 
             }
             else{
@@ -25,6 +37,7 @@ public class PauseMenu : MonoBehaviour
         }
         
     }
+
 
     public void Resume(){
         
@@ -41,6 +54,22 @@ public class PauseMenu : MonoBehaviour
         GameIsPaused = true;
     }
 
+
+
+    public void ShowControls() {
+        pauseMenuUI.SetActive(false);
+        Time.timeScale = 0f;
+        controlsUI.SetActive(true);
+        isShowControlActive = true;
+    }
+
+    public void ReturnToPauseMenu() {
+        pauseMenuUI.SetActive(true);
+        Time.timeScale = 0f;
+        controlsUI.SetActive(false);
+        isShowControlActive = false;
+
+    }
 
     public void LoadMenu(){
         SceneManager.LoadScene("MainMenu");
