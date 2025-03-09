@@ -1,20 +1,21 @@
-using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 
 public class EndZone : MonoBehaviour
 {
-    public GameObject endGameUI; // Dra EndGameUI fra Hierarchy hit i Inspector
-    public TextMeshProUGUI scoreText; // Dra ScoreText fra Hierarchy hit i Inspector
+    public GameObject endGameUI;
+    public TextMeshProUGUI scoreText;
+    public TextMeshProUGUI leaderboardText;
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Noe traff EndZone: " + other.gameObject.name);
-
-        if (other.CompareTag("Player")) // S�rg for at spilleren har "Player"-tag
+        if (other.CompareTag("Player"))
         {
-            Debug.Log("Spilleren traff EndZone!");
+            Debug.Log("Player entered EndZone!");
             EndGame();
         }
     }
@@ -22,53 +23,39 @@ public class EndZone : MonoBehaviour
     private void EndGame()
     {
         Debug.Log("EndGame() was called!");
-
         if (endGameUI != null)
         {
-            endGameUI.SetActive(true); // Show End Screen UI
+            endGameUI.SetActive(true);
+            Time.timeScale = 0f; // Pause the game
 
-            // Update score BEFORE pausing the game
-            if (scoreText != null)
-            {
-                scoreText.text = "Score: " + PlayerData.PD.points.ToString();
-                Debug.Log("Score updated: " + PlayerData.PD.points);
-            }
-            else
-            {
-                Debug.LogError("ScoreText is not assigned in the Inspector!");
-            }
+            int currentScore = PlayerData.PD.points;
+            scoreText.text = "Score: " + currentScore.ToString();
 
-            Time.timeScale = 0f; // Pause the game AFTER updating UI
-            Debug.Log("Game is now paused!");
-        }
-        else
-        {
-            Debug.LogError("EndGameUI is not assigned in the Inspector!");
+            // ✅ Ensure leaderboard is updated
+            LeaderboardManager leaderboardManager = FindObjectOfType<LeaderboardManager>();
+            if (leaderboardManager != null)
+            {
+                leaderboardManager.DisplayLeaderboard();
+            }
         }
     }
 
     public void PlayAgain()
     {
-        Debug.Log("Restarting game...");
-
-        // Reset time scale so the game is not frozen
         Time.timeScale = 1f;
+        PlayerData.PD.points = 0;
+        PlayerData.PD.currentPassengers = 0;
+        PlayerData.PD.currentImportantPassengers = 0;
 
-        // Reset the player's score and passengers
-        if (PlayerData.PD != null)
-        {
-            PlayerData.PD.points = 0;
-            PlayerData.PD.currentPassengers = 0;
-            PlayerData.PD.currentImportantPassengers = 0;
-        }
+        // ✅ Reset leaderboard submission so player can submit in next game
+        FindObjectOfType<LeaderboardManager>()?.ResetSubmission();
 
-        // Reload the scene to start fresh
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void QuitGame()
     {
-        Debug.Log("Avslutter spillet!");
+        Debug.Log("Quitting game...");
         Application.Quit();
     }
 }
