@@ -26963,7 +26963,7 @@ WheelCollider:
   m_SuspensionSpring:
     spring: 70000
     damper: 9000
-    targetPosition: 0.5
+    targetPosition: 0.4
   m_SuspensionDistance: 0.3
   m_ForceAppPointDistance: 0
   m_Mass: 20
@@ -26973,7 +26973,7 @@ WheelCollider:
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.8
     m_AsymptoteValue: 0.5
-    m_Stiffness: 1
+    m_Stiffness: 2
   m_SidewaysFriction:
     m_ExtremumSlip: 0.2
     m_ExtremumValue: 1
@@ -35375,7 +35375,7 @@ WheelCollider:
   m_SuspensionSpring:
     spring: 70000
     damper: 9000
-    targetPosition: 0.5
+    targetPosition: 0.4
   m_SuspensionDistance: 0.3
   m_ForceAppPointDistance: 0
   m_Mass: 20
@@ -35385,7 +35385,7 @@ WheelCollider:
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.8
     m_AsymptoteValue: 0.5
-    m_Stiffness: 1
+    m_Stiffness: 2
   m_SidewaysFriction:
     m_ExtremumSlip: 0.2
     m_ExtremumValue: 1
@@ -40336,7 +40336,7 @@ WheelCollider:
   m_SuspensionSpring:
     spring: 70000
     damper: 9000
-    targetPosition: 0.5
+    targetPosition: 0.4
   m_SuspensionDistance: 0.3
   m_ForceAppPointDistance: 0
   m_Mass: 20
@@ -40346,7 +40346,7 @@ WheelCollider:
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.8
     m_AsymptoteValue: 0.5
-    m_Stiffness: 1
+    m_Stiffness: 2
   m_SidewaysFriction:
     m_ExtremumSlip: 0.2
     m_ExtremumValue: 1
@@ -49961,7 +49961,7 @@ WheelCollider:
   m_SuspensionSpring:
     spring: 70000
     damper: 9000
-    targetPosition: 0.5
+    targetPosition: 0.4
   m_SuspensionDistance: 0.3
   m_ForceAppPointDistance: 0
   m_Mass: 20
@@ -49971,7 +49971,7 @@ WheelCollider:
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.8
     m_AsymptoteValue: 0.5
-    m_Stiffness: 1
+    m_Stiffness: 2
   m_SidewaysFriction:
     m_ExtremumSlip: 0.2
     m_ExtremumValue: 1
@@ -51222,10 +51222,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   passengerCount: 0
-  motorForce: 8000
-  breakForce: 100000
+  motorForce: 1500
+  breakForce: 500
+  dampeningForce: 100
   maxSteerAngle: 30
-  dashForce: 150000
+  dashForce: 30000
   dashDuration: 0.2
   dashCooldown: 2
   frontLeftWheelCollider: {fileID: 1692656023}
@@ -51265,7 +51266,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 919132147973886871}
   serializedVersion: 4
-  m_Mass: 14000
+  m_Mass: 2500
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
