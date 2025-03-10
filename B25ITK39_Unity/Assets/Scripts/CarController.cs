@@ -53,7 +53,7 @@ public class CarController : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) && canDash)
+        if (Input.GetKeyDown(KeyCode.LeftShift) && canDash)
         {
             StartCoroutine(Dash());
         }
@@ -64,7 +64,7 @@ public class CarController : MonoBehaviour
     {
         horizontalInput = Input.GetAxis("Horizontal");
         verticalInput = Input.GetAxis("Vertical");
-        isBreaking = Input.GetKey(KeyCode.Space);
+        isBreaking = Input.GetKey(KeyCode.E);
     }
 
     private void HandleMotor()
