@@ -53,7 +53,7 @@ public class CarController : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) && canDash)
+        if (Input.GetKeyDown(KeyCode.LeftShift) && canDash)
         {
             StartCoroutine(Dash());
         }
@@ -117,7 +117,7 @@ public class CarController : MonoBehaviour
         canDash = false;
 
         // Get input direction
-        Vector3 inputDirection = transform.up * verticalInput + transform.right * horizontalInput;
+        Vector3 inputDirection = transform.forward * verticalInput + transform.right * horizontalInput;
 
         // If no input, default to forward
         if (inputDirection == Vector3.zero)
