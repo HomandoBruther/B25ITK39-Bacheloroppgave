@@ -6,6 +6,7 @@ public class CarController : MonoBehaviour
 {
     private float horizontalInput, verticalInput;
     private float currentSteerAngle, currentBreakForce;
+    private float currentDampeningForce;
     private bool isBreaking;
     public int passengerCount = 0;
 
@@ -13,7 +14,7 @@ public class CarController : MonoBehaviour
     GameObject theGameController;
 
     [Header("Settings")]
-    [SerializeField] private float motorForce, breakForce, maxSteerAngle;
+    [SerializeField] private float motorForce, breakForce, dampeningForce, maxSteerAngle;
 
     [Header("Dash Settings")]
     [SerializeField] private float dashForce = 5000f;
@@ -45,11 +46,14 @@ public class CarController : MonoBehaviour
         HandleMotor();
         HandleSteering();
         UpdateWheels();
+        //Debug.Log("Current WheelCollider.motorTorque " + frontLeftWheelCollider.motorTorque);
+        Debug.Log("Current wheelDampingRate " + frontLeftWheelCollider.wheelDampingRate);
+
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) && canDash)
+        if (Input.GetKeyDown(KeyCode.LeftShift) && canDash)
         {
             StartCoroutine(Dash());
         }
@@ -70,6 +74,8 @@ public class CarController : MonoBehaviour
         frontLeftWheelCollider.motorTorque = verticalInput * motorForce;
         frontRightWheelCollider.motorTorque = verticalInput * motorForce;
         currentBreakForce = isBreaking ? breakForce : 0f;
+        currentDampeningForce = isBreaking ? dampeningForce : 0f;
+
         ApplyBreaking();
     }
 
@@ -79,6 +85,9 @@ public class CarController : MonoBehaviour
         frontLeftWheelCollider.brakeTorque = currentBreakForce;
         rearLeftWheelCollider.brakeTorque = currentBreakForce;
         rearRightWheelCollider.brakeTorque = currentBreakForce;
+
+        frontRightWheelCollider.wheelDampingRate = currentDampeningForce;
+        frontLeftWheelCollider.wheelDampingRate = currentDampeningForce;
     }
 
     private void HandleSteering()
@@ -148,4 +157,3 @@ public class CarController : MonoBehaviour
 }
 
 
-  
