@@ -8,6 +8,7 @@ public class CarController : MonoBehaviour
     private float currentSteerAngle, currentBreakForce;
     private float currentDampeningForce;
     private bool isBreaking;
+    private bool isDrifting;
     public int passengerCount = 0;
 
     SceneHandler sceneHandler;
@@ -15,7 +16,6 @@ public class CarController : MonoBehaviour
 
     [Header("Settings")]
     [SerializeField] private float motorForce, breakForce, dampeningForce, maxSteerAngle;
-
     [Header("Dash Settings")]
     [SerializeField] private float dashForce = 5000f;
     [SerializeField] private float dashDuration = 0.2f;
@@ -58,6 +58,11 @@ public class CarController : MonoBehaviour
             StartCoroutine(Dash());
         }
         sceneHandler.speed = Mathf.FloorToInt(rb.linearVelocity.magnitude);
+
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            ApplyDrifting();
+        }
     }
 
     private void GetInput()
@@ -65,6 +70,7 @@ public class CarController : MonoBehaviour
         horizontalInput = Input.GetAxis("Horizontal");
         verticalInput = Input.GetAxis("Vertical");
         isBreaking = Input.GetKey(KeyCode.Space);
+        isDrifting = Input.GetKey(KeyCode.Mouse0);
     }
 
     private void HandleMotor()
@@ -110,6 +116,22 @@ public class CarController : MonoBehaviour
         wheelCollider.GetWorldPose(out Vector3 pos, out Quaternion rot);
         wheelTransform.position = pos;
         wheelTransform.rotation = rot;
+    }
+
+    private void ApplyDrifting()
+    {
+        WheelFrictionCurve forwardFriction = frontLeftWheelCollider.forwardFriction;
+        WheelFrictionCurve sidewaysFriction = frontLeftWheelCollider.sidewaysFriction;
+
+        forwardFriction.stiffness = 0;
+        sidewaysFriction.stiffness = 0;
+
+        Debug.Log("You are drifting");
+        frontRightWheelCollider.forwardFriction = forwardFriction;
+        frontLeftWheelCollider.forwardFriction = forwardFriction;
+
+        frontRightWheelCollider.sidewaysFriction = sidewaysFriction;
+        frontLeftWheelCollider.sidewaysFriction = sidewaysFriction;
     }
 
     private IEnumerator Dash()
