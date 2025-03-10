@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: b911d9215b325ab4bb58f46f7d74072b
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 7400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 30232
+  packageName: Zombie
+  packageVersion: Draft 1.2
+  assetPath: Assets/Zombie/Animations/Z_Walk1.anim
+  uploadId: 334764

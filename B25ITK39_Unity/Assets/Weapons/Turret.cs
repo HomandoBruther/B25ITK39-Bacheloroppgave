@@ -28,6 +28,7 @@ public class Turret : MonoBehaviour
         Vector3 targetPosition = targetZombie.position; // Keep Y for proper aiming
         float distanceToZombie = Vector3.Distance(transform.position, targetPosition);
 
+
         if (distanceToZombie > turretRange) return; // Zombie out of range
 
         RotateTurretTowards(targetPosition); // Now rotates in full 3D
@@ -57,6 +58,7 @@ public class Turret : MonoBehaviour
         }
 
         targetZombie = nearestZombie;
+
     }
 
     private void RotateTurretTowards(Vector3 targetPosition)

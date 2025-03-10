@@ -3,11 +3,14 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     [SerializeField] private float projectileSpeed = 20f;
-    [SerializeField] private float lifetime = 5f; // Safety destroy if it doesn't hit anything
+    [SerializeField] private float impactForce = 100f;
+    [SerializeField] private float lifetime = 1f; // Safety destroy if it doesn't hit anything
+
 
     private void Start()
     {
         Destroy(gameObject, lifetime); // Destroy after 'lifetime' seconds to avoid clutter
+
     }
 
     void Update()
@@ -15,13 +18,19 @@ public class Projectile : MonoBehaviour
         transform.position += transform.forward * projectileSpeed * Time.deltaTime;
     }
 
-    private void OnCollisionEnter(Collision collision)
+
+    private void OnTriggerEnter(Collider other)
     {
-        // Optional: Check for layers or tags to avoid hitting unwanted objects (like the turret itself)
-        if (collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Environment"))
+        RagdollEnabler enemy = other.GetComponent<RagdollEnabler>();
+
+        if (enemy != null)
         {
-            // You can add damage logic here if needed
-            Destroy(gameObject); // Destroy projectile on impact
+            enemy.ragdollOnDeath();
         }
+
+        // Destroy bullet on impact
+        Destroy(gameObject);
     }
+
+
 }

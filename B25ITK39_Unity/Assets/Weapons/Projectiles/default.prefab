@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 6874942476669332956}
   - component: {fileID: 1351467205789147638}
   - component: {fileID: 8956147110477206080}
-  - component: {fileID: 8765298388985574989}
+  - component: {fileID: -5387465037170375841}
+  - component: {fileID: 7886036125798307910}
   m_Layer: 0
   m_Name: default
   m_TagString: Untagged
@@ -87,7 +88,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &8765298388985574989
+--- !u!114 &-5387465037170375841
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -99,5 +100,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f2c8944d35ab9643a52a63bed00a213, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectileSpeed: 45
-  lifetime: 1
+  projectileSpeed: 50
+  impactForce: 100
+  lifetime: 5
+--- !u!136 &7886036125798307910
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5451203608983926909}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.22
+  m_Height: 0.7
+  m_Direction: 2
+  m_Center: {x: 0, y: 0, z: 1.274958}
