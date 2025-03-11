@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.AI;
 
 
+
 public class enemyAIPatrol : MonoBehaviour
 {
 
@@ -21,11 +22,10 @@ public class enemyAIPatrol : MonoBehaviour
     [SerializeField] float walkRange;
     string playerCar = ("BusNoWheel");
 
-    public int zombieLayer = 8; // Make sure this corresponds to the "Zombie" layer
-    public int busLayer = 7; // Make sure this corresponds to the "Bus" layer
-
     bool alive = true;
+
     
+
 
     //state change
     [SerializeField] float sightRange, attackRange;
@@ -180,8 +180,14 @@ public class enemyAIPatrol : MonoBehaviour
         foreach (Collider col in GetComponentsInChildren<Collider>())
         {
             Physics.IgnoreCollision(collision.GetComponent<Collider>(), col.GetComponent<Collider>(), true);
+            //Turning off collider for the wheels
+            foreach (Collider wheel in collision.GetComponentsInChildren<Collider>())
+            {
+                Physics.IgnoreCollision(wheel.GetComponent<Collider>(), col.GetComponent<Collider>(), true);
+            }
         }
 
+        
 
         if (zombieRigidBody)
         {
