@@ -16,6 +16,7 @@ public class enemyAIPatrol : MonoBehaviour
 
     BoxCollider boxLeftCollider;
 
+
     //patrol
     Vector3 destPoint;
     bool walkpointSet;
@@ -24,7 +25,15 @@ public class enemyAIPatrol : MonoBehaviour
 
     bool alive = true;
 
-    
+    public AudioSource audiosource1;
+    public AudioSource audiosource2;
+    public AudioSource audiosource3;
+    public AudioSource audiosource4;
+
+    private AudioSource audioSource;
+
+    public AudioSource[] audioSourceList;
+
 
 
     //state change
@@ -34,6 +43,7 @@ public class enemyAIPatrol : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        audioSourceList = new AudioSource[] { audiosource1, audiosource2, audiosource3, audiosource4 };
         agent = GetComponent<NavMeshAgent>();
         player = GameObject.Find(playerCar);
         animator = GetComponent<Animator>();
@@ -54,7 +64,7 @@ public class enemyAIPatrol : MonoBehaviour
             if (playerInSight && !playerInAttackRange) Chase();
             if (playerInSight && playerInAttackRange) Attack();
         }
-        
+
     }
 
     void Chase()
@@ -69,14 +79,14 @@ public class enemyAIPatrol : MonoBehaviour
             animator.SetTrigger("Attack");
             agent.SetDestination(transform.position);
         }
-        
+
     }
 
 
 
     void Patrol()
     {
-        if (!walkpointSet) SearchForDest(); 
+        if (!walkpointSet) SearchForDest();
         if (walkpointSet) agent.SetDestination(destPoint);
         if (Vector3.Distance(transform.position, destPoint) < 10) walkpointSet = false;
     }
@@ -89,7 +99,7 @@ public class enemyAIPatrol : MonoBehaviour
 
         destPoint = new Vector3(transform.position.x + x, transform.position.y, transform.position.z + z);
 
-        if(Physics.Raycast(destPoint, Vector3.down, groundLayer))
+        if (Physics.Raycast(destPoint, Vector3.down, groundLayer))
         {
             walkpointSet = true;
         }
@@ -134,7 +144,7 @@ public class enemyAIPatrol : MonoBehaviour
 
             if (carSpeed + mySpeed >= speedThreshold)
             {
-                
+
                 Debug.Log("Collision speed meets the threshold!");
                 /*
                 // Move the zombie slightly ahead of the car to prevent extreme physics effects
@@ -150,6 +160,8 @@ public class enemyAIPatrol : MonoBehaviour
 
                 // Enable ragdoll physics
                 ActivateRagdoll(carRigidbody, carSpeed, collision);
+                PlayDeathSound();
+
             }
         }
 
@@ -187,7 +199,7 @@ public class enemyAIPatrol : MonoBehaviour
             }
         }
 
-        
+
 
         if (zombieRigidBody)
         {
@@ -197,4 +209,16 @@ public class enemyAIPatrol : MonoBehaviour
         zombieRigidBody.AddForce(collidingRigidbody.transform.up * RigidbodySpeed*2);
         */
     }
+
+    void PlayDeathSound()
+    {
+
+        int randomNumber = UnityEngine.Random.Range(0, audioSourceList.Length);
+
+        audioSource = audioSourceList[randomNumber];
+
+        audioSource.PlayOneShot(audioSource.clip);
+        
+    }
+
 }

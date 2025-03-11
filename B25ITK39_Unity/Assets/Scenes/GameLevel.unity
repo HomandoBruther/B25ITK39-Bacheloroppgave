@@ -452,6 +452,11 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   walkRange: 0
+  audiosource1: {fileID: 0}
+  audiosource2: {fileID: 0}
+  audiosource3: {fileID: 0}
+  audiosource4: {fileID: 0}
+  audioSourceList: []
   sightRange: 0
   attackRange: 0
 --- !u!195 &19698464
@@ -3362,6 +3367,11 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   walkRange: 0
+  audiosource1: {fileID: 0}
+  audiosource2: {fileID: 0}
+  audiosource3: {fileID: 0}
+  audiosource4: {fileID: 0}
+  audioSourceList: []
   sightRange: 0
   attackRange: 0
 --- !u!195 &363131908
@@ -5850,6 +5860,11 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   walkRange: 0
+  audiosource1: {fileID: 0}
+  audiosource2: {fileID: 0}
+  audiosource3: {fileID: 0}
+  audiosource4: {fileID: 0}
+  audioSourceList: []
   sightRange: 0
   attackRange: 0
 --- !u!195 &659378938
@@ -7071,6 +7086,11 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   walkRange: 0
+  audiosource1: {fileID: 0}
+  audiosource2: {fileID: 0}
+  audiosource3: {fileID: 0}
+  audiosource4: {fileID: 0}
+  audioSourceList: []
   sightRange: 0
   attackRange: 0
 --- !u!195 &734504988
@@ -7487,6 +7507,11 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   walkRange: 0
+  audiosource1: {fileID: 0}
+  audiosource2: {fileID: 0}
+  audiosource3: {fileID: 0}
+  audiosource4: {fileID: 0}
+  audioSourceList: []
   sightRange: 0
   attackRange: 0
 --- !u!195 &752146893
@@ -7893,6 +7918,11 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   walkRange: 0
+  audiosource1: {fileID: 0}
+  audiosource2: {fileID: 0}
+  audiosource3: {fileID: 0}
+  audiosource4: {fileID: 0}
+  audioSourceList: []
   sightRange: 0
   attackRange: 0
 --- !u!195 &790915877
@@ -8327,6 +8357,11 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   walkRange: 0
+  audiosource1: {fileID: 0}
+  audiosource2: {fileID: 0}
+  audiosource3: {fileID: 0}
+  audiosource4: {fileID: 0}
+  audioSourceList: []
   sightRange: 0
   attackRange: 0
 --- !u!195 &823046310
@@ -18427,6 +18462,11 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   walkRange: 0
+  audiosource1: {fileID: 0}
+  audiosource2: {fileID: 0}
+  audiosource3: {fileID: 0}
+  audiosource4: {fileID: 0}
+  audioSourceList: []
   sightRange: 0
   attackRange: 0
 --- !u!195 &1599552791
@@ -19963,6 +20003,11 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   walkRange: 0
+  audiosource1: {fileID: 0}
+  audiosource2: {fileID: 0}
+  audiosource3: {fileID: 0}
+  audiosource4: {fileID: 0}
+  audioSourceList: []
   sightRange: 0
   attackRange: 0
 --- !u!195 &1721982823
@@ -21364,6 +21409,11 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   walkRange: 0
+  audiosource1: {fileID: 0}
+  audiosource2: {fileID: 0}
+  audiosource3: {fileID: 0}
+  audiosource4: {fileID: 0}
+  audioSourceList: []
   sightRange: 0
   attackRange: 0
 --- !u!195 &1862833796
@@ -23739,6 +23789,11 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   walkRange: 0
+  audiosource1: {fileID: 0}
+  audiosource2: {fileID: 0}
+  audiosource3: {fileID: 0}
+  audiosource4: {fileID: 0}
+  audioSourceList: []
   sightRange: 0
   attackRange: 0
 --- !u!195 &2007783705
@@ -24725,6 +24780,11 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   walkRange: 0
+  audiosource1: {fileID: 0}
+  audiosource2: {fileID: 0}
+  audiosource3: {fileID: 0}
+  audiosource4: {fileID: 0}
+  audioSourceList: []
   sightRange: 0
   attackRange: 0
 --- !u!195 &2106100751
@@ -25124,6 +25184,11 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   walkRange: 0
+  audiosource1: {fileID: 0}
+  audiosource2: {fileID: 0}
+  audiosource3: {fileID: 0}
+  audiosource4: {fileID: 0}
+  audioSourceList: []
   sightRange: 0
   attackRange: 0
 --- !u!195 &2122344068
