@@ -452,10 +452,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   walkRange: 0
-  audiosource1: {fileID: 0}
-  audiosource2: {fileID: 0}
-  audiosource3: {fileID: 0}
-  audiosource4: {fileID: 0}
   audioSourceList: []
   sightRange: 0
   attackRange: 0
@@ -2733,7 +2729,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.1601824, y: 8.785356e-11, z: -1.4256685e-11, w: 0.9870874}
+  m_LocalRotation: {x: 0.1601824, y: 8.7853565e-11, z: -1.4256684e-11, w: 0.9870875}
   m_LocalPosition: {x: 984.017, y: 8.523, z: 3.8839989}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3367,10 +3363,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   walkRange: 0
-  audiosource1: {fileID: 0}
-  audiosource2: {fileID: 0}
-  audiosource3: {fileID: 0}
-  audiosource4: {fileID: 0}
   audioSourceList: []
   sightRange: 0
   attackRange: 0
@@ -5860,10 +5852,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   walkRange: 0
-  audiosource1: {fileID: 0}
-  audiosource2: {fileID: 0}
-  audiosource3: {fileID: 0}
-  audiosource4: {fileID: 0}
   audioSourceList: []
   sightRange: 0
   attackRange: 0
@@ -7086,10 +7074,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   walkRange: 0
-  audiosource1: {fileID: 0}
-  audiosource2: {fileID: 0}
-  audiosource3: {fileID: 0}
-  audiosource4: {fileID: 0}
   audioSourceList: []
   sightRange: 0
   attackRange: 0
@@ -7507,10 +7491,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   walkRange: 0
-  audiosource1: {fileID: 0}
-  audiosource2: {fileID: 0}
-  audiosource3: {fileID: 0}
-  audiosource4: {fileID: 0}
   audioSourceList: []
   sightRange: 0
   attackRange: 0
@@ -7918,10 +7898,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   walkRange: 0
-  audiosource1: {fileID: 0}
-  audiosource2: {fileID: 0}
-  audiosource3: {fileID: 0}
-  audiosource4: {fileID: 0}
   audioSourceList: []
   sightRange: 0
   attackRange: 0
@@ -8357,10 +8333,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   walkRange: 0
-  audiosource1: {fileID: 0}
-  audiosource2: {fileID: 0}
-  audiosource3: {fileID: 0}
-  audiosource4: {fileID: 0}
   audioSourceList: []
   sightRange: 0
   attackRange: 0
@@ -18462,10 +18434,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   walkRange: 0
-  audiosource1: {fileID: 0}
-  audiosource2: {fileID: 0}
-  audiosource3: {fileID: 0}
-  audiosource4: {fileID: 0}
   audioSourceList: []
   sightRange: 0
   attackRange: 0
@@ -20003,10 +19971,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   walkRange: 0
-  audiosource1: {fileID: 0}
-  audiosource2: {fileID: 0}
-  audiosource3: {fileID: 0}
-  audiosource4: {fileID: 0}
   audioSourceList: []
   sightRange: 0
   attackRange: 0
@@ -21409,10 +21373,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   walkRange: 0
-  audiosource1: {fileID: 0}
-  audiosource2: {fileID: 0}
-  audiosource3: {fileID: 0}
-  audiosource4: {fileID: 0}
   audioSourceList: []
   sightRange: 0
   attackRange: 0
@@ -23789,10 +23749,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   walkRange: 0
-  audiosource1: {fileID: 0}
-  audiosource2: {fileID: 0}
-  audiosource3: {fileID: 0}
-  audiosource4: {fileID: 0}
   audioSourceList: []
   sightRange: 0
   attackRange: 0
@@ -24780,10 +24736,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   walkRange: 0
-  audiosource1: {fileID: 0}
-  audiosource2: {fileID: 0}
-  audiosource3: {fileID: 0}
-  audiosource4: {fileID: 0}
   audioSourceList: []
   sightRange: 0
   attackRange: 0
@@ -25184,10 +25136,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   walkRange: 0
-  audiosource1: {fileID: 0}
-  audiosource2: {fileID: 0}
-  audiosource3: {fileID: 0}
-  audiosource4: {fileID: 0}
   audioSourceList: []
   sightRange: 0
   attackRange: 0
