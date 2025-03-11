@@ -2772,11 +2772,11 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   walkRange: 40
-  audiosource1: {fileID: -5025939747935976602}
-  audiosource2: {fileID: 7604605475286047403}
-  audiosource3: {fileID: -7190587459411416317}
-  audiosource4: {fileID: -1076567381711052842}
-  audioSourceList: []
+  audioSourceList:
+  - {fileID: -5025939747935976602}
+  - {fileID: 7604605475286047403}
+  - {fileID: -7190587459411416317}
+  - {fileID: -1076567381711052842}
   sightRange: 20
   attackRange: 1
 --- !u!136 &8322182342760016227

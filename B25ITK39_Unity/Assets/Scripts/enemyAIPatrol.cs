@@ -25,11 +25,6 @@ public class enemyAIPatrol : MonoBehaviour
 
     bool alive = true;
 
-    public AudioSource audiosource1;
-    public AudioSource audiosource2;
-    public AudioSource audiosource3;
-    public AudioSource audiosource4;
-
     private AudioSource audioSource;
 
     public AudioSource[] audioSourceList;
@@ -43,7 +38,6 @@ public class enemyAIPatrol : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        audioSourceList = new AudioSource[] { audiosource1, audiosource2, audiosource3, audiosource4 };
         agent = GetComponent<NavMeshAgent>();
         player = GameObject.Find(playerCar);
         animator = GetComponent<Animator>();
