@@ -21,6 +21,9 @@ public class enemyAIPatrol : MonoBehaviour
     [SerializeField] float walkRange;
     string playerCar = ("BusNoWheel");
 
+    public int zombieLayer = 8; // Make sure this corresponds to the "Zombie" layer
+    public int busLayer = 7; // Make sure this corresponds to the "Bus" layer
+
     bool alive = true;
     
 
@@ -131,6 +134,7 @@ public class enemyAIPatrol : MonoBehaviour
 
             if (carSpeed + mySpeed >= speedThreshold)
             {
+                
                 Debug.Log("Collision speed meets the threshold!");
                 /*
                 // Move the zombie slightly ahead of the car to prevent extreme physics effects
@@ -140,12 +144,12 @@ public class enemyAIPatrol : MonoBehaviour
 
                 // Disable animation & collider to prevent animation interference
                 GetComponent<Animator>().enabled = false;
-                GetComponent<Collider>().enabled = false;
+                //GetComponent<Collider>().enabled = false;
                 alive = false;
                 PlayerData.PD.points += 100;
 
                 // Enable ragdoll physics
-                ActivateRagdoll(carRigidbody, carSpeed);
+                ActivateRagdoll(carRigidbody, carSpeed, collision);
             }
         }
 
@@ -156,7 +160,7 @@ public class enemyAIPatrol : MonoBehaviour
         }
     }
 
-    void ActivateRagdoll(Rigidbody collidingRigidbody, float RigidbodySpeed)
+    void ActivateRagdoll(Rigidbody collidingRigidbody, float RigidbodySpeed, Collider collision)
     {
         // Disable the NavMeshAgent if it's present
         NavMeshAgent agent = GetComponent<NavMeshAgent>();
@@ -167,12 +171,18 @@ public class enemyAIPatrol : MonoBehaviour
         // Enable physics on all child rigidbodies
         foreach (Rigidbody rb in GetComponentsInChildren<Rigidbody>())
         {
-            rb.isKinematic = false; // Allow physics to take over
-            rb.useGravity = true;
-            rb.AddExplosionForce(10000f, transform.up + collidingRigidbody.transform.forward, 5000f, 2500f);
+            Vector3 forceDirection = collidingRigidbody.transform.forward + Vector3.up * 0.2f; // Slight upward lift
+            float forceMagnitude = RigidbodySpeed * 4f; // Scale by car speed
+
+            rb.AddForce(forceDirection.normalized * forceMagnitude, ForceMode.Impulse);
         }
 
-        
+        foreach (Collider col in GetComponentsInChildren<Collider>())
+        {
+            Physics.IgnoreCollision(collision.GetComponent<Collider>(), col.GetComponent<Collider>(), true);
+        }
+
+
         if (zombieRigidBody)
         {
             zombieRigidBody.isKinematic = true;
