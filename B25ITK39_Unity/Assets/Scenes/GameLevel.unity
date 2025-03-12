@@ -452,6 +452,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   walkRange: 0
+  audioSourceList: []
   sightRange: 0
   attackRange: 0
 --- !u!195 &19698464
@@ -2728,7 +2729,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.1601824, y: 8.785356e-11, z: -1.4256685e-11, w: 0.9870874}
+  m_LocalRotation: {x: 0.1601824, y: 8.7853565e-11, z: -1.4256684e-11, w: 0.9870875}
   m_LocalPosition: {x: 984.017, y: 8.523, z: 3.8839989}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3362,6 +3363,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   walkRange: 0
+  audioSourceList: []
   sightRange: 0
   attackRange: 0
 --- !u!195 &363131908
@@ -5850,6 +5852,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   walkRange: 0
+  audioSourceList: []
   sightRange: 0
   attackRange: 0
 --- !u!195 &659378938
@@ -7071,6 +7074,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   walkRange: 0
+  audioSourceList: []
   sightRange: 0
   attackRange: 0
 --- !u!195 &734504988
@@ -7487,6 +7491,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   walkRange: 0
+  audioSourceList: []
   sightRange: 0
   attackRange: 0
 --- !u!195 &752146893
@@ -7893,6 +7898,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   walkRange: 0
+  audioSourceList: []
   sightRange: 0
   attackRange: 0
 --- !u!195 &790915877
@@ -8327,6 +8333,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   walkRange: 0
+  audioSourceList: []
   sightRange: 0
   attackRange: 0
 --- !u!195 &823046310
@@ -18427,6 +18434,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   walkRange: 0
+  audioSourceList: []
   sightRange: 0
   attackRange: 0
 --- !u!195 &1599552791
@@ -19095,6 +19103,10 @@ PrefabInstance:
     - target: {fileID: 4493914613880827488, guid: 6dc4cf4496348884d8ee27743ae38562, type: 3}
       propertyPath: m_Name
       value: Zombie1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8322182342760016227, guid: 6dc4cf4496348884d8ee27743ae38562, type: 3}
+      propertyPath: m_Center.y
+      value: 0.8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -19959,6 +19971,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   walkRange: 0
+  audioSourceList: []
   sightRange: 0
   attackRange: 0
 --- !u!195 &1721982823
@@ -21360,6 +21373,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   walkRange: 0
+  audioSourceList: []
   sightRange: 0
   attackRange: 0
 --- !u!195 &1862833796
@@ -22137,7 +22151,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1922909229}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.1601824, y: 8.785356e-11, z: -1.4256685e-11, w: 0.9870874}
+  m_LocalRotation: {x: 0.1601824, y: 8.7853565e-11, z: -1.4256684e-11, w: 0.9870875}
   m_LocalPosition: {x: 0.57006836, y: 85.229996, z: -150.76001}
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_ConstrainProportionsScale: 0
@@ -23735,6 +23749,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   walkRange: 0
+  audioSourceList: []
   sightRange: 0
   attackRange: 0
 --- !u!195 &2007783705
@@ -24721,6 +24736,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   walkRange: 0
+  audioSourceList: []
   sightRange: 0
   attackRange: 0
 --- !u!195 &2106100751
@@ -25120,6 +25136,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   walkRange: 0
+  audioSourceList: []
   sightRange: 0
   attackRange: 0
 --- !u!195 &2122344068
@@ -25347,9 +25364,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   passengerCount: 0
-  motorForce: 2500
-  breakForce: 10000
-  dampeningForce: 1000
+  motorForce: 10000
+  breakForce: 40000
+  dampeningForce: 10000
   maxSteerAngle: 30
   dashForce: 30000
   dashDuration: 0.2
@@ -25369,7 +25386,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 919132147973886871}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 19cf698c2674662488fa7c25edd4beb7, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -25391,7 +25408,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 919132147973886871}
   serializedVersion: 4
-  m_Mass: 2500
+  m_Mass: 14000
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}

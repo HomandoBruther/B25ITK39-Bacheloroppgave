@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.AI;
 
 
+
 public class enemyAIPatrol : MonoBehaviour
 {
 
@@ -15,6 +16,7 @@ public class enemyAIPatrol : MonoBehaviour
 
     BoxCollider boxLeftCollider;
 
+
     //patrol
     Vector3 destPoint;
     bool walkpointSet;
@@ -22,7 +24,12 @@ public class enemyAIPatrol : MonoBehaviour
     string playerCar = ("BusNoWheel");
 
     bool alive = true;
-    
+
+    private AudioSource audioSource;
+
+    public AudioSource[] audioSourceList;
+
+
 
     //state change
     [SerializeField] float sightRange, attackRange;
@@ -51,7 +58,7 @@ public class enemyAIPatrol : MonoBehaviour
             if (playerInSight && !playerInAttackRange) Chase();
             if (playerInSight && playerInAttackRange) Attack();
         }
-        
+
     }
 
     void Chase()
@@ -66,14 +73,14 @@ public class enemyAIPatrol : MonoBehaviour
             animator.SetTrigger("Attack");
             agent.SetDestination(transform.position);
         }
-        
+
     }
 
 
 
     void Patrol()
     {
-        if (!walkpointSet) SearchForDest(); 
+        if (!walkpointSet) SearchForDest();
         if (walkpointSet) agent.SetDestination(destPoint);
         if (Vector3.Distance(transform.position, destPoint) < 10) walkpointSet = false;
     }
@@ -86,7 +93,7 @@ public class enemyAIPatrol : MonoBehaviour
 
         destPoint = new Vector3(transform.position.x + x, transform.position.y, transform.position.z + z);
 
-        if(Physics.Raycast(destPoint, Vector3.down, groundLayer))
+        if (Physics.Raycast(destPoint, Vector3.down, groundLayer))
         {
             walkpointSet = true;
         }
@@ -131,6 +138,7 @@ public class enemyAIPatrol : MonoBehaviour
 
             if (carSpeed + mySpeed >= speedThreshold)
             {
+
                 Debug.Log("Collision speed meets the threshold!");
                 /*
                 // Move the zombie slightly ahead of the car to prevent extreme physics effects
@@ -140,12 +148,14 @@ public class enemyAIPatrol : MonoBehaviour
 
                 // Disable animation & collider to prevent animation interference
                 GetComponent<Animator>().enabled = false;
-                GetComponent<Collider>().enabled = false;
+                //GetComponent<Collider>().enabled = false;
                 alive = false;
                 PlayerData.PD.points += 100;
 
                 // Enable ragdoll physics
-                ActivateRagdoll(carRigidbody, carSpeed);
+                ActivateRagdoll(carRigidbody, carSpeed, collision);
+                PlayDeathSound();
+
             }
         }
 
@@ -156,7 +166,7 @@ public class enemyAIPatrol : MonoBehaviour
         }
     }
 
-    void ActivateRagdoll(Rigidbody collidingRigidbody, float RigidbodySpeed)
+    void ActivateRagdoll(Rigidbody collidingRigidbody, float RigidbodySpeed, Collider collision)
     {
         // Disable the NavMeshAgent if it's present
         NavMeshAgent agent = GetComponent<NavMeshAgent>();
@@ -167,12 +177,24 @@ public class enemyAIPatrol : MonoBehaviour
         // Enable physics on all child rigidbodies
         foreach (Rigidbody rb in GetComponentsInChildren<Rigidbody>())
         {
-            rb.isKinematic = false; // Allow physics to take over
-            rb.useGravity = true;
-            rb.AddExplosionForce(10000f, transform.up + collidingRigidbody.transform.forward, 5000f, 2500f);
+            Vector3 forceDirection = collidingRigidbody.transform.forward + Vector3.up * 0.2f; // Slight upward lift
+            float forceMagnitude = RigidbodySpeed * 4f; // Scale by car speed
+
+            rb.AddForce(forceDirection.normalized * forceMagnitude, ForceMode.Impulse);
         }
 
-        
+        foreach (Collider col in GetComponentsInChildren<Collider>())
+        {
+            Physics.IgnoreCollision(collision.GetComponent<Collider>(), col.GetComponent<Collider>(), true);
+            //Turning off collider for the wheels
+            foreach (Collider wheel in collision.GetComponentsInChildren<Collider>())
+            {
+                Physics.IgnoreCollision(wheel.GetComponent<Collider>(), col.GetComponent<Collider>(), true);
+            }
+        }
+
+
+
         if (zombieRigidBody)
         {
             zombieRigidBody.isKinematic = true;
@@ -181,4 +203,16 @@ public class enemyAIPatrol : MonoBehaviour
         zombieRigidBody.AddForce(collidingRigidbody.transform.up * RigidbodySpeed*2);
         */
     }
+
+    void PlayDeathSound()
+    {
+
+        int randomNumber = UnityEngine.Random.Range(0, audioSourceList.Length);
+
+        audioSource = audioSourceList[randomNumber];
+
+        audioSource.PlayOneShot(audioSource.clip);
+        
+    }
+
 }
