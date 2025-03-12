@@ -177,7 +177,7 @@ public class enemyAIPatrol : MonoBehaviour
         // Enable physics on all child rigidbodies
         foreach (Rigidbody rb in GetComponentsInChildren<Rigidbody>())
         {
-            Vector3 forceDirection = collidingRigidbody.transform.forward + Vector3.up * 0.2f; // Slight upward lift
+            Vector3 forceDirection = collidingRigidbody.transform.forward + Vector3.up; // Slight upward lift
             float forceMagnitude = RigidbodySpeed * 4f; // Scale by car speed
 
             rb.AddForce(forceDirection.normalized * forceMagnitude, ForceMode.Impulse);
@@ -211,7 +211,7 @@ public class enemyAIPatrol : MonoBehaviour
 
         audioSource = audioSourceList[randomNumber];
 
-        audioSource.PlayOneShot(audioSource.clip);
+        audioSource.PlayOneShot(audioSource.clip, 0.3f);
         
     }
 
