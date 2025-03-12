@@ -120,9 +120,18 @@ public class enemyAIPatrol : MonoBehaviour
 
     void OnTriggerEnter(Collider collision)
     {
+        var player = collision.GetComponent<CarController>();
+        if (player != null)
+        {
+            PlayerData.PD.currentHealth -= 10;
+        }
+
+        
+
+
         // Get the rigidbody of the zombie
         Rigidbody myRigidbody = GetComponent<Rigidbody>();
-        float mySpeed = myRigidbody != null ? myRigidbody.linearVelocity.magnitude : 0f;
+        //float mySpeed = myRigidbody != null ? myRigidbody.linearVelocity.magnitude : 0f;
 
         // Check if the colliding object is the car
         CarController carController = collision.gameObject.GetComponent<CarController>();
@@ -131,12 +140,12 @@ public class enemyAIPatrol : MonoBehaviour
             Rigidbody carRigidbody = collision.gameObject.GetComponent<Rigidbody>();
             float carSpeed = carRigidbody != null ? carRigidbody.linearVelocity.magnitude : 0f;
 
-            Debug.Log($"Hit by car. Car Speed: {carSpeed}, My Speed: {mySpeed}");
+            Debug.Log($"Hit by car. Car Speed: {carSpeed}");
 
             // Define a speed threshold
-            float speedThreshold = 1f;
+            float speedThreshold = 10f;
 
-            if (carSpeed + mySpeed >= speedThreshold)
+            if (carSpeed >= speedThreshold)
             {
 
                 Debug.Log("Collision speed meets the threshold!");
@@ -148,6 +157,7 @@ public class enemyAIPatrol : MonoBehaviour
 
                 // Disable animation & collider to prevent animation interference
                 GetComponent<Animator>().enabled = false;
+                //GetComponent<CapsuleCollider>().enabled = false;
                 //GetComponent<Collider>().enabled = false;
                 alive = false;
                 PlayerData.PD.points += 100;
@@ -159,11 +169,7 @@ public class enemyAIPatrol : MonoBehaviour
             }
         }
 
-        var player = collision.GetComponent<CarController>();
-        if (player != null)
-        {
-            PlayerData.PD.currentHealth -= 10;
-        }
+        
     }
 
     void ActivateRagdoll(Rigidbody collidingRigidbody, float RigidbodySpeed, Collider collision)
@@ -177,8 +183,8 @@ public class enemyAIPatrol : MonoBehaviour
         // Enable physics on all child rigidbodies
         foreach (Rigidbody rb in GetComponentsInChildren<Rigidbody>())
         {
-            Vector3 forceDirection = collidingRigidbody.transform.forward + Vector3.up * 0.2f; // Slight upward lift
-            float forceMagnitude = RigidbodySpeed * 4f; // Scale by car speed
+            Vector3 forceDirection = collidingRigidbody.transform.forward + Vector3.up; // Slight upward lift
+            float forceMagnitude = RigidbodySpeed * 8f; // Scale by car speed
 
             rb.AddForce(forceDirection.normalized * forceMagnitude, ForceMode.Impulse);
         }
@@ -211,7 +217,7 @@ public class enemyAIPatrol : MonoBehaviour
 
         audioSource = audioSourceList[randomNumber];
 
-        audioSource.PlayOneShot(audioSource.clip);
+        audioSource.PlayOneShot(audioSource.clip, 0.3f);
         
     }
 

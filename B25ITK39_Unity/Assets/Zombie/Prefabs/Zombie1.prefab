@@ -1106,6 +1106,7 @@ GameObject:
   - component: {fileID: 3095270377931777224}
   - component: {fileID: 2409172998767941996}
   - component: {fileID: 5758156414225525804}
+  - component: {fileID: 1817662233883102592}
   m_Layer: 8
   m_Name: Base HumanPelvis
   m_TagString: Untagged
@@ -1179,6 +1180,29 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!136 &1817662233883102592
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1836615893786013965}
+  m_Material: {fileID: 13400000, guid: f16ca5af4d883d740aa956853f0d9952, type: 2}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 448
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.2
+  m_Height: 1
+  m_Direction: 0
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1840469243636615951
 GameObject:
   m_ObjectHideFlags: 0
@@ -2789,7 +2813,7 @@ CapsuleCollider:
   m_Material: {fileID: 13400000, guid: f16ca5af4d883d740aa956853f0d9952, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 320
+    m_Bits: 448
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -2801,7 +2825,7 @@ CapsuleCollider:
   m_Radius: 1
   m_Height: 1
   m_Direction: 1
-  m_Center: {x: 0, y: 0.6, z: 0}
+  m_Center: {x: 0, y: 0.8, z: 0}
 --- !u!54 &2871427589371685052
 Rigidbody:
   m_ObjectHideFlags: 0
