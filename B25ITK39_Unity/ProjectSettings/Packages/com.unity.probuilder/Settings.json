@@ -62,59 +62,14 @@
                 "value": "{\"m_Value\":false}"
             },
             {
-                "type": "System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
-                "key": "editor.backFaceSelectEnabled",
-                "value": "{\"m_Value\":false}"
-            },
-            {
-                "type": "System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
-                "key": "editor.showSceneInfo",
-                "value": "{\"m_Value\":false}"
-            },
-            {
-                "type": "System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
-                "key": "editor.showEditorNotifications",
-                "value": "{\"m_Value\":false}"
-            },
-            {
                 "type": "System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
                 "key": "ShapeBuilder.ActiveShapeIndex",
-                "value": "{\"m_Value\":10}"
+                "value": "{\"m_Value\":6}"
             },
             {
                 "type": "UnityEngine.Vector3, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
                 "key": "ShapeBuilder.LastSize.Cube",
-                "value": "{\"m_Value\":{\"x\":31.0,\"y\":-0.18774962425231934,\"z\":15.0}}"
-            },
-            {
-                "type": "UnityEngine.Vector3, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
-                "key": "ShapeBuilder.LastSize.Plane",
-                "value": "{\"m_Value\":{\"x\":31.0,\"y\":0.0,\"z\":21.0}}"
-            },
-            {
-                "type": "UnityEngine.Vector3, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
-                "key": "ShapeBuilder.LastSize.Torus",
-                "value": "{\"m_Value\":{\"x\":-42.601318359375,\"y\":32.800540924072269,\"z\":29.337646484375}}"
-            },
-            {
-                "type": "UnityEngine.Vector3, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
-                "key": "ShapeBuilder.LastSize.Cone",
-                "value": "{\"m_Value\":{\"x\":4.0,\"y\":46.19341278076172,\"z\":-4.0}}"
-            },
-            {
-                "type": "UnityEngine.Vector3, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
-                "key": "ShapeBuilder.LastSize.Cylinder",
-                "value": "{\"m_Value\":{\"x\":-122.90997314453125,\"y\":122.90353393554688,\"z\":89.536376953125}}"
-            },
-            {
-                "type": "UnityEngine.Vector3, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
-                "key": "ShapeBuilder.LastSize.Arch",
-                "value": "{\"m_Value\":{\"x\":-27.0,\"y\":29.73868179321289,\"z\":-30.0}}"
-            },
-            {
-                "type": "UnityEngine.Vector3, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
-                "key": "ShapeBuilder.LastSize.Pipe",
-                "value": "{\"m_Value\":{\"x\":44.97496032714844,\"y\":30.257394790649415,\"z\":-65.695556640625}}"
+                "value": "{\"m_Value\":{\"x\":6.6767578125,\"y\":3.469282388687134,\"z\":5.0430450439453129}}"
             },
             {
                 "type": "UnityEngine.Quaternion, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
@@ -122,39 +77,9 @@
                 "value": "{\"m_Value\":{\"x\":0.0,\"y\":0.0,\"z\":0.0,\"w\":1.0}}"
             },
             {
-                "type": "UnityEngine.Quaternion, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
-                "key": "ShapeBuilder.LastRotation.Plane",
-                "value": "{\"m_Value\":{\"x\":0.0,\"y\":0.0,\"z\":0.0,\"w\":1.0}}"
-            },
-            {
-                "type": "UnityEngine.Quaternion, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
-                "key": "ShapeBuilder.LastRotation.Torus",
-                "value": "{\"m_Value\":{\"x\":0.0,\"y\":0.0,\"z\":0.0,\"w\":1.0}}"
-            },
-            {
-                "type": "UnityEngine.Quaternion, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
-                "key": "ShapeBuilder.LastRotation.Cone",
-                "value": "{\"m_Value\":{\"x\":0.0,\"y\":0.0,\"z\":0.0,\"w\":1.0}}"
-            },
-            {
-                "type": "UnityEngine.Quaternion, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
-                "key": "ShapeBuilder.LastRotation.Cylinder",
-                "value": "{\"m_Value\":{\"x\":0.0,\"y\":0.0,\"z\":0.0,\"w\":1.0}}"
-            },
-            {
-                "type": "UnityEngine.Quaternion, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
-                "key": "ShapeBuilder.LastRotation.Arch",
-                "value": "{\"m_Value\":{\"x\":0.0,\"y\":0.0,\"z\":0.0,\"w\":1.0}}"
-            },
-            {
-                "type": "UnityEngine.Quaternion, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
-                "key": "ShapeBuilder.LastRotation.Pipe",
-                "value": "{\"m_Value\":{\"x\":0.0,\"y\":0.0,\"z\":0.0,\"w\":1.0}}"
-            },
-            {
                 "type": "UnityEngine.ProBuilder.SelectMode, Unity.ProBuilder, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
                 "key": "s_SelectMode",
-                "value": "{\"m_Value\":1}"
+                "value": "{\"m_Value\":4}"
             },
             {
                 "type": "UnityEngine.Material, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
@@ -164,36 +89,6 @@
             {
                 "type": "UnityEngine.ProBuilder.PivotLocation, Unity.ProBuilder, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
                 "key": "ShapeBuilder.PivotLocation.Cube",
-                "value": "{\"m_Value\":0}"
-            },
-            {
-                "type": "UnityEngine.ProBuilder.PivotLocation, Unity.ProBuilder, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
-                "key": "ShapeBuilder.PivotLocation.Plane",
-                "value": "{\"m_Value\":0}"
-            },
-            {
-                "type": "UnityEngine.ProBuilder.PivotLocation, Unity.ProBuilder, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
-                "key": "ShapeBuilder.PivotLocation.Torus",
-                "value": "{\"m_Value\":0}"
-            },
-            {
-                "type": "UnityEngine.ProBuilder.PivotLocation, Unity.ProBuilder, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
-                "key": "ShapeBuilder.PivotLocation.Cone",
-                "value": "{\"m_Value\":0}"
-            },
-            {
-                "type": "UnityEngine.ProBuilder.PivotLocation, Unity.ProBuilder, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
-                "key": "ShapeBuilder.PivotLocation.Cylinder",
-                "value": "{\"m_Value\":0}"
-            },
-            {
-                "type": "UnityEngine.ProBuilder.PivotLocation, Unity.ProBuilder, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
-                "key": "ShapeBuilder.PivotLocation.Arch",
-                "value": "{\"m_Value\":1}"
-            },
-            {
-                "type": "UnityEngine.ProBuilder.PivotLocation, Unity.ProBuilder, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
-                "key": "ShapeBuilder.PivotLocation.Pipe",
                 "value": "{\"m_Value\":0}"
             },
             {
@@ -220,46 +115,6 @@
                 "type": "UnityEngine.ProBuilder.Shapes.Shape, Unity.ProBuilder, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
                 "key": "ShapeBuilder.Cube",
                 "value": "{}"
-            },
-            {
-                "type": "UnityEngine.ProBuilder.Shapes.Shape, Unity.ProBuilder, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
-                "key": "ShapeBuilder.Plane",
-                "value": "{}"
-            },
-            {
-                "type": "UnityEngine.ProBuilder.Shapes.Shape, Unity.ProBuilder, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
-                "key": "ShapeBuilder.Torus",
-                "value": "{}"
-            },
-            {
-                "type": "UnityEngine.ProBuilder.Shapes.Shape, Unity.ProBuilder, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
-                "key": "ShapeBuilder.Cone",
-                "value": "{}"
-            },
-            {
-                "type": "UnityEngine.ProBuilder.Shapes.Shape, Unity.ProBuilder, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
-                "key": "ShapeBuilder.Cylinder",
-                "value": "{}"
-            },
-            {
-                "type": "UnityEngine.ProBuilder.Shapes.Shape, Unity.ProBuilder, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
-                "key": "ShapeBuilder.Arch",
-                "value": "{}"
-            },
-            {
-                "type": "UnityEngine.ProBuilder.Shapes.Shape, Unity.ProBuilder, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
-                "key": "ShapeBuilder.Pipe",
-                "value": "{}"
-            },
-            {
-                "type": "UnityEngine.ProBuilder.RectSelectMode, Unity.ProBuilder, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
-                "key": "editor.dragSelectRectMode",
-                "value": "{\"m_Value\":0}"
-            },
-            {
-                "type": "UnityEngine.ProBuilder.ExtrudeMethod, Unity.ProBuilder, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
-                "key": "editor.extrudeMethod",
-                "value": "{\"m_Value\":2}"
             }
         ]
     }
