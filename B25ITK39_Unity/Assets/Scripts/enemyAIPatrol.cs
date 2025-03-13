@@ -184,7 +184,7 @@ public class enemyAIPatrol : MonoBehaviour
         foreach (Rigidbody rb in GetComponentsInChildren<Rigidbody>())
         {
             Vector3 forceDirection = collidingRigidbody.transform.forward + Vector3.up; // Slight upward lift
-            float forceMagnitude = RigidbodySpeed * 8f; // Scale by car speed
+            float forceMagnitude = RigidbodySpeed * 4f; // Scale by car speed
 
             rb.AddForce(forceDirection.normalized * forceMagnitude, ForceMode.Impulse);
         }
