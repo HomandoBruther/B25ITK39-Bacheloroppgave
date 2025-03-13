@@ -25364,9 +25364,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   passengerCount: 0
-  motorForce: 10000
-  breakForce: 40000
-  dampeningForce: 10000
+  motorForce: 2500
+  breakForce: 10000
+  dampeningForce: 1000
   maxSteerAngle: 30
   dashForce: 30000
   dashDuration: 0.2
