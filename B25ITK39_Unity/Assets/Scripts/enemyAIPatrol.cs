@@ -212,7 +212,7 @@ public class enemyAIPatrol : MonoBehaviour
         audioSource = audioSourceList[randomNumber];
 
         audioSource.PlayOneShot(audioSource.clip, 0.3f);
-        
+
     }
 
 }
