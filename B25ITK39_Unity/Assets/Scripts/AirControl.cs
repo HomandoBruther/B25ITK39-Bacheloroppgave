@@ -11,6 +11,8 @@ public class AirControl : MonoBehaviour
     [SerializeField] private float airRotationSpeed = 50f;
     [SerializeField] private float groundCheckDistance = 1.5f;
     [SerializeField] private LayerMask groundLayer;
+    [Header("Wheels")]
+    [SerializeField] private Transform[] wheelPositions;
 
     private bool canJump = true;
     private bool isInAir = false;
@@ -46,7 +48,7 @@ public class AirControl : MonoBehaviour
     {
         GetInput();
 
-        // Apply air control if in the air
+        // Apply air control only if fully airborne
         if (isInAir)
         {
             AirSteering();
@@ -63,9 +65,9 @@ public class AirControl : MonoBehaviour
     {
         canJump = false;
 
-        // Get input direction
         Vector3 jumpUp = transform.up;
 
+        // Get input direction
         /*
         Vector3 inputDirection = transform.up * verticalInput + transform.right * horizontalInput;
         if (inputDirection == Vector3.zero)
@@ -82,12 +84,20 @@ public class AirControl : MonoBehaviour
 
     private void CheckGrounded()
     {
-        isInAir = !Physics.Raycast(transform.position, Vector3.down, groundCheckDistance, groundLayer);
+        isInAir = true;
+        foreach (Transform wheel in wheelPositions)
+        {
+            if (Physics.Raycast(wheel.position, Vector3.down, groundCheckDistance, groundLayer))
+            {
+                isInAir = false;
+                break;
+            }
+        }
     }
 
     private void AirSteering()
     {
-        float pitch = verticalInput * -airRotationSpeed * Time.fixedDeltaTime;
+        float pitch = verticalInput * airRotationSpeed * Time.fixedDeltaTime;
         float yaw = horizontalInput * airRotationSpeed * Time.fixedDeltaTime;
         float roll = 0f;
 
