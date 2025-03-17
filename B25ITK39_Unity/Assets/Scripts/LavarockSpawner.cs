@@ -3,7 +3,8 @@ using System.Collections;
 
 public class LavarockSpawner : MonoBehaviour
 {
-    public GameObject prefab; // Assign the prefab in Inspector
+    public GameObject[] prefabList; // Assign the prefab in Inspector
+    private GameObject prefab;
     public float radius = 5.0f; // Same as the Gizmo radius
     public float maxUpwardForce = 1000f; // Strength of the upward force
     public float maxOutwardForce = 1000f; // Strength of the outward force
@@ -70,6 +71,9 @@ public class LavarockSpawner : MonoBehaviour
 
     private void SpawnPrefab()
     {
+        int randomNumber = Random.Range(0, prefabList.Length);
+
+        prefab = prefabList[randomNumber];
         if (prefab != null)
         {
             float prefabRadius = GetPrefabRadius(prefab);
