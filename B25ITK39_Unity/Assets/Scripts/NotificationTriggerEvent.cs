@@ -1,20 +1,17 @@
 using UnityEngine;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine.UI;
 using TMPro;
-public class NotificationTriggerEvent : MonoBehaviour
+using System.Collections.Generic;
 
+public class NotificationTriggerEvent : MonoBehaviour
 {
     [Header("UI Content")]
     [SerializeField] private TMPro.TextMeshProUGUI notificationTextUI;
-
     [SerializeField] private Image characterIconUI;
 
     [Header("Message Customization")]
     [SerializeField] private Sprite yourIcon;
-    [SerializeField] [TextArea] private string notificationMessage;
-
 
     [Header("Notification Removal")]
     [SerializeField] private bool removeAfterExit = false;
@@ -23,11 +20,41 @@ public class NotificationTriggerEvent : MonoBehaviour
 
     [Header("Message Animation")]
     [SerializeField] private Animator notificationAnim;
+
     private BoxCollider objectCollider;
+    private GameObject dropOffZone;
+
+    // Pickup and drop-off zone management
+    private GameObject[] allDropOffZones;
+
+    // Mapping prefab names to display names
+    private Dictionary<string, string> dropOffMappings = new Dictionary<string, string>()
+    {
+        { "StopHospital", "Hospital" },
+        { "StopStore", "Store" },
+        { "StopPowerPlant", "Power Plant" },
+        { "StopPark", "Park" }
+    };
 
     private void Awake()
     {
         objectCollider = gameObject.GetComponent<BoxCollider>();
+
+        // Find all drop-off zones in the scene
+        allDropOffZones = new GameObject[dropOffMappings.Count];
+
+        int index = 0;
+        foreach (string stopName in dropOffMappings.Keys)
+        {
+            GameObject stop = GameObject.Find(stopName);
+            if (stop != null)
+            {
+                allDropOffZones[index] = stop;
+                index++;
+            }
+        }
+
+        AssignRandomDropOff();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -35,33 +62,42 @@ public class NotificationTriggerEvent : MonoBehaviour
         Debug.Log("Triggered by: " + other.gameObject.name);
         if (other.CompareTag("Player"))
         {
-            gameObject.SetActive(true); // Ensures the object is active
+            gameObject.SetActive(true);
+            AssignRandomDropOff(); // Choose a new drop-off point when triggered
             StartCoroutine(EnableNotification());
         }
-}
+    }
 
     private void OnTriggerExit(Collider other)
-
     {
         if (other.CompareTag("Player") && removeAfterExit)
         {
-           RemoveNotification();
+            RemoveNotification();
         }
-
     }
 
     private IEnumerator EnableNotification()
     {
-       
-
         objectCollider.enabled = false;
-
-        // Ensure the notification UI is active
         notificationAnim.gameObject.SetActive(true);
-
         notificationAnim.Play("FadeIn");
-        notificationTextUI.text = notificationMessage;
+
+        // Get passenger count
+        int passengerCount = PlayerData.PD != null ? PlayerData.PD.currentPassengers : 0;
+
+        // Get drop-off name
+        string dropOffName = dropOffZone != null && dropOffMappings.ContainsKey(dropOffZone.name)
+            ? dropOffMappings[dropOffZone.name]
+            : "Unknown Location";
+
+        // Update notification message
+        notificationTextUI.text = $"{passengerCount} passengers picked up! Drop off point: {dropOffName}";
+
+
         characterIconUI.sprite = yourIcon;
+
+        // Disable all other drop-off points
+        DisableAllDropOffZonesExcept(dropOffZone);
 
         if (disableAfterTimer)
         {
@@ -70,11 +106,39 @@ public class NotificationTriggerEvent : MonoBehaviour
         }
     }
 
-
     void RemoveNotification()
     {
         notificationAnim.Play("FadeOut");
-        notificationAnim.gameObject.SetActive(false); // Instead of `gameObject.SetActive(false);`
+        notificationAnim.gameObject.SetActive(false);
     }
-   }
 
+    private void AssignRandomDropOff()
+    {
+        // Pick a random drop-off key from dictionary
+        List<string> keys = new List<string>(dropOffMappings.Keys);
+        string randomDropOffKey = keys[Random.Range(0, keys.Count)];
+
+        // Find the GameObject in the scene
+        dropOffZone = GameObject.Find(randomDropOffKey);
+
+        if (dropOffZone == null)
+        {
+            Debug.LogWarning($"Drop-off point '{randomDropOffKey}' not found in the scene!");
+        }
+        else
+        {
+            Debug.Log($"Assigned drop-off point: {dropOffZone.name} ({dropOffMappings[randomDropOffKey]})");
+        }
+    }
+
+    private void DisableAllDropOffZonesExcept(GameObject activeZone)
+    {
+        foreach (GameObject zone in allDropOffZones)
+        {
+            if (zone != null)
+            {
+                zone.SetActive(zone == activeZone); // Only enable the assigned drop-off point
+            }
+        }
+    }
+}
