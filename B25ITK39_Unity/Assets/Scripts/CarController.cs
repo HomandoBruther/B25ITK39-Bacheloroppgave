@@ -47,7 +47,7 @@ public class CarController : MonoBehaviour
         HandleSteering();
         UpdateWheels();
         //Debug.Log("Current WheelCollider.motorTorque " + frontLeftWheelCollider.motorTorque);
-        Debug.Log("Current wheelDampingRate " + frontLeftWheelCollider.wheelDampingRate);
+        //Debug.Log("Current wheelDampingRate " + frontLeftWheelCollider.wheelDampingRate);
 
     }
 
