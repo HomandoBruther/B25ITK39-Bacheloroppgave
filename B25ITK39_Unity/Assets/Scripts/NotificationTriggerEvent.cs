@@ -27,6 +27,7 @@ public class NotificationTriggerEvent : MonoBehaviour
     // Pickup and drop-off zone management
     private GameObject[] allDropOffZones;
 
+    private Arrow3DController arrow3D;
     // Mapping prefab names to display names
     private Dictionary<string, string> dropOffMappings = new Dictionary<string, string>()
     {
@@ -42,6 +43,8 @@ public class NotificationTriggerEvent : MonoBehaviour
 
         // Find all drop-off zones in the scene
         allDropOffZones = new GameObject[dropOffMappings.Count];
+
+        arrow3D = FindObjectOfType<Arrow3DController>();
 
         int index = 0;
         foreach (string stopName in dropOffMappings.Keys)
@@ -90,9 +93,8 @@ public class NotificationTriggerEvent : MonoBehaviour
             ? dropOffMappings[dropOffZone.name]
             : "Unknown Location";
 
-        // Update notification message
-        notificationTextUI.text = $"{passengerCount} passengers picked up! Drop off point: {dropOffName}";
-
+        // Update notification message for pickup
+        notificationTextUI.text = $"{passengerCount} passengers picked up! Next stop: {dropOffName}";
 
         characterIconUI.sprite = yourIcon;
 
@@ -125,6 +127,10 @@ public class NotificationTriggerEvent : MonoBehaviour
         {
             Debug.LogWarning($"Drop-off point '{randomDropOffKey}' not found in the scene!");
         }
+        if (arrow3D != null)
+        {
+            arrow3D.SetTarget(dropOffZone.transform);
+        }
         else
         {
             Debug.Log($"Assigned drop-off point: {dropOffZone.name} ({dropOffMappings[randomDropOffKey]})");
@@ -139,6 +145,25 @@ public class NotificationTriggerEvent : MonoBehaviour
             {
                 zone.SetActive(zone == activeZone); // Only enable the assigned drop-off point
             }
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("Player") && dropOffZone != null)
+        {
+            int passengersDropped = PlayerData.PD.currentPassengers;
+            PlayerData.PD.currentPassengers = 0; // Reset passengers to 0
+
+            AssignRandomDropOff(); // Assign a new random drop-off point
+
+            // Get new drop-off name
+            string newDropOffName = dropOffZone != null && dropOffMappings.ContainsKey(dropOffZone.name)
+                ? dropOffMappings[dropOffZone.name]
+                : "Unknown Location";
+
+            // Show drop-off notification
+            notificationTextUI.text = $"{passengersDropped} passengers dropped off! Next stop: {newDropOffName}";
         }
     }
 }
