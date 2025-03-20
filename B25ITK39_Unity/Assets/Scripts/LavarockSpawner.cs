@@ -1,8 +1,10 @@
 using UnityEngine;
 using System.Collections;
 
+// A Script that is used by the volcano to spawn balls or "Lavarocks" at random intervals.
 public class LavarockSpawner : MonoBehaviour
 {
+    public bool enableSpawn = true;
     public GameObject[] prefabList; // Assign the prefab in Inspector
     private GameObject prefab;
     public float radius = 5.0f; // Same as the Gizmo radius
@@ -11,6 +13,7 @@ public class LavarockSpawner : MonoBehaviour
     public float maxLavaRockSpawnTime = 0.01f; // Max time between spawns
     public float maxSpawnTime = 60f; // Max delay before spawning starts
     public float maxEndSpawnTime = 5f; // Max duration before stopping
+    
 
     private Coroutine spawnCoroutine; // Store the spawning coroutine
     private bool spawnRocks = false;
@@ -21,7 +24,8 @@ public class LavarockSpawner : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(StartSpawning());
+        if (enableSpawn)
+            StartCoroutine(StartSpawning());
     }
 
     private IEnumerator StartSpawning()
