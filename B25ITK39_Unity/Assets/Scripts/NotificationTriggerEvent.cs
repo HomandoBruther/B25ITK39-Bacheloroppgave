@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
 using TMPro;
@@ -7,11 +7,12 @@ using System.Collections.Generic;
 public class NotificationTriggerEvent : MonoBehaviour
 {
     [Header("UI Content")]
-    [SerializeField] private TMPro.TextMeshProUGUI notificationTextUI;
+    [SerializeField] private TextMeshProUGUI notificationTextUI;
     [SerializeField] private Image characterIconUI;
 
     [Header("Message Customization")]
-    [SerializeField] private Sprite yourIcon;
+    [SerializeField] private Sprite pickupIcon;
+    [SerializeField] private Sprite dropOffIcon;
 
     [Header("Notification Removal")]
     [SerializeField] private bool removeAfterExit = false;
@@ -23,51 +24,56 @@ public class NotificationTriggerEvent : MonoBehaviour
 
     private BoxCollider objectCollider;
     private GameObject dropOffZone;
-
-    // Pickup and drop-off zone management
-    private GameObject[] allDropOffZones;
+    private bool isPickupZone;
 
     private Arrow3DController arrow3D;
-    // Mapping prefab names to display names
-    private Dictionary<string, string> dropOffMappings = new Dictionary<string, string>()
-    {
-        { "StopHospital", "Hospital" },
-        { "StopStore", "Store" },
-        { "StopPowerPlant", "Power Plant" },
-        { "StopPark", "Park" }
-    };
 
     private void Awake()
     {
-        objectCollider = gameObject.GetComponent<BoxCollider>();
-
-        // Find all drop-off zones in the scene
-        allDropOffZones = new GameObject[dropOffMappings.Count];
-
+        objectCollider = GetComponent<BoxCollider>();
         arrow3D = FindObjectOfType<Arrow3DController>();
 
-        int index = 0;
-        foreach (string stopName in dropOffMappings.Keys)
+        GameObject[] allGameObjects = FindObjectsOfType<GameObject>();
+        Debug.Log($"🔍 Total GameObjects in Scene: {allGameObjects.Length}");
+
+        foreach (var obj in allGameObjects)
         {
-            GameObject stop = GameObject.Find(stopName);
-            if (stop != null)
+            Debug.Log($"📌 Found Object: {obj.name} | Tag: {obj.tag}");
+        }
+
+        GameObject[] dropOffZones = GameObject.FindGameObjectsWithTag("DropOffZone");
+
+        if (dropOffZones.Length == 0)
+        {
+            Debug.LogError("🚨 No available drop-off zones found! Check your Hierarchy and Tags.");
+        }
+        else
+        {
+            foreach (var zone in dropOffZones)
             {
-                allDropOffZones[index] = stop;
-                index++;
+                Debug.Log($"✅ Found DropOffZone: {zone.name}");
             }
         }
 
-        AssignRandomDropOff();
+        isPickupZone = CompareTag("PickupZone");
     }
+
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Triggered by: " + other.gameObject.name);
         if (other.CompareTag("Player"))
         {
             gameObject.SetActive(true);
-            AssignRandomDropOff(); // Choose a new drop-off point when triggered
-            StartCoroutine(EnableNotification());
+
+            if (isPickupZone)
+            {
+                AssignRandomDropOff();
+                StartCoroutine(EnablePickupNotification());
+            }
+            else
+            {
+                StartCoroutine(EnableDropOffNotification());
+            }
         }
     }
 
@@ -79,27 +85,16 @@ public class NotificationTriggerEvent : MonoBehaviour
         }
     }
 
-    private IEnumerator EnableNotification()
+    private IEnumerator EnablePickupNotification()
     {
         objectCollider.enabled = false;
         notificationAnim.gameObject.SetActive(true);
         notificationAnim.Play("FadeIn");
 
-        // Get passenger count
         int passengerCount = PlayerData.PD != null ? PlayerData.PD.currentPassengers : 0;
+        notificationTextUI.text = $"{passengerCount} passengers picked up!\nNext stop: {dropOffZone?.name ?? "Unknown Location"}";
 
-        // Get drop-off name
-        string dropOffName = dropOffZone != null && dropOffMappings.ContainsKey(dropOffZone.name)
-            ? dropOffMappings[dropOffZone.name]
-            : "Unknown Location";
-
-        // Update notification message for pickup
-        notificationTextUI.text = $"{passengerCount} passengers picked up! Next stop: {dropOffName}";
-
-        characterIconUI.sprite = yourIcon;
-
-        // Disable all other drop-off points
-        DisableAllDropOffZonesExcept(dropOffZone);
+        DisableAllZonesExcept("DropOffZone", dropOffZone?.name);
 
         if (disableAfterTimer)
         {
@@ -108,7 +103,28 @@ public class NotificationTriggerEvent : MonoBehaviour
         }
     }
 
-    void RemoveNotification()
+    private IEnumerator EnableDropOffNotification()
+    {
+        notificationAnim.gameObject.SetActive(true);
+        notificationAnim.Play("FadeIn");
+
+        int passengersDropped = PlayerData.PD.currentPassengers;
+        PlayerData.PD.currentPassengers = 0;
+
+        string nextPickupZone = GetRandomZone("PickupZone");
+        notificationTextUI.text = $"{passengersDropped} passengers dropped off!\nNext stop: {nextPickupZone}";
+        characterIconUI.sprite = dropOffIcon;
+
+        if (disableAfterTimer)
+        {
+            yield return new WaitForSeconds(disableTimer);
+            RemoveNotification();
+        }
+
+        AssignRandomDropOff();
+    }
+
+    private void RemoveNotification()
     {
         notificationAnim.Play("FadeOut");
         notificationAnim.gameObject.SetActive(false);
@@ -116,54 +132,53 @@ public class NotificationTriggerEvent : MonoBehaviour
 
     private void AssignRandomDropOff()
     {
-        // Pick a random drop-off key from dictionary
-        List<string> keys = new List<string>(dropOffMappings.Keys);
-        string randomDropOffKey = keys[Random.Range(0, keys.Count)];
+        GameObject[] dropOffZones = GameObject.FindGameObjectsWithTag("DropOffZone");
 
-        // Find the GameObject in the scene
-        dropOffZone = GameObject.Find(randomDropOffKey);
+        if (dropOffZones.Length == 0)
+        {
+            Debug.LogError("🚨 No available drop-off zones found! Assigning a backup.");
+            return;
+        }
 
-        if (dropOffZone == null)
+        foreach (GameObject zone in dropOffZones)
         {
-            Debug.LogWarning($"Drop-off point '{randomDropOffKey}' not found in the scene!");
+            zone.SetActive(true);
+            Debug.Log($"✅ Activating DropOffZone: {zone.name}");
         }
-        if (arrow3D != null)
-        {
-            arrow3D.SetTarget(dropOffZone.transform);
-        }
-        else
-        {
-            Debug.Log($"Assigned drop-off point: {dropOffZone.name} ({dropOffMappings[randomDropOffKey]})");
-        }
+
+        dropOffZone = dropOffZones[Random.Range(0, dropOffZones.Length)];
+        Debug.Log($"🎯 Assigned DropOff: {dropOffZone.name}");
     }
 
-    private void DisableAllDropOffZonesExcept(GameObject activeZone)
+
+    private GameObject FindRandomInactiveZone(string tag)
     {
-        foreach (GameObject zone in allDropOffZones)
+        GameObject[] zones = GameObject.FindGameObjectsWithTag(tag);
+        List<GameObject> inactiveZones = new List<GameObject>();
+
+        foreach (GameObject zone in zones)
         {
-            if (zone != null)
+            if (!zone.activeSelf)
             {
-                zone.SetActive(zone == activeZone); // Only enable the assigned drop-off point
+                inactiveZones.Add(zone);
             }
         }
+
+        return inactiveZones.Count > 0 ? inactiveZones[Random.Range(0, inactiveZones.Count)] : null;
     }
 
-    private void OnTriggerStay(Collider other)
+    private void DisableAllZonesExcept(string tag, string activeZoneName)
     {
-        if (other.CompareTag("Player") && dropOffZone != null)
+        GameObject[] zones = GameObject.FindGameObjectsWithTag(tag);
+        foreach (GameObject zone in zones)
         {
-            int passengersDropped = PlayerData.PD.currentPassengers;
-            PlayerData.PD.currentPassengers = 0; // Reset passengers to 0
-
-            AssignRandomDropOff(); // Assign a new random drop-off point
-
-            // Get new drop-off name
-            string newDropOffName = dropOffZone != null && dropOffMappings.ContainsKey(dropOffZone.name)
-                ? dropOffMappings[dropOffZone.name]
-                : "Unknown Location";
-
-            // Show drop-off notification
-            notificationTextUI.text = $"{passengersDropped} passengers dropped off! Next stop: {newDropOffName}";
+            zone.SetActive(zone.name == activeZoneName);
         }
+    }
+
+    private string GetRandomZone(string tag)
+    {
+        GameObject[] zones = GameObject.FindGameObjectsWithTag(tag);
+        return zones.Length > 0 ? zones[Random.Range(0, zones.Length)].name : "Unknown";
     }
 }

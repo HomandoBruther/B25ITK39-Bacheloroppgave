@@ -1,9 +1,9 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections.Generic;
 
 public class PassengerPickup : MonoBehaviour
 {
-    public GameObject passengerPrefab;  // Assign in Inspector
+    public GameObject passengerPrefab;
     public int minPassengers = 1;
     public int maxPassengers = 5;
 
@@ -19,25 +19,21 @@ public class PassengerPickup : MonoBehaviour
 
     private void SpawnPassengers()
     {
-        Collider triggerCollider = GetComponent<Collider>(); // Get trigger box collider
+        Collider triggerCollider = GetComponent<Collider>();
 
         float minX = triggerCollider.bounds.min.x;
         float maxX = triggerCollider.bounds.max.x;
         float minZ = triggerCollider.bounds.min.z;
         float maxZ = triggerCollider.bounds.max.z;
-        float spawnHeight = triggerCollider.bounds.min.y; // Ensure they spawn at ground level
+        float spawnHeight = triggerCollider.bounds.min.y;
 
         for (int i = 0; i < passengersAtStop; i++)
         {
-            // Generate a random position inside the trigger box
             float randomX = Random.Range(minX, maxX);
             float randomZ = Random.Range(minZ, maxZ);
             Vector3 spawnPosition = new Vector3(randomX, spawnHeight, randomZ);
 
-            // Instantiate the studentTest prefab
             GameObject passenger = Instantiate(passengerPrefab, spawnPosition, Quaternion.identity);
-
-            // Add to the list of spawned passengers
             spawnedPassengers.Add(passenger);
         }
     }
@@ -52,7 +48,6 @@ public class PassengerPickup : MonoBehaviour
                 int leftover = PlayerData.PD.FillPassengers(passengersAtStop);
                 pickedUp = true;
 
-                // Destroy all spawned passengers
                 foreach (GameObject passenger in spawnedPassengers)
                 {
                     Destroy(passenger);
@@ -65,9 +60,18 @@ public class PassengerPickup : MonoBehaviour
                     Debug.Log(leftover + " passengers couldn't fit in the vehicle!");
                 }
 
-                gameObject.SetActive(false);  // Disable pickup point after use
+                gameObject.SetActive(false);
             }
         }
+    }
+    public void ResetPickupZone()
+    {
+        pickedUp = false;
+        passengersAtStop = Random.Range(minPassengers, maxPassengers + 1);
+        SpawnPassengers();
+        gameObject.SetActive(true);
+
+        Debug.Log($"Pickup zone {gameObject.name} reset with {passengersAtStop} new passengers.");
     }
 
 }
