@@ -2555,7 +2555,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 2064899535}
-  m_VersionIndex: 3168
+  m_VersionIndex: 3171
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -2564,11 +2564,6 @@ MonoBehaviour:
 Transform:
   m_CorrespondingSourceObject: {fileID: 578376449398627443, guid: 6dc4cf4496348884d8ee27743ae38562, type: 3}
   m_PrefabInstance: {fileID: 1477379807}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &273089367 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3896525617545039283, guid: 3fe91e664fd852149b51a96ae9066c83, type: 3}
-  m_PrefabInstance: {fileID: 1457931575}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &273792329
 PrefabInstance:
@@ -6002,7 +5997,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 321764705}
-  m_VersionIndex: 3168
+  m_VersionIndex: 3171
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -9917,7 +9912,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 1102073186}
-  m_VersionIndex: 3168
+  m_VersionIndex: 3171
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -10577,7 +10572,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 2001442917}
-  m_VersionIndex: 1785
+  m_VersionIndex: 1788
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -11788,7 +11783,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 1700304566}
-  m_VersionIndex: 1785
+  m_VersionIndex: 1788
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -12140,7 +12135,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 1632718613}
-  m_VersionIndex: 1785
+  m_VersionIndex: 1788
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -12748,7 +12743,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 1714539775}
-  m_VersionIndex: 1141
+  m_VersionIndex: 1144
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -13963,7 +13958,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 832692161}
-  m_VersionIndex: 3168
+  m_VersionIndex: 3171
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -16308,7 +16303,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 964026254}
-  m_VersionIndex: 1785
+  m_VersionIndex: 1788
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -17620,7 +17615,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 166978904}
-  m_VersionIndex: 1785
+  m_VersionIndex: 1788
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -18901,7 +18896,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 1954908542}
-  m_VersionIndex: 1141
+  m_VersionIndex: 1144
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -19569,7 +19564,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 1621763830}
-  m_VersionIndex: 1141
+  m_VersionIndex: 1144
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -19978,7 +19973,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 554933244}
-  m_VersionIndex: 1141
+  m_VersionIndex: 1144
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -22315,25 +22310,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 425096778}
     m_Modifications:
-    - target: {fileID: 137015519750635923, guid: 3fe91e664fd852149b51a96ae9066c83, type: 3}
-      propertyPath: m_text
-      value: HOSPITAL
-      objectReference: {fileID: 0}
-    - target: {fileID: 137015519750635923, guid: 3fe91e664fd852149b51a96ae9066c83, type: 3}
-      propertyPath: m_fontSize
-      value: 139.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 137015519750635923, guid: 3fe91e664fd852149b51a96ae9066c83, type: 3}
-      propertyPath: m_fontSizeBase
-      value: 139.5
-      objectReference: {fileID: 0}
     - target: {fileID: 3896525617545039283, guid: 3fe91e664fd852149b51a96ae9066c83, type: 3}
       propertyPath: m_Name
       value: StopHospital
-      objectReference: {fileID: 0}
-    - target: {fileID: 3896525617545039283, guid: 3fe91e664fd852149b51a96ae9066c83, type: 3}
-      propertyPath: m_TagString
-      value: DropOffZone
       objectReference: {fileID: 0}
     - target: {fileID: 7129753776892274761, guid: 3fe91e664fd852149b51a96ae9066c83, type: 3}
       propertyPath: m_LocalPosition.x
@@ -22375,35 +22354,24 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7584019115848818667, guid: 3fe91e664fd852149b51a96ae9066c83, type: 3}
+      propertyPath: notificationAnim
+      value: 
+      objectReference: {fileID: 618902042}
+    - target: {fileID: 7584019115848818667, guid: 3fe91e664fd852149b51a96ae9066c83, type: 3}
+      propertyPath: notificationTextUI
+      value: 
+      objectReference: {fileID: 295322193}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3896525617545039283, guid: 3fe91e664fd852149b51a96ae9066c83, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1457931579}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3fe91e664fd852149b51a96ae9066c83, type: 3}
 --- !u!4 &1457931576 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7129753776892274761, guid: 3fe91e664fd852149b51a96ae9066c83, type: 3}
   m_PrefabInstance: {fileID: 1457931575}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1457931579
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 273089367}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c4a8801c5703ad645af11fd7df8d9eff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  notificationTextUI: {fileID: 295322193}
-  pickupIcon: {fileID: 0}
-  dropOffIcon: {fileID: 0}
-  notificationAnim: {fileID: 618902042}
 --- !u!1001 &1458749690
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -24517,7 +24485,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 1875364975}
-  m_VersionIndex: 1785
+  m_VersionIndex: 1788
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -28029,7 +27997,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 316072053}
-  m_VersionIndex: 1785
+  m_VersionIndex: 1788
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -30998,7 +30966,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 893496511}
-  m_VersionIndex: 1785
+  m_VersionIndex: 1788
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
