@@ -1026,12 +1026,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   notificationTextUI: {fileID: 295322193}
-  characterIconUI: {fileID: 544606908}
   pickupIcon: {fileID: 0}
   dropOffIcon: {fileID: 0}
-  removeAfterExit: 1
-  disableAfterTimer: 0
-  disableTimer: 3
   notificationAnim: {fileID: 618902042}
 --- !u!4 &127145002 stripped
 Transform:
@@ -3113,8 +3109,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 227.5737, y: 0.079757}
-  m_SizeDelta: {x: 305.7475, y: 64.859}
+  m_AnchoredPosition: {x: 227.0737, y: 40.4}
+  m_SizeDelta: {x: 304.7475, y: 63.85901}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!225 &295322192
 CanvasGroup:
@@ -3213,7 +3209,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 0, z: 0, w: -74.61938}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -6721,14 +6717,14 @@ RectTransform:
   m_GameObject: {fileID: 544606906}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 2.11, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 618902041}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 37.8031, y: -37.7249}
+  m_AnchoredPosition: {x: 37.8031, y: -77}
   m_SizeDelta: {x: 64.8589, y: 64.8589}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &544606908
@@ -7209,7 +7205,7 @@ RectTransform:
   m_GameObject: {fileID: 618902040}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 0.61, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 544606907}
@@ -7218,7 +7214,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 130}
+  m_AnchoredPosition: {x: 0, y: 114.1}
   m_SizeDelta: {x: -636.8726, y: -451.3907}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &618902042
@@ -14746,12 +14742,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   notificationTextUI: {fileID: 295322193}
-  characterIconUI: {fileID: 544606908}
   pickupIcon: {fileID: 0}
   dropOffIcon: {fileID: 0}
-  removeAfterExit: 1
-  disableAfterTimer: 0
-  disableTimer: 3
   notificationAnim: {fileID: 618902042}
 --- !u!1001 &1070421960
 PrefabInstance:
@@ -20225,12 +20217,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   notificationTextUI: {fileID: 295322193}
-  characterIconUI: {fileID: 544606908}
   pickupIcon: {fileID: 0}
   dropOffIcon: {fileID: 0}
-  removeAfterExit: 1
-  disableAfterTimer: 0
-  disableTimer: 3
   notificationAnim: {fileID: 618902042}
 --- !u!1001 &1292725998
 PrefabInstance:
@@ -21320,12 +21308,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   notificationTextUI: {fileID: 0}
-  characterIconUI: {fileID: 0}
   pickupIcon: {fileID: 0}
   dropOffIcon: {fileID: 0}
-  removeAfterExit: 0
-  disableAfterTimer: 0
-  disableTimer: 1
   notificationAnim: {fileID: 0}
 --- !u!114 &1348704802
 MonoBehaviour:
@@ -21340,12 +21324,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   notificationTextUI: {fileID: 295322193}
-  characterIconUI: {fileID: 544606908}
   pickupIcon: {fileID: 0}
   dropOffIcon: {fileID: 0}
-  removeAfterExit: 1
-  disableAfterTimer: 0
-  disableTimer: 3
   notificationAnim: {fileID: 618902042}
 --- !u!1 &1350656743
 GameObject:
@@ -22421,12 +22401,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   notificationTextUI: {fileID: 295322193}
-  characterIconUI: {fileID: 544606908}
   pickupIcon: {fileID: 0}
   dropOffIcon: {fileID: 0}
-  removeAfterExit: 1
-  disableAfterTimer: 0
-  disableTimer: 3
   notificationAnim: {fileID: 618902042}
 --- !u!1001 &1458749690
 PrefabInstance:
@@ -22657,12 +22633,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   notificationTextUI: {fileID: 295322193}
-  characterIconUI: {fileID: 544606908}
   pickupIcon: {fileID: 0}
   dropOffIcon: {fileID: 0}
-  removeAfterExit: 1
-  disableAfterTimer: 0
-  disableTimer: 3
   notificationAnim: {fileID: 618902042}
 --- !u!1 &1470092642
 GameObject:
@@ -25750,12 +25722,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   notificationTextUI: {fileID: 295322193}
-  characterIconUI: {fileID: 544606908}
   pickupIcon: {fileID: 0}
   dropOffIcon: {fileID: 0}
-  removeAfterExit: 1
-  disableAfterTimer: 0
-  disableTimer: 3
   notificationAnim: {fileID: 618902042}
 --- !u!1 &1668506013
 GameObject:
@@ -27382,12 +27350,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   notificationTextUI: {fileID: 295322193}
-  characterIconUI: {fileID: 544606908}
   pickupIcon: {fileID: 0}
   dropOffIcon: {fileID: 0}
-  removeAfterExit: 1
-  disableAfterTimer: 0
-  disableTimer: 3
   notificationAnim: {fileID: 618902042}
 --- !u!1 &1811186978
 GameObject:
