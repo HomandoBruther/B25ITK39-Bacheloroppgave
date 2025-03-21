@@ -41,46 +41,40 @@ public class NotificationTriggerEvent : MonoBehaviour
 
     private void HandlePickup()
     {
-        PlayerData.PD.FillPassengers(Random.Range(1, 5));
+        int passengersPickedUp = Random.Range(1, 5);
+        PlayerData.PD.FillPassengers(passengersPickedUp);
+
         nextDropOff = FindRandomZone("DropOffZone");
-        notificationTextUI.text = $"Passengers picked up! Next stop: {nextDropOff.name}";
+
+        notificationTextUI.text = $"{passengersPickedUp} passengers picked up!\n Next stop: {nextDropOff.name}";
         notificationAnim.Play("FadeIn");
 
         if (arrow3D != null) arrow3D.SetTarget(nextDropOff.transform);
-
-        gameObject.SetActive(false);
     }
 
     private void HandleDropOff()
     {
-        int passengersDropped = PlayerData.PD.currentPassengers;
-        PlayerData.PD.currentPassengers = 0;
-
+        int scoreEarned = PlayerData.PD.ScorePoints(); // Updates points & money
         nextPickup = FindRandomZone("PickupZone");
 
         if (nextPickup == null)
         {
             Debug.LogError("❌ No available PickupZone found!");
-            notificationTextUI.text = $"{passengersDropped} passengers dropped off! No available pickup zone.";
+            notificationTextUI.text = $"{scoreEarned} points earned!\nNo available pickup zone.";
         }
         else
         {
-            notificationTextUI.text = $"{passengersDropped} passengers dropped off!\nNext stop: {nextPickup.name}";
+            notificationTextUI.text = $"{scoreEarned} points earned!\nNext stop: {nextPickup.name}";
             if (arrow3D != null) arrow3D.SetTarget(nextPickup.transform);
         }
 
         notificationAnim.Play("FadeIn");
-        gameObject.SetActive(false);
     }
-
 
     private GameObject FindRandomZone(string tag)
     {
         GameObject[] zones = GameObject.FindGameObjectsWithTag(tag);
-
         Debug.Log($"🔍 Found {zones.Length} {tag} zones");
-
         return zones.Length > 0 ? zones[Random.Range(0, zones.Length)] : null;
     }
-
 }
