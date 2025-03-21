@@ -74,16 +74,18 @@ public class NotificationTriggerEvent : MonoBehaviour
 
         nextDropOff = FindRandomZone("DropOffZone");
 
-        notificationTextUI.text = $"{passengersPickedUp} passengers picked up!\nNext stop: {nextDropOff.name}";
+        string formattedDropOffName = FormatStopName(nextDropOff.name);
+
+        notificationTextUI.text = $"{passengersPickedUp} passengers picked up!\nNext stop: {formattedDropOffName}";
         notificationAnim.Play("FadeIn");
 
         if (arrow3D != null) arrow3D.SetTarget(nextDropOff.transform);
 
-        // Hide all pickup zones after pickup
         HideAllPickupZonesExcept(null);
 
         Invoke(nameof(FadeOutNotification), 5f);
     }
+
 
     private void HandleDropOff()
     {
@@ -98,16 +100,32 @@ public class NotificationTriggerEvent : MonoBehaviour
         }
         else
         {
-            notificationTextUI.text = $"{scoreEarned} points earned!\nNext stop: {nextPickup.name}";
+            string formattedPickupName = FormatStopName(nextPickup.name);
+
+            notificationTextUI.text = $"{scoreEarned} points earned!\nNext stop: {formattedPickupName}";
             if (arrow3D != null) arrow3D.SetTarget(nextPickup.transform);
 
-            // Show only the newly assigned PickupZone
             HideAllPickupZonesExcept(nextPickup);
         }
 
         notificationAnim.Play("FadeIn");
 
         Invoke(nameof(FadeOutNotification), 5f);
+    }
+    private string FormatStopName(string stopName)
+    {
+        return stopName switch
+        {
+            "StopStore" => "the Store",
+            "StopHospital" => "the Hospital",
+            "StopPowerPlant" => "the Power Plant",
+            "StopPark" => "the Park",
+            "PickupStore" => "the Store",
+            "PickupHospital" => "the Hospital",
+            "PickupPowerPlant" => "the Power Plant",
+            "PickupPark" => "the Park",
+            _ => stopName // Default: return original name
+        };
     }
 
     private GameObject FindRandomZone(string tag)
