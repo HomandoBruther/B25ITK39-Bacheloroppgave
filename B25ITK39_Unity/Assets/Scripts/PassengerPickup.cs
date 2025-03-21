@@ -37,6 +37,18 @@ public class PassengerPickup : MonoBehaviour
             spawnedPassengers.Add(passenger);
         }
     }
+    public void ClearPassengers()
+    {
+        foreach (GameObject passenger in spawnedPassengers)
+        {
+            if (passenger != null)
+            {
+                Destroy(passenger); // Fully removes passengers from the scene
+            }
+        }
+        spawnedPassengers.Clear();
+    }
 
-    
+
+
 }

@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using TMPro;
+using System.Collections.Generic;
+using System.Linq;
 
 public class NotificationTriggerEvent : MonoBehaviour
 {
@@ -18,10 +20,36 @@ public class NotificationTriggerEvent : MonoBehaviour
     private static GameObject nextDropOff;
     private static GameObject nextPickup;
 
+    private static List<GameObject> allPickupZones = new List<GameObject>();
+    private static List<GameObject> availablePickupZones = new List<GameObject>(); // Controls randomized order
+
     private void Awake()
     {
         arrow3D = FindObjectOfType<Arrow3DController>();
         isPickupZone = CompareTag("PickupZone");
+
+        // Only run pickup zone initialization ONCE
+        if (allPickupZones.Count == 0)
+        {
+            InitializePickupZones();
+        }
+
+        if (isPickupZone)
+        {
+            if (nextPickup == null)
+            {
+                nextPickup = FindNextPickupZone();
+            }
+
+            // Hide all pickup zones except the first one
+            HideAllPickupZonesExcept(nextPickup);
+        }
+    }
+
+    private void InitializePickupZones()
+    {
+        allPickupZones = new List<GameObject>(GameObject.FindGameObjectsWithTag("PickupZone"));
+        availablePickupZones = new List<GameObject>(allPickupZones); // Reset pickup cycle
     }
 
     private void OnTriggerEnter(Collider other)
@@ -51,13 +79,17 @@ public class NotificationTriggerEvent : MonoBehaviour
 
         if (arrow3D != null) arrow3D.SetTarget(nextDropOff.transform);
 
-        Invoke(nameof(FadeOutNotification), 5f); // Fades out after 5 seconds
+        // Hide all pickup zones after pickup
+        HideAllPickupZonesExcept(null);
+
+        Invoke(nameof(FadeOutNotification), 5f);
     }
 
     private void HandleDropOff()
     {
-        int scoreEarned = PlayerData.PD.ScorePoints(); // Updates points & money
-        nextPickup = FindRandomZone("PickupZone");
+        int scoreEarned = PlayerData.PD.ScorePoints();
+
+        nextPickup = FindNextPickupZone();
 
         if (nextPickup == null)
         {
@@ -68,18 +100,51 @@ public class NotificationTriggerEvent : MonoBehaviour
         {
             notificationTextUI.text = $"{scoreEarned} points earned!\nNext stop: {nextPickup.name}";
             if (arrow3D != null) arrow3D.SetTarget(nextPickup.transform);
+
+            // Show only the newly assigned PickupZone
+            HideAllPickupZonesExcept(nextPickup);
         }
 
         notificationAnim.Play("FadeIn");
 
-        Invoke(nameof(FadeOutNotification), 5f); // Fades out after 5 seconds
+        Invoke(nameof(FadeOutNotification), 5f);
     }
 
     private GameObject FindRandomZone(string tag)
     {
         GameObject[] zones = GameObject.FindGameObjectsWithTag(tag);
-        Debug.Log($"🔍 Found {zones.Length} {tag} zones");
         return zones.Length > 0 ? zones[Random.Range(0, zones.Length)] : null;
+    }
+
+    private GameObject FindNextPickupZone()
+    {
+        // If all zones have been used, reset the cycle
+        if (availablePickupZones.Count == 0)
+        {
+            availablePickupZones = new List<GameObject>(allPickupZones);
+        }
+
+        // Pick a random zone from the available ones
+        int randomIndex = Random.Range(0, availablePickupZones.Count);
+        GameObject selectedZone = availablePickupZones[randomIndex];
+
+        // Remove the selected zone from the list (so it's not chosen again until reset)
+        availablePickupZones.RemoveAt(randomIndex);
+
+        Debug.Log($"Next Pickup Zone: {selectedZone.name}"); // Debugging line to verify selection
+
+        return selectedZone;
+    }
+
+    private void HideAllPickupZonesExcept(GameObject activeZone)
+    {
+        foreach (GameObject zone in allPickupZones)
+        {
+            if (zone != null)
+            {
+                zone.SetActive(zone == activeZone); // Only keep one active
+            }
+        }
     }
 
     private void FadeOutNotification()
