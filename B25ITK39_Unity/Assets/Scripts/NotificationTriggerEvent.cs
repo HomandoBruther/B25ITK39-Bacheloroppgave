@@ -113,13 +113,14 @@ public class NotificationTriggerEvent : MonoBehaviour
     private void HandleDropOff()
     {
         int scoreEarned = PlayerData.PD.ScorePoints();
+        Debug.Log($"Score Earned: {scoreEarned}, Total Score: {PlayerData.PD.points}");
 
         nextPickup = FindNextPickupZone();
 
         if (nextPickup == null)
         {
             Debug.LogError("❌ No available PickupZone found!");
-            notificationTextUI.text = $"{scoreEarned} points earned!\nNo available pickup zone.";
+            notificationTextUI.text = $"{scoreEarned} points earned!\nNo available pickup zone."; // Fixes null reference issue
         }
         else
         {
@@ -131,9 +132,12 @@ public class NotificationTriggerEvent : MonoBehaviour
             HideAllDropOffZonesExcept(null);
         }
 
+        Debug.Log($"Final Notification Text: {notificationTextUI.text}"); // Debugging line
+
         notificationAnim.Play("FadeIn");
         Invoke(nameof(FadeOutNotification), 5f);
     }
+
 
     private string FormatStopName(string stopName)
     {
