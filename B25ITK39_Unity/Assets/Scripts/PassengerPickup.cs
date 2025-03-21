@@ -38,40 +38,5 @@ public class PassengerPickup : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player") && !pickedUp)
-        {
-            CarController car = other.GetComponent<CarController>();
-            if (car != null)
-            {
-                int leftover = PlayerData.PD.FillPassengers(passengersAtStop);
-                pickedUp = true;
-
-                foreach (GameObject passenger in spawnedPassengers)
-                {
-                    Destroy(passenger);
-                }
-                spawnedPassengers.Clear();
-
-                Debug.Log(passengersAtStop + " passengers picked up!");
-                if (leftover > 0)
-                {
-                    Debug.Log(leftover + " passengers couldn't fit in the vehicle!");
-                }
-
-                gameObject.SetActive(false);
-            }
-        }
-    }
-    public void ResetPickupZone()
-    {
-        pickedUp = false;
-        passengersAtStop = Random.Range(minPassengers, maxPassengers + 1);
-        SpawnPassengers();
-        gameObject.SetActive(true);
-
-        Debug.Log($"Pickup zone {gameObject.name} reset with {passengersAtStop} new passengers.");
-    }
-
+    
 }
