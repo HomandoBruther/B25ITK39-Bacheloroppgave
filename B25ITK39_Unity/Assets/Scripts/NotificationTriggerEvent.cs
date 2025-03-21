@@ -46,10 +46,12 @@ public class NotificationTriggerEvent : MonoBehaviour
 
         nextDropOff = FindRandomZone("DropOffZone");
 
-        notificationTextUI.text = $"{passengersPickedUp} passengers picked up!\n Next stop: {nextDropOff.name}";
+        notificationTextUI.text = $"{passengersPickedUp} passengers picked up!\nNext stop: {nextDropOff.name}";
         notificationAnim.Play("FadeIn");
 
         if (arrow3D != null) arrow3D.SetTarget(nextDropOff.transform);
+
+        Invoke(nameof(FadeOutNotification), 5f); // Fades out after 5 seconds
     }
 
     private void HandleDropOff()
@@ -69,6 +71,8 @@ public class NotificationTriggerEvent : MonoBehaviour
         }
 
         notificationAnim.Play("FadeIn");
+
+        Invoke(nameof(FadeOutNotification), 5f); // Fades out after 5 seconds
     }
 
     private GameObject FindRandomZone(string tag)
@@ -76,5 +80,10 @@ public class NotificationTriggerEvent : MonoBehaviour
         GameObject[] zones = GameObject.FindGameObjectsWithTag(tag);
         Debug.Log($"🔍 Found {zones.Length} {tag} zones");
         return zones.Length > 0 ? zones[Random.Range(0, zones.Length)] : null;
+    }
+
+    private void FadeOutNotification()
+    {
+        notificationAnim.Play("FadeOut");
     }
 }
