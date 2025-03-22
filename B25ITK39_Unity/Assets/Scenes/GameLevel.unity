@@ -3549,16 +3549,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7584019115848818667, guid: 3fe91e664fd852149b51a96ae9066c83, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 3896525617545039283, guid: 3fe91e664fd852149b51a96ae9066c83, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1348704802}
-    - targetCorrespondingSourceObject: {fileID: 3896525617545039283, guid: 3fe91e664fd852149b51a96ae9066c83, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1348704801}
   m_SourcePrefab: {fileID: 100100000, guid: 3fe91e664fd852149b51a96ae9066c83, type: 3}
 --- !u!1 &321086990
 GameObject:
@@ -4146,7 +4144,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7584019115848818667, guid: 3fe91e664fd852149b51a96ae9066c83, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -12223,7 +12222,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7584019115848818667, guid: 3fe91e664fd852149b51a96ae9066c83, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -21290,22 +21290,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7129753776892274761, guid: 3fe91e664fd852149b51a96ae9066c83, type: 3}
   m_PrefabInstance: {fileID: 320961276}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1348704801
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 972553601}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c4a8801c5703ad645af11fd7df8d9eff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  notificationTextUI: {fileID: 0}
-  pickupIcon: {fileID: 0}
-  dropOffIcon: {fileID: 0}
-  notificationAnim: {fileID: 0}
 --- !u!114 &1348704802
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -25,8 +25,11 @@ public class NotificationTriggerEvent : MonoBehaviour
     private static List<GameObject> allDropOffZones = new List<GameObject>();
     
 
+
     private void Awake()
     {
+
+
         arrow3D = FindObjectOfType<Arrow3DController>();
         isPickupZone = CompareTag("PickupZone");
 
@@ -112,15 +115,29 @@ public class NotificationTriggerEvent : MonoBehaviour
 
     private void HandleDropOff()
     {
-        int scoreEarned = PlayerData.PD.ScorePoints();
-        Debug.Log($"Score Earned: {scoreEarned}, Total Score: {PlayerData.PD.points}");
+        if (PlayerData.PD == null)
+        {
+            Debug.LogError("❌ PlayerData.PD is NULL! Check if PlayerData exists in the scene.");
+            return;
+        }
+
+        int passengersDelivered = PlayerData.PD.currentPassengers;  // Read BEFORE ScorePoints() resets them
+        int importantPassengersDelivered = PlayerData.PD.currentImportantPassengers;
+        int scoreEarned = (passengersDelivered * 100) + (importantPassengersDelivered * 1000);
+
+        Debug.Log($"Before Scoring - Passengers: {PlayerData.PD.currentPassengers}, Important: {PlayerData.PD.currentImportantPassengers}");
+
+
+        PlayerData.PD.ScorePoints();  // Now it updates total points correctly
+
+        Debug.Log($"Passengers Delivered: {passengersDelivered}, Important: {importantPassengersDelivered}, Score Earned: {scoreEarned}");
 
         nextPickup = FindNextPickupZone();
 
         if (nextPickup == null)
         {
             Debug.LogError("❌ No available PickupZone found!");
-            notificationTextUI.text = $"{scoreEarned} points earned!\nNo available pickup zone."; // Fixes null reference issue
+            notificationTextUI.text = $"{scoreEarned} points earned!\nNo available pickup zone.";
         }
         else
         {
@@ -137,6 +154,7 @@ public class NotificationTriggerEvent : MonoBehaviour
         notificationAnim.Play("FadeIn");
         Invoke(nameof(FadeOutNotification), 5f);
     }
+
 
 
     private string FormatStopName(string stopName)
@@ -181,16 +199,22 @@ public class NotificationTriggerEvent : MonoBehaviour
         if (availablePickupZones.Count == 0)
         {
             availablePickupZones = new List<GameObject>(allPickupZones);
+            if (availablePickupZones.Count == 0)
+            {
+                Debug.LogError("❌ No PickupZones available in the scene!");
+                return null; // Prevent null reference issues
+            }
         }
 
         int randomIndex = Random.Range(0, availablePickupZones.Count);
         GameObject selectedZone = availablePickupZones[randomIndex];
         availablePickupZones.RemoveAt(randomIndex);
 
-        Debug.Log($"Next Pickup Zone: {selectedZone.name}");
+        Debug.Log($"Next Pickup Zone: {selectedZone?.name ?? "None"}");
 
         return selectedZone;
     }
+
 
     private void HideAllPickupZonesExcept(GameObject activeZone)
     {
