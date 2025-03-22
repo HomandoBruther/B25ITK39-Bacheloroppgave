@@ -19,11 +19,12 @@ public class NotificationTriggerEvent : MonoBehaviour
     private bool isPickupZone;
     private static GameObject nextDropOff;
     private static GameObject nextPickup;
-
     private static List<GameObject> allPickupZones = new List<GameObject>();
     private static List<GameObject> availablePickupZones = new List<GameObject>();
     private static List<GameObject> allDropOffZones = new List<GameObject>();
-    
+    private PassengerPickup passengerPickup;
+
+
 
 
     private void Awake()
@@ -32,6 +33,7 @@ public class NotificationTriggerEvent : MonoBehaviour
 
         arrow3D = FindObjectOfType<Arrow3DController>();
         isPickupZone = CompareTag("PickupZone");
+        passengerPickup = GetComponent<PassengerPickup>();
 
         if (allPickupZones.Count == 0)
         {
@@ -86,8 +88,17 @@ public class NotificationTriggerEvent : MonoBehaviour
 
     private void HandlePickup()
     {
-        int passengersPickedUp = Random.Range(1, 5);
+
+        if (passengerPickup == null)
+        {
+            Debug.LogError("❌ PassengerPickup script missing!");
+            return;
+        }
+
+
+        int passengersPickedUp = passengerPickup.GetPassengerCount();
         PlayerData.PD.FillPassengers(passengersPickedUp);
+        passengerPickup.ClearPassengers();
 
         nextDropOff = FindRandomZone("DropOffZone");
 

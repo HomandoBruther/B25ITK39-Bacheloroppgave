@@ -9,7 +9,6 @@ public class PassengerPickup : MonoBehaviour
 
     private List<GameObject> spawnedPassengers = new List<GameObject>();
     private int passengersAtStop;
-    private bool pickedUp = false;
 
     private void Start()
     {
@@ -20,6 +19,7 @@ public class PassengerPickup : MonoBehaviour
     private void SpawnPassengers()
     {
         Collider triggerCollider = GetComponent<Collider>();
+        if (triggerCollider == null) return;
 
         float minX = triggerCollider.bounds.min.x;
         float maxX = triggerCollider.bounds.max.x;
@@ -29,26 +29,27 @@ public class PassengerPickup : MonoBehaviour
 
         for (int i = 0; i < passengersAtStop; i++)
         {
-            float randomX = Random.Range(minX, maxX);
-            float randomZ = Random.Range(minZ, maxZ);
-            Vector3 spawnPosition = new Vector3(randomX, spawnHeight, randomZ);
-
+            Vector3 spawnPosition = new Vector3(Random.Range(minX, maxX), spawnHeight, Random.Range(minZ, maxZ));
             GameObject passenger = Instantiate(passengerPrefab, spawnPosition, Quaternion.identity);
             spawnedPassengers.Add(passenger);
         }
     }
+
+    public int GetPassengerCount()
+    {
+        return passengersAtStop;
+    }
+
     public void ClearPassengers()
     {
         foreach (GameObject passenger in spawnedPassengers)
         {
             if (passenger != null)
             {
-                Destroy(passenger); // Fully removes passengers from the scene
+                Destroy(passenger);
             }
         }
         spawnedPassengers.Clear();
     }
-
-
-
 }
+
