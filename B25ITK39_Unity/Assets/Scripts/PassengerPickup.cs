@@ -12,12 +12,14 @@ public class PassengerPickup : MonoBehaviour
 
     private void Start()
     {
+        // Randomly determine the number of passengers at this stop
         passengersAtStop = Random.Range(minPassengers, maxPassengers + 1);
         SpawnPassengers();
     }
 
     private void SpawnPassengers()
     {
+        // Spawns passengers within the bounds of the stop's trigger area
         Collider triggerCollider = GetComponent<Collider>();
         if (triggerCollider == null) return;
 
@@ -37,11 +39,13 @@ public class PassengerPickup : MonoBehaviour
 
     public int GetPassengerCount()
     {
+        // Returns the number of passengers at the stop
         return passengersAtStop;
     }
 
     public void ClearPassengers()
     {
+        // Removes all spawned passengers from the scene
         foreach (GameObject passenger in spawnedPassengers)
         {
             if (passenger != null)
@@ -52,4 +56,3 @@ public class PassengerPickup : MonoBehaviour
         spawnedPassengers.Clear();
     }
 }
-

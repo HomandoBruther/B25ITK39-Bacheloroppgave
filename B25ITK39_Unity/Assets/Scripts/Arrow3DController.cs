@@ -4,11 +4,11 @@ public class Arrow3DController : MonoBehaviour
 {
     public Transform target;  // The bus stop (drop-off location)
     public Transform player;  // The player (bus)
-    public float heightAboveBus = 5f; // Adjust height of arrow above bus
+    public float heightAboveBus = 5f; // Height adjustment for the arrow
 
     private void Start()
     {
-        // Find the player automatically if not assigned
+        // Automatically find the player if not assigned
         if (player == null)
         {
             GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
@@ -20,14 +20,14 @@ public class Arrow3DController : MonoBehaviour
     {
         if (player == null) return;
 
-        // 🔥 Ensure the arrow stays above the bus at all times
+        // Keep the arrow positioned above the player
         transform.position = player.position + Vector3.up * heightAboveBus;
 
         if (target != null)
         {
-            // 🔄 Point towards the target (bus stop)
+            // Rotate the arrow to always face the target
             Vector3 direction = target.position - transform.position;
-            direction.y = 0; // Keep it level
+            direction.y = 0; // Keep rotation level
 
             if (direction.sqrMagnitude > 0.01f)
             {
@@ -38,13 +38,8 @@ public class Arrow3DController : MonoBehaviour
 
     public void SetTarget(Transform newTarget)
     {
-        if (newTarget == null)
-        {
-            Debug.LogError("❌ Attempted to set arrow target to NULL!");
-            return;
-        }
-
+        // Assign a new target for the arrow to point to
+        if (newTarget == null) return;
         target = newTarget;
-        Debug.Log($"🔄 Arrow target updated: {target.name} at position {target.position}");
     }
 }
