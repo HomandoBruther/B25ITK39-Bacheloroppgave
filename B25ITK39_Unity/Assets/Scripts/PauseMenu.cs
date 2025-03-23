@@ -111,6 +111,10 @@ public class PauseMenu : MonoBehaviour
 
     }
 
+    public void RestartGame(){
+        SceneManager.LoadScene("StageOne");
+    }
+
     public void LoadMenu(){
 
         SceneManager.LoadScene("MainMenu");
