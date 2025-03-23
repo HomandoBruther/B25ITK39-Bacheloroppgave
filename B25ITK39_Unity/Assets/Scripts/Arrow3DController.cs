@@ -45,6 +45,6 @@ public class Arrow3DController : MonoBehaviour
         }
 
         target = newTarget;
-        Debug.Log($"🔄 Arrow target updated: {target.name}");
+        Debug.Log($"🔄 Arrow target updated: {target.name} at position {target.position}");
     }
 }
