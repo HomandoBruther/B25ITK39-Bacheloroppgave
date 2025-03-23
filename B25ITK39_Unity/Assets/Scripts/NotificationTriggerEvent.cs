@@ -23,6 +23,7 @@ public class NotificationTriggerEvent : MonoBehaviour
     private static List<GameObject> availablePickupZones = new List<GameObject>();
     private static List<GameObject> allDropOffZones = new List<GameObject>();
     private PassengerPickup passengerPickup;
+    private CountdownTimer countdownTimer;
 
 
 
@@ -32,6 +33,7 @@ public class NotificationTriggerEvent : MonoBehaviour
         arrow3D = FindObjectOfType<Arrow3DController>(); // Find arrow script
         isPickupZone = CompareTag("PickupZone");
         passengerPickup = GetComponent<PassengerPickup>();
+        countdownTimer = FindObjectOfType<CountdownTimer>(); // Find the timer script in the scene
 
         if (allPickupZones.Count == 0)
         {
@@ -102,13 +104,19 @@ public class NotificationTriggerEvent : MonoBehaviour
         PlayerData.PD.FillPassengers(passengersPickedUp);
         passengerPickup.ClearPassengers();
 
-        // ✅ Select a drop-off zone that is NOT the same as the pickup zone
-        nextDropOff = FindRandomDropOffZone(nextPickup); // 💡 This is the only assignment needed!
+        nextDropOff = FindRandomDropOffZone(nextPickup);
 
         if (nextDropOff == null)
         {
             Debug.LogError("❌ No Drop-Off Zone assigned! Check if they exist in the scene.");
             return;
+        }
+
+        // 🔥 Start the timer based on the distance between pickup and drop-off
+        float distanceToNextStop = Vector3.Distance(transform.position, nextDropOff.transform.position);
+        if (countdownTimer != null)
+        {
+            countdownTimer.StartCountdown(distanceToNextStop);
         }
 
         string formattedDropOffName = FormatStopName(nextDropOff.name);
@@ -117,17 +125,16 @@ public class NotificationTriggerEvent : MonoBehaviour
 
         if (arrow3D != null && nextDropOff != null)
         {
-            Debug.Log($"📌 Setting arrow to DROP-OFF: {nextDropOff.name} at {nextDropOff.transform.position}");
             Invoke(nameof(UpdateArrowToDropOff), 0.1f);
         }
 
-
-
         HideAllPickupZonesExcept(null);
         HideAllDropOffZonesExcept(nextDropOff);
-
         Invoke(nameof(FadeOutNotification), 5f);
     }
+
+
+
 
     private void UpdateArrowToDropOff()
     {
@@ -150,13 +157,7 @@ public class NotificationTriggerEvent : MonoBehaviour
         int importantPassengersDelivered = PlayerData.PD.currentImportantPassengers;
         int scoreEarned = (passengersDelivered * 100) + (importantPassengersDelivered * 1000);
 
-        Debug.Log($"Before Scoring - Passengers: {PlayerData.PD.currentPassengers}, Important: {PlayerData.PD.currentImportantPassengers}");
-
         PlayerData.PD.ScorePoints();
-
-        Debug.Log($"Passengers Delivered: {passengersDelivered}, Important: {importantPassengersDelivered}, Score Earned: {scoreEarned}");
-
-        // ✅ Next pickup zone remains unchanged, ensuring it does not repeat
         nextPickup = FindNextPickupZone();
 
         if (nextPickup == null)
@@ -171,20 +172,26 @@ public class NotificationTriggerEvent : MonoBehaviour
 
             if (arrow3D != null && nextPickup != null)
             {
-                Debug.Log($"📌 Setting arrow to PICKUP: {nextPickup.name} at {nextPickup.transform.position}");
                 Invoke(nameof(UpdateArrowToPickup), 0.1f);
             }
-
 
             HideAllPickupZonesExcept(nextPickup);
             HideAllDropOffZonesExcept(null);
         }
 
-        Debug.Log($"Final Notification Text: {notificationTextUI.text}");
+        // 🔥 Start the timer based on the distance between drop-off and next pickup
+        float distanceToNextStop = Vector3.Distance(transform.position, nextPickup.transform.position);
+        if (countdownTimer != null)
+        {
+            countdownTimer.StartCountdown(distanceToNextStop);
+        }
 
         notificationAnim.Play("FadeIn");
         Invoke(nameof(FadeOutNotification), 5f);
     }
+
+
+
 
 
     private void UpdateArrowToPickup()
