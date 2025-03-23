@@ -2046,8 +2046,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f35e76fe2e9a586429cbad54b2eaa9b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timerText: {fileID: 958420893}
   timeMultiplier: 0.05
+  timerText: {fileID: 958420893}
 --- !u!4 &231078941
 Transform:
   m_ObjectHideFlags: 0
@@ -2707,7 +2707,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: -74.61938}
+  m_margin: {x: -69.958374, y: 18.881475, z: 55.126526, w: -61.830154}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -5892,7 +5892,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 114.1}
+  m_AnchoredPosition: {x: 29.7, y: 114.1}
   m_SizeDelta: {x: -636.8726, y: -451.3907}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &618902042
