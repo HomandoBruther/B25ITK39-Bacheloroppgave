@@ -29,9 +29,7 @@ public class NotificationTriggerEvent : MonoBehaviour
 
     private void Awake()
     {
-
-
-        arrow3D = FindObjectOfType<Arrow3DController>();
+        arrow3D = FindObjectOfType<Arrow3DController>(); // Find arrow script
         isPickupZone = CompareTag("PickupZone");
         passengerPickup = GetComponent<PassengerPickup>();
 
@@ -52,6 +50,12 @@ public class NotificationTriggerEvent : MonoBehaviour
                 nextPickup = FindNextPickupZone();
             }
             HideAllPickupZonesExcept(nextPickup);
+        }
+
+        // ✅ Ensure arrow points to first pickup zone at game start
+        if (arrow3D != null && nextPickup != null)
+        {
+            arrow3D.SetTarget(nextPickup.transform);
         }
     }
 
