@@ -3,47 +3,35 @@ using TMPro;
 
 public class CountdownTimer : MonoBehaviour
 {
-    [Header("Timer Settings")]
-    public float timeMultiplier = 1.0f; // Multiplier to adjust difficulty in Inspector
-    private float countdownTime;
-    private bool isCountingDown = false;
+    [SerializeField] private TextMeshProUGUI timerText; // Reference to the timer UI
+    [SerializeField] private float timeMultiplier = 1.0f; // ✅ Multiplier stays
 
-    [Header("UI")]
-    [SerializeField] private TextMeshProUGUI timerText; // Assign in Inspector
+    private float timeRemaining;
+    private bool isCounting = false;
+
+    private void Start()
+    {
+        timerText.gameObject.SetActive(false); // ✅ Hide timer UI at the start
+    }
+
+    public void StartCountdown(float baseDuration)
+    {
+        timeRemaining = baseDuration * timeMultiplier; // ✅ Apply multiplier
+        isCounting = true;
+        timerText.gameObject.SetActive(true); // ✅ Show timer UI when countdown starts
+    }
 
     private void Update()
     {
-        if (isCountingDown)
+        if (isCounting && timeRemaining > 0)
         {
-            countdownTime -= Time.deltaTime;
-            UpdateTimerUI();
-
-            if (countdownTime <= 0)
-            {
-                countdownTime = 0;
-                isCountingDown = false;
-                TimerExpired();
-            }
+            timeRemaining -= Time.deltaTime;
+            timerText.text = Mathf.CeilToInt(timeRemaining).ToString();
         }
-    }
-
-    public void StartCountdown(float distance)
-    {
-        countdownTime = distance * timeMultiplier; // Adjust time based on difficulty
-        isCountingDown = true;
-    }
-
-    private void UpdateTimerUI()
-    {
-        if (timerText != null)
+        else if (timeRemaining <= 0)
         {
-            timerText.text = Mathf.Ceil(countdownTime).ToString();
+            isCounting = false;
+            timerText.gameObject.SetActive(false); // ✅ Hide timer UI when time runs out
         }
-    }
-
-    private void TimerExpired()
-    {
-        Debug.Log("⏳ Timer expired! Handle failure logic here.");
-        // TODO: Add penalty or failure consequence when time runs out
     }
 }
