@@ -92,41 +92,51 @@ public class NotificationTriggerEvent : MonoBehaviour
 
     private void HandlePickup()
     {
-
         if (passengerPickup == null)
         {
             Debug.LogError("❌ PassengerPickup script missing!");
             return;
         }
 
-
         int passengersPickedUp = passengerPickup.GetPassengerCount();
         PlayerData.PD.FillPassengers(passengersPickedUp);
         passengerPickup.ClearPassengers();
 
-        nextDropOff = FindRandomZone("DropOffZone");
+        // ✅ Select a drop-off zone that is NOT the same as the pickup zone
+        nextDropOff = FindRandomDropOffZone(nextPickup); // 💡 This is the only assignment needed!
+
+        if (nextDropOff == null)
+        {
+            Debug.LogError("❌ No Drop-Off Zone assigned! Check if they exist in the scene.");
+            return;
+        }
 
         string formattedDropOffName = FormatStopName(nextDropOff.name);
-
         notificationTextUI.text = $"{passengersPickedUp} passengers picked up!\nNext stop: {formattedDropOffName}";
         notificationAnim.Play("FadeIn");
 
-        if (arrow3D != null) arrow3D.SetTarget(nextDropOff.transform);
+        if (arrow3D != null && nextDropOff != null)
+        {
+            Debug.Log($"📌 Setting arrow to DROP-OFF: {nextDropOff.name} at {nextDropOff.transform.position}");
+            Invoke(nameof(UpdateArrowToDropOff), 0.1f);
+        }
+
+
 
         HideAllPickupZonesExcept(null);
         HideAllDropOffZonesExcept(nextDropOff);
 
         Invoke(nameof(FadeOutNotification), 5f);
-
-        nextDropOff = FindRandomZone("DropOffZone");
-
-        if (nextDropOff == null)
-        {
-            Debug.LogError("❌ No Drop-Off Zone assigned! Check if they exist in the scene.");
-            return; // Prevent further errors
-        }
-
     }
+
+    private void UpdateArrowToDropOff()
+    {
+        if (arrow3D != null && nextDropOff != null)
+        {
+            arrow3D.SetTarget(nextDropOff.transform);
+        }
+    }
+
 
     private void HandleDropOff()
     {
@@ -136,17 +146,17 @@ public class NotificationTriggerEvent : MonoBehaviour
             return;
         }
 
-        int passengersDelivered = PlayerData.PD.currentPassengers;  // Read BEFORE ScorePoints() resets them
+        int passengersDelivered = PlayerData.PD.currentPassengers;
         int importantPassengersDelivered = PlayerData.PD.currentImportantPassengers;
         int scoreEarned = (passengersDelivered * 100) + (importantPassengersDelivered * 1000);
 
         Debug.Log($"Before Scoring - Passengers: {PlayerData.PD.currentPassengers}, Important: {PlayerData.PD.currentImportantPassengers}");
 
-
-        PlayerData.PD.ScorePoints();  // Now it updates total points correctly
+        PlayerData.PD.ScorePoints();
 
         Debug.Log($"Passengers Delivered: {passengersDelivered}, Important: {importantPassengersDelivered}, Score Earned: {scoreEarned}");
 
+        // ✅ Next pickup zone remains unchanged, ensuring it does not repeat
         nextPickup = FindNextPickupZone();
 
         if (nextPickup == null)
@@ -158,19 +168,32 @@ public class NotificationTriggerEvent : MonoBehaviour
         {
             string formattedPickupName = FormatStopName(nextPickup.name);
             notificationTextUI.text = $"{scoreEarned} points earned!\nNext stop: {formattedPickupName}";
-            if (arrow3D != null) arrow3D.SetTarget(nextPickup.transform);
+
+            if (arrow3D != null && nextPickup != null)
+            {
+                Debug.Log($"📌 Setting arrow to PICKUP: {nextPickup.name} at {nextPickup.transform.position}");
+                Invoke(nameof(UpdateArrowToPickup), 0.1f);
+            }
+
 
             HideAllPickupZonesExcept(nextPickup);
             HideAllDropOffZonesExcept(null);
         }
 
-        Debug.Log($"Final Notification Text: {notificationTextUI.text}"); // Debugging line
+        Debug.Log($"Final Notification Text: {notificationTextUI.text}");
 
         notificationAnim.Play("FadeIn");
         Invoke(nameof(FadeOutNotification), 5f);
     }
 
 
+    private void UpdateArrowToPickup()
+    {
+        if (arrow3D != null && nextPickup != null)
+        {
+            arrow3D.SetTarget(nextPickup.transform);
+        }
+    }
 
     private string FormatStopName(string stopName)
     {
@@ -188,23 +211,24 @@ public class NotificationTriggerEvent : MonoBehaviour
         };
     }
 
-    private GameObject FindRandomZone(string tag)
-{
-    GameObject[] allObjects = FindObjectsOfType<GameObject>(true); // Include inactive objects
-    List<GameObject> dropOffZones = new List<GameObject>();
-
-    foreach (GameObject obj in allObjects)
+    private GameObject FindRandomDropOffZone(GameObject lastPickup)
     {
-        if (obj.CompareTag(tag)) // Manually check tag
+        List<GameObject> validDropOffs = allDropOffZones
+            .Where(zone => lastPickup == null || !IsSameLocation(lastPickup, zone))
+            .ToList();
+
+        if (validDropOffs.Count == 0)
         {
-            dropOffZones.Add(obj);
+            Debug.LogError("❌ No valid Drop-Off Zones available!");
+            return null;
         }
+
+        GameObject selectedDropOff = validDropOffs[Random.Range(0, validDropOffs.Count)];
+        Debug.Log($"🚏 Selected Drop-Off: {selectedDropOff.name}, Excluded: {lastPickup?.name ?? "None"}");
+        return selectedDropOff;
     }
 
-    Debug.Log($"🔍 Manually found {dropOffZones.Count} objects with tag '{tag}' (including inactive)");
 
-    return dropOffZones.Count > 0 ? dropOffZones[Random.Range(0, dropOffZones.Count)] : null;
-}
 
 
 
@@ -214,21 +238,36 @@ public class NotificationTriggerEvent : MonoBehaviour
         if (availablePickupZones.Count == 0)
         {
             availablePickupZones = new List<GameObject>(allPickupZones);
-            if (availablePickupZones.Count == 0)
-            {
-                Debug.LogError("❌ No PickupZones available in the scene!");
-                return null; // Prevent null reference issues
-            }
         }
 
-        int randomIndex = Random.Range(0, availablePickupZones.Count);
-        GameObject selectedZone = availablePickupZones[randomIndex];
-        availablePickupZones.RemoveAt(randomIndex);
+        List<GameObject> validPickups = availablePickupZones
+            .Where(zone => nextDropOff == null || !IsSameLocation(nextDropOff, zone))
+            .ToList();
+
+        if (validPickups.Count == 0)
+        {
+            Debug.LogWarning("⚠️ No valid pickup zones available, using all pickup zones again.");
+            validPickups = new List<GameObject>(allPickupZones);
+        }
+
+        int randomIndex = Random.Range(0, validPickups.Count);
+        GameObject selectedZone = validPickups[randomIndex];
+        availablePickupZones.Remove(selectedZone);
 
         Debug.Log($"Next Pickup Zone: {selectedZone?.name ?? "None"}");
-
         return selectedZone;
     }
+
+    private bool IsSameLocation(GameObject zone1, GameObject zone2)
+    {
+        if (zone1 == null || zone2 == null) return false;
+
+        string name1 = zone1.name.Replace("Pickup", "").Replace("Stop", "");
+        string name2 = zone2.name.Replace("Pickup", "").Replace("Stop", "");
+
+        return name1 == name2;
+    }
+
 
 
     private void HideAllPickupZonesExcept(GameObject activeZone)
