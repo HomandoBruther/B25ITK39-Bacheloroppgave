@@ -53,9 +53,9 @@ MonoBehaviour:
   - {fileID: 4603626146754239005, guid: 6d042ac24231b404fb68c51af316aeaa, type: 3}
   - {fileID: 5884803537774329517, guid: 81411efbb63d06345a309a2d2932efdf, type: 3}
   - {fileID: 2038505865461803758, guid: 66f815acbd142d540b646c84a04184dd, type: 3}
-  radius: 90
-  maxUpwardForce: 2000
-  maxOutwardForce: 2000
+  radius: 46
+  maxUpwardForce: 1500
+  maxOutwardForce: 1500
   maxLavaRockSpawnTime: 0.001
   maxSpawnTime: 20
   maxEndSpawnTime: 5
@@ -282,8 +282,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 687.5193, y: -13.826063, z: -670.0976}
-  m_LocalScale: {x: 100, y: 100, z: 100}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 50, y: 50, z: 50}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 6652110673724562589}
   - {fileID: 5477969852121988741}
