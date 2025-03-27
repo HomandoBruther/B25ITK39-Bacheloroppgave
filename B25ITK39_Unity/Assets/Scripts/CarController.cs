@@ -64,7 +64,7 @@ public class CarController : MonoBehaviour
     {
         horizontalInput = Input.GetAxis("Horizontal");
         verticalInput = Input.GetAxis("Vertical");
-        isBreaking = Input.GetKey(KeyCode.E);
+        isBreaking = Input.GetKey(KeyCode.Mouse0);
     }
 
     private void HandleMotor()
@@ -74,7 +74,7 @@ public class CarController : MonoBehaviour
         frontLeftWheelCollider.motorTorque = verticalInput * motorForce;
         frontRightWheelCollider.motorTorque = verticalInput * motorForce;
         currentBreakForce = isBreaking ? breakForce : 0f;
-        currentDampeningForce = isBreaking ? dampeningForce : 0f;
+        currentDampeningForce = isBreaking ? dampeningForce : 1.0f;
 
         ApplyBreaking();
     }
