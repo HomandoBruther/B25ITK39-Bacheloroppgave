@@ -1,0 +1,158 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8881282489837021596
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 884232297896464430}
+  m_Layer: 0
+  m_Name: Lifeguard House
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &884232297896464430
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8881282489837021596}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 416.6, y: 68.79, z: 2405.3}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 5062707687868075996}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &4740285641034131511
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 884232297896464430}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 3d0b52e8fcd02f24e899e06cd205b022, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -11.41
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 3d0b52e8fcd02f24e899e06cd205b022, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -5.23
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 3d0b52e8fcd02f24e899e06cd205b022, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 6.98
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 3d0b52e8fcd02f24e899e06cd205b022, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 3d0b52e8fcd02f24e899e06cd205b022, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 3d0b52e8fcd02f24e899e06cd205b022, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 3d0b52e8fcd02f24e899e06cd205b022, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 3d0b52e8fcd02f24e899e06cd205b022, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 3d0b52e8fcd02f24e899e06cd205b022, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 3d0b52e8fcd02f24e899e06cd205b022, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 3d0b52e8fcd02f24e899e06cd205b022, type: 3}
+      propertyPath: m_Name
+      value: Lifeguard House
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects:
+    - {fileID: 8821623529969584324, guid: 3d0b52e8fcd02f24e899e06cd205b022, type: 3}
+    - {fileID: -4714817154256824709, guid: 3d0b52e8fcd02f24e899e06cd205b022, type: 3}
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: -1651869911259750627, guid: 3d0b52e8fcd02f24e899e06cd205b022, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 763192507349542321}
+    - targetCorrespondingSourceObject: {fileID: 86310090718498534, guid: 3d0b52e8fcd02f24e899e06cd205b022, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7777413737040953592}
+  m_SourcePrefab: {fileID: 100100000, guid: 3d0b52e8fcd02f24e899e06cd205b022, type: 3}
+--- !u!1 &2944089433177962282 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -1651869911259750627, guid: 3d0b52e8fcd02f24e899e06cd205b022, type: 3}
+  m_PrefabInstance: {fileID: 4740285641034131511}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &763192507349542321
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2944089433177962282}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 7718597577763421201, guid: 3d0b52e8fcd02f24e899e06cd205b022, type: 3}
+--- !u!1 &4682127592876648145 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 86310090718498534, guid: 3d0b52e8fcd02f24e899e06cd205b022, type: 3}
+  m_PrefabInstance: {fileID: 4740285641034131511}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &7777413737040953592
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4682127592876648145}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 1896196665429894937, guid: 3d0b52e8fcd02f24e899e06cd205b022, type: 3}
+--- !u!4 &5062707687868075996 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 3d0b52e8fcd02f24e899e06cd205b022, type: 3}
+  m_PrefabInstance: {fileID: 4740285641034131511}
+  m_PrefabAsset: {fileID: 0}
