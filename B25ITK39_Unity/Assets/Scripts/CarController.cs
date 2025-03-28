@@ -73,6 +73,7 @@ public class CarController : MonoBehaviour
         rearRightWheelCollider.motorTorque = verticalInput * motorForce;
         frontLeftWheelCollider.motorTorque = verticalInput * motorForce;
         frontRightWheelCollider.motorTorque = verticalInput * motorForce;
+
         currentBreakForce = isBreaking ? breakForce : 0f;
         currentDampeningForce = isBreaking ? dampeningForce : 1.0f;
 
