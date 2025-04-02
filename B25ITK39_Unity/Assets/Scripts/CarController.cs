@@ -117,16 +117,18 @@ public class CarController : MonoBehaviour
         canDash = false;
 
         // Get input direction
-        Vector3 inputDirection = transform.forward * verticalInput + transform.right * horizontalInput;
+        Vector3 dashForward = transform.forward;
 
         // If no input, default to forward
+        /*
         if (inputDirection == Vector3.zero)
             inputDirection = transform.forward;
 
         inputDirection.Normalize();
+        */
 
         // Apply dash force in the calculated direction
-        rb.AddForce(inputDirection * dashForce, ForceMode.Impulse);
+        rb.AddForce(dashForward * dashForce, ForceMode.Impulse);
         yield return new WaitForSeconds(dashDuration);
         yield return new WaitForSeconds(dashCooldown);
         canDash = true;
