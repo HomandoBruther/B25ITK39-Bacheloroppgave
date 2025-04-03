@@ -146,10 +146,15 @@ public class NotificationTriggerEvent : MonoBehaviour
             "StopHospital" => "the Hospital",
             "StopPowerPlant" => "the Power Plant",
             "StopPark" => "the Park",
+            "StopDowntown" => "Downtown",
+            "StopBank" => "the Bank",
+            "StopStadium" => "the Stadium",
             "PickupStore" => "the Store",
             "PickupHospital" => "the Hospital",
             "PickupPowerPlant" => "the Power Plant",
             "PickupPark" => "the Park",
+            "PickupDowntown" => "Downtown",
+            "PickupStadium" => "Stadium",
             _ => stopName
         };
     }
