@@ -1,14 +1,16 @@
-using System;
+﻿using System;
 using System.Collections;
 using UnityEngine;
 
 public class CarController : MonoBehaviour
 {
+    public float maxSpeed;
     private float horizontalInput, verticalInput;
     private float currentSteerAngle, currentBreakForce;
     private float currentDampeningForce;
     private bool isBreaking;
     public int passengerCount = 0;
+    public float m_Thrust = 20000f;
 
     SceneHandler sceneHandler;
     GameObject theGameController;
@@ -21,6 +23,7 @@ public class CarController : MonoBehaviour
     [SerializeField] private float dashDuration = 0.2f;
     [SerializeField] private float dashCooldown = 2f;
     private bool canDash = true;
+    private bool isDrifting = false;
 
 
     // Wheel Colliders
@@ -33,11 +36,14 @@ public class CarController : MonoBehaviour
 
     private Rigidbody rb;
 
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
         theGameController = GameObject.FindGameObjectWithTag("GameController");
         sceneHandler = theGameController.GetComponent<SceneHandler>();
+
+
     }
 
     private void FixedUpdate()
@@ -46,20 +52,95 @@ public class CarController : MonoBehaviour
         HandleMotor();
         HandleSteering();
         UpdateWheels();
-        //Debug.Log("Current WheelCollider.motorTorque " + frontLeftWheelCollider.motorTorque);
-        //Debug.Log("Current wheelDampingRate " + frontLeftWheelCollider.wheelDampingRate);
+        CheckSpeed();
+        Drifting();
+
+    }
+
+    private void CheckSpeed()
+    {
+        if (rb.linearVelocity.magnitude > maxSpeed)
+        {
+            Debug.Log("Exceeding speed, slowing down!");
+            // Limit the car's velocity, but keep the current direction
+            rearLeftWheelCollider.motorTorque = 0f;
+            rearRightWheelCollider.motorTorque = 0f;
+            frontLeftWheelCollider.motorTorque = 0f;
+            frontRightWheelCollider.motorTorque = 0f;
+        }
+
+    }
+
+    private void Accelerate()
+    {
+        if (rb.linearVelocity.magnitude < 20f)
+        {
+            Debug.Log("Faster acceleration");
+            rb.AddForce(transform.forward * m_Thrust, ForceMode.Impulse);
+        }
 
     }
 
     private void Update()
     {
+        //Accelerate();
+
         if (Input.GetKeyDown(KeyCode.LeftShift) && canDash)
         {
             StartCoroutine(Dash());
         }
         sceneHandler.speed = Mathf.FloorToInt(rb.linearVelocity.magnitude);
+
+
     }
 
+    private void Drifting()
+    {
+        if (Input.GetKey(KeyCode.Mouse1))
+        {
+            Debug.Log("Drifting = True");
+
+            WheelFrictionCurve SidewaysFrictionDrifting = rearLeftWheelCollider.sidewaysFriction;
+            WheelFrictionCurve ForwardFrictionDrifting = rearLeftWheelCollider.sidewaysFriction;
+
+            ForwardFrictionDrifting.stiffness = 2.00f;
+            SidewaysFrictionDrifting.stiffness = 4.00f;
+
+            rearLeftWheelCollider.sidewaysFriction = SidewaysFrictionDrifting;
+            rearRightWheelCollider.sidewaysFriction = SidewaysFrictionDrifting;
+            frontLeftWheelCollider.sidewaysFriction = SidewaysFrictionDrifting;
+            frontRightWheelCollider.sidewaysFriction = SidewaysFrictionDrifting;
+
+            rearLeftWheelCollider.forwardFriction = ForwardFrictionDrifting;
+            rearRightWheelCollider.forwardFriction = ForwardFrictionDrifting;
+            frontLeftWheelCollider.forwardFriction = ForwardFrictionDrifting;
+            frontRightWheelCollider.forwardFriction = ForwardFrictionDrifting;
+        }
+        else
+        {
+            Debug.Log("Drifting = False");
+
+            WheelFrictionCurve ForwardFrictionDrifting = rearLeftWheelCollider.sidewaysFriction;
+            WheelFrictionCurve SidewaysFrictionDrifting = rearLeftWheelCollider.sidewaysFriction;
+
+            ForwardFrictionDrifting.stiffness = 4.00f;
+            SidewaysFrictionDrifting.stiffness = 8.00f;
+
+            rearLeftWheelCollider.sidewaysFriction = SidewaysFrictionDrifting;
+            rearRightWheelCollider.sidewaysFriction = SidewaysFrictionDrifting;
+            frontLeftWheelCollider.sidewaysFriction = SidewaysFrictionDrifting;
+            frontRightWheelCollider.sidewaysFriction = SidewaysFrictionDrifting;
+
+            rearLeftWheelCollider.forwardFriction = ForwardFrictionDrifting;
+            rearRightWheelCollider.forwardFriction = ForwardFrictionDrifting;
+            frontLeftWheelCollider.forwardFriction = ForwardFrictionDrifting;
+            frontRightWheelCollider.forwardFriction = ForwardFrictionDrifting;
+        }
+
+
+
+
+    }
     private void GetInput()
     {
         horizontalInput = Input.GetAxis("Horizontal");
@@ -73,8 +154,9 @@ public class CarController : MonoBehaviour
         rearRightWheelCollider.motorTorque = verticalInput * motorForce;
         frontLeftWheelCollider.motorTorque = verticalInput * motorForce;
         frontRightWheelCollider.motorTorque = verticalInput * motorForce;
+
         currentBreakForce = isBreaking ? breakForce : 0f;
-        currentDampeningForce = isBreaking ? dampeningForce : 1.0f;
+        currentDampeningForce = isBreaking ? dampeningForce : 5.0f;
 
         ApplyBreaking();
     }
@@ -88,6 +170,7 @@ public class CarController : MonoBehaviour
 
         frontRightWheelCollider.wheelDampingRate = currentDampeningForce;
         frontLeftWheelCollider.wheelDampingRate = currentDampeningForce;
+
     }
 
     private void HandleSteering()
@@ -133,7 +216,8 @@ public class CarController : MonoBehaviour
         yield return new WaitForSeconds(dashCooldown);
         canDash = true;
     }
-    //- Har gjort at PlayerData.PD h�ndterer passasjerer
+
+    //- Har gjort at PlayerData.PD håndterer passasjerer
     public void PickupPassengers(int amount)
     {
         if (PlayerData.PD != null)
