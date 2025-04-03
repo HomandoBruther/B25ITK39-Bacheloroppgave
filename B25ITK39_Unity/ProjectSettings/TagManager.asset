@@ -6,6 +6,7 @@ TagManager:
   tags:
   - DropOffZone
   - PickupZone
+  - Danger
   layers:
   - Default
   - TransparentFX

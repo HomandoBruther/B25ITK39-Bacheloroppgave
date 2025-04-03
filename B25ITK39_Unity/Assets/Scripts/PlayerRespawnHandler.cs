@@ -28,6 +28,7 @@ public class PlayerRespawnHandler : MonoBehaviour
     // Uppdates the checkpoint location (Gets the location from the other triggers on the map)
     public void UpdateCheckPoint(Transform pos)
     {
+        Debug.Log("New respawn point set");
         checkPointPos = pos;
     }
 
@@ -72,6 +73,10 @@ public class PlayerRespawnHandler : MonoBehaviour
 
         player.transform.position = checkPointPos.position;
         player.transform.localRotation = checkPointPos.localRotation;
+
+        rb.angularVelocity = new Vector3(0, 0, 0);
+        rb.linearVelocity = new Vector3(0, 0, 0);
+
         canDie = true;
     }
 }
