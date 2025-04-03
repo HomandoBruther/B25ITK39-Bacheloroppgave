@@ -18,6 +18,7 @@ public class CheckIfPlayerIsHere : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
+            Debug.Log("Player has touched the zone");
             respawnHandler.UpdateCheckPoint(checkPoint);
         }
     }
