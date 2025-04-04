@@ -63,7 +63,7 @@ public class LavarockSpawner : MonoBehaviour
 
         audioSource = audioSourceList[randomNumber];
 
-        audioSource.PlayOneShot(audioSource.clip, 0.3f);
+        //audioSource.PlayOneShot(audioSource.clip, 0.3f); Disabled sound for now
         while (spawnRocks)
         {
             float waitTime = Random.Range(0f, maxLavaRockSpawnTime);

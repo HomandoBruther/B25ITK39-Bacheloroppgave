@@ -127,7 +127,7 @@ public class enemyAIPatrol : MonoBehaviour
         // Check if the colliding object is the car
         CarController carController = collision.gameObject.GetComponent<CarController>();
         SphereCollider sphereCollider = collision.gameObject.GetComponent<SphereCollider>();
-        if (carController != null | sphereCollider != null)
+        if (carController != null)
         {
             Rigidbody carRigidbody = collision.gameObject.GetComponent<Rigidbody>();
             float carSpeed = carRigidbody != null ? carRigidbody.linearVelocity.magnitude : 0f;
