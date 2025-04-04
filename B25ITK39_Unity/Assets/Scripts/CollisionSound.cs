@@ -19,7 +19,7 @@ public class CollisionSound : MonoBehaviour
 
             audioSource = audioSourceList[randomNumber];
 
-            audioSource.PlayOneShot(audioSource.clip, 0.3f);
+            //audioSource.PlayOneShot(audioSource.clip, 0.3f); Disabled for now
         }
     }
 }
