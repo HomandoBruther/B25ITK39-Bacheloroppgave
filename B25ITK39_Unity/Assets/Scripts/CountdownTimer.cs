@@ -59,7 +59,7 @@ public class CountdownTimer : MonoBehaviour
     {
         if (timerText != null)
         {
-            timerText.text = Mathf.Ceil(countdownTime).ToString();
+            timerText.text = "Time: " + Mathf.Ceil(countdownTime).ToString();
         }
     }
 

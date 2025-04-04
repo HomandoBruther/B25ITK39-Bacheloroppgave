@@ -6,14 +6,14 @@ using System.Linq;
 public class NotificationTriggerEvent : MonoBehaviour
 {
     [Header("UI Elements")]
-    [SerializeField] private TextMeshProUGUI notificationTextUI;
+    [SerializeField] public TextMeshProUGUI notificationTextUI;
 
     [Header("Icons")]
     [SerializeField] private Sprite pickupIcon;
     [SerializeField] private Sprite dropOffIcon;
 
     [Header("Animation")]
-    [SerializeField] private Animator notificationAnim;
+    [SerializeField] public Animator notificationAnim;
 
     private Arrow3DController arrow3D;
     private bool isPickupZone;
@@ -90,6 +90,7 @@ public class NotificationTriggerEvent : MonoBehaviour
         notificationTextUI.text = $"{passengersPickedUp} passengers picked up!\nNext stop: {FormatStopName(nextDropOff.name)}";
         notificationAnim.Play("FadeIn");
 
+
         if (arrow3D != null) Invoke(nameof(UpdateArrowToDropOff), 0.1f);
 
         HideAllPickupZonesExcept(null);
@@ -138,7 +139,7 @@ public class NotificationTriggerEvent : MonoBehaviour
     }
 
     // Formats zone names for UI display
-    private string FormatStopName(string stopName)
+    public string FormatStopName(string stopName)
     {
         return stopName switch
         {
@@ -147,14 +148,15 @@ public class NotificationTriggerEvent : MonoBehaviour
             "StopPowerPlant" => "the Power Plant",
             "StopPark" => "the Park",
             "StopDowntown" => "Downtown",
-            "StopBank" => "the Bank",
-            "StopStadium" => "the Stadium",
+            //"StopBank" => "the Bank",
+            //"StopStadium" => "the Stadium",
             "PickupStore" => "the Store",
             "PickupHospital" => "the Hospital",
             "PickupPowerPlant" => "the Power Plant",
             "PickupPark" => "the Park",
             "PickupDowntown" => "Downtown",
-            "PickupStadium" => "Stadium",
+            //"PickupBank" => "The Bank",
+            //"PickupStadium" => "Stadium",
             _ => stopName
         };
     }
