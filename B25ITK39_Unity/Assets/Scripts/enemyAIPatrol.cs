@@ -155,7 +155,7 @@ public class enemyAIPatrol : MonoBehaviour
 
                 // Enable ragdoll physics
                 ActivateRagdoll(carRigidbody, carSpeed, collision);
-                //PlayDeathSound(); Disabled for now
+                PlayDeathSound();
 
             }
         }
