@@ -34,7 +34,7 @@ public class PlayerData : MonoBehaviour
     https://discussions.unity.com/t/accessing-variables-on-a-script-on-a-dontdestroyonload-gameobject/149506
         if (PD == null)
         {
-            DontDestroyOnLoad(gameObject);
+            //DontDestroyOnLoad(gameObject);
             PD = this;
         }
         else
