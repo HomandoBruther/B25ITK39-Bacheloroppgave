@@ -27,6 +27,8 @@ public class PlayerData : MonoBehaviour
         maxHealth = 1000;
         maxPassengers = 30;
         currentHealth = maxHealth;
+        points = 0;
+        money = 0;
     }
 
     void MakeThisTheOnlyPlayerData()
@@ -34,7 +36,7 @@ public class PlayerData : MonoBehaviour
     https://discussions.unity.com/t/accessing-variables-on-a-script-on-a-dontdestroyonload-gameobject/149506
         if (PD == null)
         {
-            DontDestroyOnLoad(gameObject);
+            //DontDestroyOnLoad(gameObject);
             PD = this;
         }
         else

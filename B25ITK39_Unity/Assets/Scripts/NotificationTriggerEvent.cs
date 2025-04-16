@@ -2,6 +2,7 @@
 using TMPro;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 
 public class NotificationTriggerEvent : MonoBehaviour
 {
@@ -17,48 +18,57 @@ public class NotificationTriggerEvent : MonoBehaviour
 
     private Arrow3DController arrow3D;
     private bool isPickupZone;
-    private static GameObject nextDropOff;
-    private static GameObject nextPickup;
-    private static List<GameObject> allPickupZones = new List<GameObject>();
-    private static List<GameObject> availablePickupZones = new List<GameObject>();
-    private static List<GameObject> allDropOffZones = new List<GameObject>();
+
+    
     private PassengerPickup passengerPickup;
     private CountdownTimer countdownTimer;
+    private PassengerZoneManager zoneManager;
 
     // Initialize references and set up pickup/drop-off zones
     private void Awake()
     {
+        
+        zoneManager = FindObjectOfType<PassengerZoneManager>();
+
+        
+
         arrow3D = FindObjectOfType<Arrow3DController>();
         isPickupZone = CompareTag("PickupZone");
         passengerPickup = GetComponent<PassengerPickup>();
         countdownTimer = FindObjectOfType<CountdownTimer>();
 
-        if (allPickupZones.Count == 0) InitializePickupZones();
-        if (allDropOffZones.Count == 0) InitializeDropOffZones();
+        if (zoneManager.allPickupZones.Count == 0) {
+            Debug.Log("Initializing pickup zones");
+            InitializePickupZones();
+            }
+        if (zoneManager.allDropOffZones.Count == 0) {
+            Debug.Log("Initializing Dropoff zones");
+            InitializeDropOffZones();
+        }
 
         if (isPickupZone)
         {
-            if (nextPickup == null) nextPickup = FindNextPickupZone();
-            HideAllPickupZonesExcept(nextPickup);
+            if (zoneManager.nextPickup == null) zoneManager.nextPickup = FindNextPickupZone();
+            HideAllPickupZonesExcept(zoneManager.nextPickup);
         }
 
-        if (arrow3D != null && nextPickup != null)
+        if (arrow3D != null && zoneManager.nextPickup != null)
         {
-            arrow3D.SetTarget(nextPickup.transform);
+            arrow3D.SetTarget(zoneManager.nextPickup.transform);
         }
     }
 
     // Populate all pickup zones
     private void InitializePickupZones()
     {
-        allPickupZones = new List<GameObject>(GameObject.FindGameObjectsWithTag("PickupZone"));
-        availablePickupZones = new List<GameObject>(allPickupZones);
+        zoneManager.allPickupZones = new List<GameObject>(GameObject.FindGameObjectsWithTag("PickupZone"));
+        zoneManager.availablePickupZones = new List<GameObject>(zoneManager.allPickupZones);
     }
 
     // Populate all drop-off zones and hide them initially
     private void InitializeDropOffZones()
     {
-        allDropOffZones = new List<GameObject>(GameObject.FindGameObjectsWithTag("DropOffZone"));
+        zoneManager.allDropOffZones = new List<GameObject>(GameObject.FindGameObjectsWithTag("DropOffZone"));
         HideAllDropOffZonesExcept(null);
     }
 
@@ -81,27 +91,27 @@ public class NotificationTriggerEvent : MonoBehaviour
         PlayerData.PD.FillPassengers(passengersPickedUp);
         passengerPickup.ClearPassengers();
 
-        nextDropOff = FindRandomDropOffZone(nextPickup);
-        if (nextDropOff == null) return;
+        zoneManager.nextDropOff = FindRandomDropOffZone(zoneManager.nextPickup);
+        if (zoneManager.nextDropOff == null) return;
 
-        float distanceToNextStop = Vector3.Distance(transform.position, nextDropOff.transform.position);
+        float distanceToNextStop = Vector3.Distance(transform.position, zoneManager.nextDropOff.transform.position);
         countdownTimer?.StartCountdown(distanceToNextStop);
 
-        notificationTextUI.text = $"{passengersPickedUp} passengers picked up!\nNext stop: {FormatStopName(nextDropOff.name)}";
+        notificationTextUI.text = $"{passengersPickedUp} passengers picked up!\nNext stop: {FormatStopName(zoneManager.nextDropOff.name)}";
         notificationAnim.Play("FadeIn");
 
 
         if (arrow3D != null) Invoke(nameof(UpdateArrowToDropOff), 0.1f);
 
         HideAllPickupZonesExcept(null);
-        HideAllDropOffZonesExcept(nextDropOff);
+        HideAllDropOffZonesExcept(zoneManager.nextDropOff);
         Invoke(nameof(FadeOutNotification), 5f);
     }
 
     // Updates arrow direction to drop-off location
     private void UpdateArrowToDropOff()
     {
-        if (arrow3D != null) arrow3D.SetTarget(nextDropOff.transform);
+        if (arrow3D != null) arrow3D.SetTarget(zoneManager.nextDropOff.transform);
     }
 
     // Handles logic when player reaches a drop-off zone
@@ -114,18 +124,18 @@ public class NotificationTriggerEvent : MonoBehaviour
         int scoreEarned = (passengersDelivered * 100) + (importantPassengersDelivered * 1000);
 
         PlayerData.PD.ScorePoints();
-        nextPickup = FindNextPickupZone();
+        zoneManager.nextPickup = FindNextPickupZone();
 
-        notificationTextUI.text = nextPickup == null
+        notificationTextUI.text = zoneManager.nextPickup == null
             ? $"{scoreEarned} points earned!\nNo available pickup zone."
-            : $"{scoreEarned} points earned!\nNext stop: {FormatStopName(nextPickup.name)}";
+            : $"{scoreEarned} points earned!\nNext stop: {FormatStopName(zoneManager.nextPickup.name)}";
 
         if (arrow3D != null) Invoke(nameof(UpdateArrowToPickup), 0.1f);
 
-        HideAllPickupZonesExcept(nextPickup);
+        HideAllPickupZonesExcept(zoneManager.nextPickup);
         HideAllDropOffZonesExcept(null);
 
-        float distanceToNextStop = Vector3.Distance(transform.position, nextPickup.transform.position);
+        float distanceToNextStop = Vector3.Distance(transform.position, zoneManager.nextPickup.transform.position);
         countdownTimer?.StartCountdown(distanceToNextStop);
 
         notificationAnim.Play("FadeIn");
@@ -135,7 +145,7 @@ public class NotificationTriggerEvent : MonoBehaviour
     // Updates arrow direction to pickup location
     private void UpdateArrowToPickup()
     {
-        if (arrow3D != null) arrow3D.SetTarget(nextPickup.transform);
+        if (arrow3D != null) arrow3D.SetTarget(zoneManager.nextPickup.transform);
     }
 
     // Formats zone names for UI display
@@ -164,26 +174,26 @@ public class NotificationTriggerEvent : MonoBehaviour
     // Finds a random drop-off zone different from the last pickup
     private GameObject FindRandomDropOffZone(GameObject lastPickup)
     {
-        List<GameObject> validDropOffs = allDropOffZones
+        List<GameObject> validDropOffs = zoneManager.allDropOffZones
             .Where(zone => lastPickup == null || !IsSameLocation(lastPickup, zone))
             .ToList();
 
-        return validDropOffs.Count > 0 ? validDropOffs[Random.Range(0, validDropOffs.Count)] : null;
+        return validDropOffs.Count > 0 ? validDropOffs[UnityEngine.Random.Range(0, validDropOffs.Count)] : null;
     }
 
     // Finds the next available pickup zone
     private GameObject FindNextPickupZone()
     {
-        if (availablePickupZones.Count == 0) availablePickupZones = new List<GameObject>(allPickupZones);
+        if (zoneManager.availablePickupZones.Count == 0) zoneManager.availablePickupZones = new List<GameObject>(zoneManager.allPickupZones);
 
-        List<GameObject> validPickups = availablePickupZones
-            .Where(zone => nextDropOff == null || !IsSameLocation(nextDropOff, zone))
+        List<GameObject> validPickups = zoneManager.availablePickupZones
+            .Where(zone => zoneManager.nextDropOff == null || !IsSameLocation(zoneManager.nextDropOff, zone))
             .ToList();
 
-        if (validPickups.Count == 0) validPickups = new List<GameObject>(allPickupZones);
+        if (validPickups.Count == 0) validPickups = new List<GameObject>(zoneManager.allPickupZones);
 
-        GameObject selectedZone = validPickups[Random.Range(0, validPickups.Count)];
-        availablePickupZones.Remove(selectedZone);
+        GameObject selectedZone = validPickups[UnityEngine.Random.Range(0, validPickups.Count)];
+        zoneManager.availablePickupZones.Remove(selectedZone);
         return selectedZone;
     }
 
@@ -201,13 +211,13 @@ public class NotificationTriggerEvent : MonoBehaviour
     // Hides all pickup zones except the active one
     private void HideAllPickupZonesExcept(GameObject activeZone)
     {
-        foreach (GameObject zone in allPickupZones) zone?.SetActive(zone == activeZone);
+        foreach (GameObject zone in zoneManager.allPickupZones) zone?.SetActive(zone == activeZone);
     }
 
     // Hides all drop-off zones except the active one
     private void HideAllDropOffZonesExcept(GameObject activeZone)
     {
-        foreach (GameObject zone in allDropOffZones) zone?.SetActive(zone == activeZone);
+        foreach (GameObject zone in zoneManager.allDropOffZones) zone?.SetActive(zone == activeZone);
     }
 
     // Plays fade-out animation for notifications

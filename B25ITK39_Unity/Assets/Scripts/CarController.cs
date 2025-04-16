@@ -118,7 +118,7 @@ public class CarController : MonoBehaviour
         }
         else
         {
-            Debug.Log("Drifting = False");
+            //Debug.Log("Drifting = False");
 
             WheelFrictionCurve ForwardFrictionDrifting = rearLeftWheelCollider.sidewaysFriction;
             WheelFrictionCurve SidewaysFrictionDrifting = rearLeftWheelCollider.sidewaysFriction;
