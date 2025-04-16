@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using TMPro;
+using System.Collections;
 
 public class CountdownTimer : MonoBehaviour
 {
@@ -41,6 +42,7 @@ public class CountdownTimer : MonoBehaviour
     // Starts the countdown based on distance and difficulty multiplier
     public void StartCountdown(float distance)
     {
+        StartCoroutine(FlashTimer());
         countdownTime = distance * timeMultiplier;
         isCountingDown = true;
 
@@ -58,8 +60,16 @@ public class CountdownTimer : MonoBehaviour
     private void UpdateTimerUI()
     {
         if (timerText != null)
-        {
+        {            
             timerText.text = "Time: " + Mathf.Ceil(countdownTime).ToString();
+            if ((Mathf.Ceil(countdownTime) % 2) == 0) {
+                if (Mathf.Ceil(countdownTime) > 30 )
+                {
+                timerText.color = Color.green;
+                }
+                else timerText.color = Color.red;
+                }
+            else timerText.color = Color.yellow;
         }
     }
 
@@ -71,4 +81,19 @@ public class CountdownTimer : MonoBehaviour
             EndZone.instance.EndGame();
         }
     }
+
+    private IEnumerator FlashTimer(int flashes = 10, float flashDuration = 0.1f)
+{
+    Color originalColor = timerText.color;
+
+    for (int i = 0; i < flashes; i++)
+    {
+        timerText.color = Color.yellow;
+        yield return new WaitForSeconds(flashDuration);
+        timerText.color = Color.red;
+        yield return new WaitForSeconds(flashDuration);
+    }
+
+    timerText.color = originalColor; // Reset to default
+}
 }
