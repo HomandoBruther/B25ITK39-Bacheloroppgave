@@ -7,6 +7,8 @@ TagManager:
   - DropOffZone
   - PickupZone
   - Danger
+  - StartZone
+  - Zombie
   layers:
   - Default
   - TransparentFX

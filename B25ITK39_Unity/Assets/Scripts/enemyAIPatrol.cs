@@ -1,4 +1,5 @@
 using System;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -35,17 +36,22 @@ public class enemyAIPatrol : MonoBehaviour
     [SerializeField] float sightRange, attackRange;
     bool playerInSight, playerInAttackRange;
 
+    private ZombieManager zombieManager;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         player = GameObject.Find(playerCar);
         animator = GetComponent<Animator>();
+        zombieManager = FindObjectOfType<ZombieManager>();
 
         boxLeftCollider = GetComponentInChildren<BoxCollider>();
 
     }
 
+
+    
     // Update is called once per frame
     void Update()
     {
@@ -157,6 +163,11 @@ public class enemyAIPatrol : MonoBehaviour
                 ActivateRagdoll(carRigidbody, carSpeed, collision);
                 PlayDeathSound();
 
+                if (zombieManager != null)
+                    {
+                        zombieManager.OnZombieKilled(this.gameObject);
+                    }
+
             }
         }
 
@@ -214,6 +225,7 @@ public class enemyAIPatrol : MonoBehaviour
 
         audioSource.PlayOneShot(audioSource.clip, 0.3f);
 
+        
     }
 
 }
