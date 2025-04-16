@@ -27,6 +27,8 @@ public class PlayerData : MonoBehaviour
         maxHealth = 1000;
         maxPassengers = 30;
         currentHealth = maxHealth;
+        points = 0;
+        money = 0;
     }
 
     void MakeThisTheOnlyPlayerData()

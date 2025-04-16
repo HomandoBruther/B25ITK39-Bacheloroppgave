@@ -51,7 +51,6 @@ public class EndZone : MonoBehaviour
         PlayerData.PD.currentImportantPassengers = 0;
 
         FindObjectOfType<LeaderboardManager>()?.ResetSubmission();
-
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
