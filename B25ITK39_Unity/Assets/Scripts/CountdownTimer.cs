@@ -58,8 +58,16 @@ public class CountdownTimer : MonoBehaviour
     private void UpdateTimerUI()
     {
         if (timerText != null)
-        {
+        {            
             timerText.text = "Time: " + Mathf.Ceil(countdownTime).ToString();
+            if ((Mathf.Ceil(countdownTime) % 2) == 0) {
+                if (Mathf.Ceil(countdownTime) > 30 )
+                {
+                timerText.color = Color.green;
+                }
+                else timerText.color = Color.red;
+                }
+            else timerText.color = Color.yellow;
         }
     }
 
