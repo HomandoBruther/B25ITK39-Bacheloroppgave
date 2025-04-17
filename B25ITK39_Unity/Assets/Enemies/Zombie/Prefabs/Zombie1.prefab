@@ -2860,7 +2860,7 @@ AudioSource:
   m_GameObject: {fileID: 4493914613880827488}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -2722200292607627570, guid: 09e5edbdc7629a74e8f3fa5cd84ef0f3, type: 2}
   m_audioClip: {fileID: 8300000, guid: 5174415e9879415498f7b0dd794d19c5, type: 3}
   m_Resource: {fileID: 8300000, guid: 5174415e9879415498f7b0dd794d19c5, type: 3}
   m_PlayOnAwake: 0
@@ -2957,7 +2957,7 @@ AudioSource:
   m_GameObject: {fileID: 4493914613880827488}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -2722200292607627570, guid: 09e5edbdc7629a74e8f3fa5cd84ef0f3, type: 2}
   m_audioClip: {fileID: 8300000, guid: 2a295373a10441545bcaf619b61bea94, type: 3}
   m_Resource: {fileID: 8300000, guid: 2a295373a10441545bcaf619b61bea94, type: 3}
   m_PlayOnAwake: 0
@@ -3005,7 +3005,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -3054,7 +3054,7 @@ AudioSource:
   m_GameObject: {fileID: 4493914613880827488}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -2722200292607627570, guid: 09e5edbdc7629a74e8f3fa5cd84ef0f3, type: 2}
   m_audioClip: {fileID: 8300000, guid: 8ba1ce15e8593064aa781b941381f053, type: 3}
   m_Resource: {fileID: 8300000, guid: 8ba1ce15e8593064aa781b941381f053, type: 3}
   m_PlayOnAwake: 0
@@ -3102,7 +3102,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -3151,7 +3151,7 @@ AudioSource:
   m_GameObject: {fileID: 4493914613880827488}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -2722200292607627570, guid: 09e5edbdc7629a74e8f3fa5cd84ef0f3, type: 2}
   m_audioClip: {fileID: 8300000, guid: 05d0536a3eefc80438f95f9662331f52, type: 3}
   m_Resource: {fileID: 8300000, guid: 05d0536a3eefc80438f95f9662331f52, type: 3}
   m_PlayOnAwake: 0
@@ -3199,7 +3199,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0

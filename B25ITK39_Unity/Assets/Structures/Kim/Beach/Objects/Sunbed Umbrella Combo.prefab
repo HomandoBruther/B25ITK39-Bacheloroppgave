@@ -196,7 +196,7 @@ AudioSource:
   m_GameObject: {fileID: 5533143456185272571}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -2722200292607627570, guid: 09e5edbdc7629a74e8f3fa5cd84ef0f3, type: 2}
   m_audioClip: {fileID: 8300000, guid: cd13436b01a4b5b4082c89e180d10dc3, type: 3}
   m_Resource: {fileID: 8300000, guid: cd13436b01a4b5b4082c89e180d10dc3, type: 3}
   m_PlayOnAwake: 0
@@ -293,7 +293,7 @@ AudioSource:
   m_GameObject: {fileID: 5533143456185272571}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -2722200292607627570, guid: 09e5edbdc7629a74e8f3fa5cd84ef0f3, type: 2}
   m_audioClip: {fileID: 8300000, guid: 0e270ecb84908054a9d6f727dbea974e, type: 3}
   m_Resource: {fileID: 8300000, guid: 0e270ecb84908054a9d6f727dbea974e, type: 3}
   m_PlayOnAwake: 0
@@ -306,7 +306,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 100
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -454,6 +454,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8356577794260288283}
     m_Modifications:
+    - target: {fileID: 196144386983066066, guid: 4b1285b78f722f245ae7b851bba29f59, type: 3}
+      propertyPath: MaxDistance
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 196144386983066066, guid: 4b1285b78f722f245ae7b851bba29f59, type: 3}
+      propertyPath: rolloffMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 653721369685183407, guid: 4b1285b78f722f245ae7b851bba29f59, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -501,6 +509,14 @@ PrefabInstance:
     - target: {fileID: 4599761164617104965, guid: 4b1285b78f722f245ae7b851bba29f59, type: 3}
       propertyPath: m_Name
       value: Sunbed
+      objectReference: {fileID: 0}
+    - target: {fileID: 5185136552475087862, guid: 4b1285b78f722f245ae7b851bba29f59, type: 3}
+      propertyPath: MaxDistance
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 5185136552475087862, guid: 4b1285b78f722f245ae7b851bba29f59, type: 3}
+      propertyPath: rolloffMode
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -15,11 +15,10 @@ public class CollisionSound : MonoBehaviour
     {
         if (collision.relativeVelocity.magnitude > 2f) // Prevent tiny collisions from playing sound
         {
-            int randomNumber = Random.Range(0, audioSourceList.Length);
+            int randomNumber = UnityEngine.Random.Range(0, audioSourceList.Length);
+            AudioClip clip = audioSourceList[randomNumber].clip;
 
-            audioSource = audioSourceList[randomNumber];
-
-            //audioSource.PlayOneShot(audioSource.clip, 0.3f); Disabled for now
+            AudioSource.PlayClipAtPoint(clip, transform.position, 1f);
         }
     }
 }
