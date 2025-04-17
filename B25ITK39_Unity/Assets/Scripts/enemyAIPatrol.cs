@@ -1,4 +1,5 @@
 using System;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -35,17 +36,22 @@ public class enemyAIPatrol : MonoBehaviour
     [SerializeField] float sightRange, attackRange;
     bool playerInSight, playerInAttackRange;
 
+    private ZombieManager zombieManager;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         player = GameObject.Find(playerCar);
         animator = GetComponent<Animator>();
+        zombieManager = FindObjectOfType<ZombieManager>();
 
         boxLeftCollider = GetComponentInChildren<BoxCollider>();
 
     }
 
+
+    
     // Update is called once per frame
     void Update()
     {
@@ -119,53 +125,65 @@ public class enemyAIPatrol : MonoBehaviour
     */
 
     void OnTriggerEnter(Collider collision)
+{
+    // === DANGER ZONE KILL LOGIC ===
+    if (collision.CompareTag("Danger") && alive)
     {
-        // Get the rigidbody of the zombie
-        Rigidbody myRigidbody = GetComponent<Rigidbody>();
-        float mySpeed = myRigidbody != null ? myRigidbody.linearVelocity.magnitude : 0f;
+        Debug.Log("Zombie Killed By Lava");
+        alive = false;
+        GetComponent<Animator>().enabled = false;
+        PlayDeathSound();
 
-        // Check if the colliding object is the car
+        if (zombieManager != null)
+        {
+            zombieManager.OnZombieKilled(this.gameObject);
+        }
+
+        return; // Stop here so it doesn't also trigger car collision logic
+    }
+
+    // === CAR COLLISION LOGIC ===
+    if (alive)
+    {
+        Rigidbody myRigidbody = GetComponent<Rigidbody>();
+        float mySpeed = myRigidbody != null ? myRigidbody.velocity.magnitude : 0f;
+
         CarController carController = collision.gameObject.GetComponent<CarController>();
-        SphereCollider sphereCollider = collision.gameObject.GetComponent<SphereCollider>();
         if (carController != null)
         {
             Rigidbody carRigidbody = collision.gameObject.GetComponent<Rigidbody>();
-            float carSpeed = carRigidbody != null ? carRigidbody.linearVelocity.magnitude : 0f;
+            float carSpeed = carRigidbody != null ? carRigidbody.velocity.magnitude : 0f;
 
-            Debug.Log($"Hit by car. Car Speed: {carSpeed}, My Speed: {mySpeed}");
-
-            // Define a speed threshold
             float speedThreshold = 1f;
 
             if (carSpeed + mySpeed >= speedThreshold)
             {
+                Debug.Log("Zombie hit by car!");
 
-                Debug.Log("Collision speed meets the threshold!");
-                /*
-                // Move the zombie slightly ahead of the car to prevent extreme physics effects
-                Vector3 forwardOffset = collision.transform.forward * 1.5f; // Adjust distance if needed
-                transform.position = collision.transform.position + forwardOffset;
-                */
-
-                // Disable animation & collider to prevent animation interference
-                GetComponent<Animator>().enabled = false;
-                //GetComponent<Collider>().enabled = false;
                 alive = false;
+                GetComponent<Animator>().enabled = false;
                 PlayerData.PD.points += 100;
 
-                // Enable ragdoll physics
                 ActivateRagdoll(carRigidbody, carSpeed, collision);
                 PlayDeathSound();
 
+                if (zombieManager != null)
+                {
+                    zombieManager.OnZombieKilled(this.gameObject);
+                }
             }
         }
 
+        // Optional: damage the player
+        /*
         var player = collision.GetComponent<CarController>();
         if (player != null)
         {
             PlayerData.PD.currentHealth -= 10;
         }
+        */
     }
+}
 
     void ActivateRagdoll(Rigidbody collidingRigidbody, float RigidbodySpeed, Collider collision)
     {
@@ -206,14 +224,13 @@ public class enemyAIPatrol : MonoBehaviour
     }
 
     void PlayDeathSound()
-    {
+{
+    int randomNumber = UnityEngine.Random.Range(0, audioSourceList.Length);
+    AudioClip clip = audioSourceList[randomNumber].clip;
 
-        int randomNumber = UnityEngine.Random.Range(0, audioSourceList.Length);
+    AudioSource.PlayClipAtPoint(clip, transform.position, 1f);
+}
 
-        audioSource = audioSourceList[randomNumber];
-
-        audioSource.PlayOneShot(audioSource.clip, 0.3f);
-
-    }
+    
 
 }
