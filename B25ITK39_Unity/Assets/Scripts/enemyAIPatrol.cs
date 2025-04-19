@@ -146,13 +146,13 @@ public class enemyAIPatrol : MonoBehaviour
     if (alive)
     {
         Rigidbody myRigidbody = GetComponent<Rigidbody>();
-        float mySpeed = myRigidbody != null ? myRigidbody.velocity.magnitude : 0f;
+        float mySpeed = myRigidbody != null ? myRigidbody.linearVelocity.magnitude : 0f;
 
         CarController carController = collision.gameObject.GetComponent<CarController>();
         if (carController != null)
         {
             Rigidbody carRigidbody = collision.gameObject.GetComponent<Rigidbody>();
-            float carSpeed = carRigidbody != null ? carRigidbody.velocity.magnitude : 0f;
+            float carSpeed = carRigidbody != null ? carRigidbody.linearVelocity.magnitude : 0f;
 
             float speedThreshold = 1f;
 
