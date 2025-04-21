@@ -10,6 +10,8 @@ public class EndZone : MonoBehaviour
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI leaderboardText;
 
+    public GameObject LoadingCanvas;
+
     private void Awake()
     {
         instance = this; // Set instance to allow other scripts to call EndGame()
@@ -51,6 +53,8 @@ public class EndZone : MonoBehaviour
         PlayerData.PD.currentImportantPassengers = 0;
 
         FindObjectOfType<LeaderboardManager>()?.ResetSubmission();
+        DeactivateAllCanvases();
+        LoadingCanvas.SetActive(true);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
@@ -59,4 +63,16 @@ public class EndZone : MonoBehaviour
         Debug.Log("Quitting game...");
         Application.Quit();
     }
+
+    void DeactivateAllCanvases()
+{
+    Canvas[] allCanvases = FindObjectsOfType<Canvas>();
+    foreach (Canvas canvas in allCanvases)
+    {
+        if (canvas.gameObject != LoadingCanvas && canvas.gameObject != this.gameObject)
+        {
+            canvas.gameObject.SetActive(false);
+        }
+    }
+}
 }

@@ -19,7 +19,7 @@ public class SC_MainMenu : MonoBehaviour
     {
         // Play Now Button has been pressed, here you can initialize your game (For example Load a Scene called GameLevel etc.)
         MainMenu.SetActive(false);
-        UnityEngine.SceneManagement.SceneManager.LoadScene("StageOne");
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Tutorial");
 
     }
 
