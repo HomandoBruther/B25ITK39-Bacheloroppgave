@@ -19,7 +19,11 @@ public class AirControl : MonoBehaviour
     [Header("Wheels")]
     [SerializeField] private Transform[] wheelPositions;
 
-    private int jumpCharge = 1;
+    public int amountOfJumpCharges = 1;
+    public bool enableAirJump = true;
+
+    private int jumpCharge;
+    private int airJumpCharge;
     private bool isInAir = false;
     private Rigidbody rb;
 
@@ -29,6 +33,9 @@ public class AirControl : MonoBehaviour
 
     void Start()
     {
+        jumpCharge = amountOfJumpCharges;
+        airJumpCharge = amountOfJumpCharges;
+
         rb = GetComponent<Rigidbody>();
 
         // Ensure Rigidbody exists
@@ -57,9 +64,14 @@ public class AirControl : MonoBehaviour
     {
         CheckGrounded();
 
-        if (Input.GetKeyDown(KeyCode.Space) && jumpCharge > 0)
+        if (Input.GetKeyDown(KeyCode.Space) && jumpCharge > 0 && !isInAir)
         {
-            Jump();
+            Jump(isInAir);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space) && airJumpCharge > 0 && isInAir)
+        {
+            Jump(isInAir);
         }
 
         // Apply airbrake when in the air
@@ -95,9 +107,17 @@ public class AirControl : MonoBehaviour
         verticalInput = Input.GetAxis("Vertical");
     }
 
-    private void Jump()
+    private void Jump(bool localIsInAir)
     {
-        jumpCharge = 0;
+        if(enableAirJump) {
+            if (!localIsInAir) jumpCharge -= 1;
+            if (localIsInAir) airJumpCharge -= 1;
+        }
+        else {
+            jumpCharge -= 1;
+            airJumpCharge -= 1;
+        }
+        
         Vector3 jumpUp = transform.up;
         rb.AddForce(jumpUp * jumpForce, ForceMode.Impulse);
     }
@@ -110,7 +130,8 @@ public class AirControl : MonoBehaviour
             if (Physics.Raycast(wheel.position, Vector3.down, groundCheckDistance, groundLayer))
             {
                 isInAir = false;
-                jumpCharge = 1; // Reset jump charge when fully grounded
+                jumpCharge = amountOfJumpCharges; // Reset jump charge when fully grounded
+                airJumpCharge = amountOfJumpCharges;
                 break;
             }
         }
