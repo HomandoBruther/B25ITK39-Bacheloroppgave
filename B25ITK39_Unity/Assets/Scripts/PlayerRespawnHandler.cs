@@ -65,19 +65,17 @@ public class PlayerRespawnHandler : MonoBehaviour
     }
 
     // This respawns the player 
-    public IEnumerator Respawn(int secs)
+    private IEnumerator Respawn(int secs)
 {
-    //Respawn Text Manipulator
     float currentSecs = 0;
 
     if (respawnText != null)
     {
-        // Cache TMP component once
         TextMeshProUGUI tmp = respawnText.GetComponent<TextMeshProUGUI>();
         string baseText = "Respawning";
 
         tmp.text = baseText;
-        respawnText.SetActive(true); // Ensure it's visible
+        respawnText.SetActive(true);
 
         while (currentSecs < secs)
         {
@@ -86,7 +84,7 @@ public class PlayerRespawnHandler : MonoBehaviour
             yield return new WaitForSeconds(dotFrequency);
         }
 
-        tmp.text = baseText; // Reset to clean version
+        tmp.text = baseText;
     }
 
     transition.SetTrigger("End");
@@ -94,7 +92,7 @@ public class PlayerRespawnHandler : MonoBehaviour
     if (respawnText != null)
         respawnText.SetActive(false);
 
-    //Respawn
+    
     busMesh.enabled = true;
     FL.enabled = true;
     FR.enabled = true;
@@ -109,4 +107,5 @@ public class PlayerRespawnHandler : MonoBehaviour
 
     canDie = true;
 }
+
 }
