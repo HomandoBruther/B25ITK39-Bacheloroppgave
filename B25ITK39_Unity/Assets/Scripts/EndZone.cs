@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using System.Collections;
 
 public class EndZone : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class EndZone : MonoBehaviour
     public TextMeshProUGUI leaderboardText;
 
     public GameObject LoadingCanvas;
+
+    private bool isLoading = false;
 
     private void Awake()
     {
@@ -45,17 +48,25 @@ public class EndZone : MonoBehaviour
         }
     }
 
-    public void PlayAgain()
+    public IEnumerator LoadSceneWithDelay()
     {
         Time.timeScale = 1f;
         PlayerData.PD.points = 0;
         PlayerData.PD.currentPassengers = 0;
         PlayerData.PD.currentImportantPassengers = 0;
+        isLoading = true;
 
         FindObjectOfType<LeaderboardManager>()?.ResetSubmission();
         DeactivateAllCanvases();
         LoadingCanvas.SetActive(true);
+        yield return null;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void PlayAgain()
+    {
+        if (!isLoading)
+            StartCoroutine(LoadSceneWithDelay());
     }
 
     public void QuitGame()

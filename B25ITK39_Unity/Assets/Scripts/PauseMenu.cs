@@ -119,8 +119,11 @@ public class PauseMenu : MonoBehaviour
     LoadingCanvas.SetActive(true);
 
     Time.timeScale = 1f;
+    PlayerData.PD.points = 0;
+    PlayerData.PD.currentPassengers = 0;
+    PlayerData.PD.currentImportantPassengers = 0;
 
-    yield return null;
+        yield return null;
 
     Debug.Log($"Loading scene: {sceneName}");
     SceneManager.LoadScene(sceneName);
