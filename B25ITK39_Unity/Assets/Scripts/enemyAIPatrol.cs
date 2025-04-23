@@ -124,6 +124,7 @@ public class enemyAIPatrol : MonoBehaviour
    }
     */
 
+
     void OnTriggerEnter(Collider collision)
     {
         // === DANGER ZONE KILL LOGIC ===
@@ -208,6 +209,7 @@ public class enemyAIPatrol : MonoBehaviour
             //Turning off collider for the wheels
             foreach (Collider wheel in collision.GetComponentsInChildren<Collider>())
             {
+
                 Physics.IgnoreCollision(wheel.GetComponent<Collider>(), col.GetComponent<Collider>(), true);
             }
         }
