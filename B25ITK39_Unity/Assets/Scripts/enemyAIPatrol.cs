@@ -1,236 +1,184 @@
-using System;
-using UnityEditor;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
-
-
 public class enemyAIPatrol : MonoBehaviour
 {
+    [Header("References")]
+    [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private LayerMask playerLayer;
+    [SerializeField] private float walkRange;
+    [SerializeField] private float sightRange;
+    [SerializeField] private float attackRange;
+    [SerializeField] private string playerCar = "BusNoWheel";
 
-    GameObject player;
-    NavMeshAgent agent;
-
-    [SerializeField] LayerMask groundLayer, playerLayer;
-
-    Animator animator;
-
-    BoxCollider boxLeftCollider;
-
-
-    //patrol
-    Vector3 destPoint;
-    bool walkpointSet;
-    [SerializeField] float walkRange;
-    string playerCar = ("BusNoWheel");
-
-    bool alive = true;
-
+    private GameObject player;
+    private NavMeshAgent agent;
+    private Animator animator;
+    private BoxCollider boxLeftCollider;
     private AudioSource audioSource;
+    private ZombieManager zombieManager;
 
     public AudioSource[] audioSourceList;
 
+    private Vector3 destPoint;
+    private bool walkpointSet;
+    private bool alive = true;
 
+    private float aiUpdateInterval = 0.25f;
+    private float nextAIUpdateTime = 0f;
+    private float chaseUpdateThreshold = 1.0f;
+    private Vector3 lastChaseTarget;
 
-    //state change
-    [SerializeField] float sightRange, attackRange;
-    bool playerInSight, playerInAttackRange;
-
-    private ZombieManager zombieManager;
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-        player = GameObject.Find(playerCar);
         animator = GetComponent<Animator>();
-        zombieManager = FindObjectOfType<ZombieManager>();
-
         boxLeftCollider = GetComponentInChildren<BoxCollider>();
-
+        player = GameObject.FindWithTag("Player"); // Assumes the player bus is tagged
+        zombieManager = FindObjectOfType<ZombieManager>();
     }
 
-
-    
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        if (this.alive)
+        if (!alive) return;
+
+        if (Time.time >= nextAIUpdateTime)
         {
-            playerInSight = Physics.CheckSphere(transform.position, sightRange, playerLayer);
-            playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, playerLayer);
-
-            if (!playerInSight && !playerInAttackRange) Patrol();
-            if (playerInSight && !playerInAttackRange) Chase();
-            if (playerInSight && playerInAttackRange) Attack();
+            nextAIUpdateTime = Time.time + aiUpdateInterval;
+            RunAI();
         }
-
     }
 
-    void Chase()
+    private void RunAI()
     {
-        agent.SetDestination(player.transform.position);
+        bool playerInSight = Physics.CheckSphere(transform.position, sightRange, playerLayer);
+        bool playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, playerLayer);
+
+        if (!playerInSight && !playerInAttackRange)
+            Patrol();
+        else if (playerInSight && !playerInAttackRange)
+            Chase();
+        else if (playerInSight && playerInAttackRange)
+            Attack();
     }
 
-    void Attack()
+    private void Patrol()
+    {
+        if (!walkpointSet)
+            SearchForDest();
+
+        if (walkpointSet)
+            agent.SetDestination(destPoint);
+
+        if (Vector3.Distance(transform.position, destPoint) < 5f)
+            walkpointSet = false;
+    }
+
+    private void SearchForDest()
+    {
+        float z = Random.Range(-walkRange, walkRange);
+        float x = Random.Range(-walkRange, walkRange);
+        Vector3 potentialPoint = new Vector3(transform.position.x + x, transform.position.y, transform.position.z + z);
+
+        if (Physics.Raycast(potentialPoint + Vector3.up * 2f, Vector3.down, 3f, groundLayer))
+        {
+            destPoint = potentialPoint;
+            walkpointSet = true;
+        }
+    }
+
+    private void Chase()
+    {
+        if (Vector3.Distance(player.transform.position, lastChaseTarget) > chaseUpdateThreshold)
+        {
+            agent.SetDestination(player.transform.position);
+            lastChaseTarget = player.transform.position;
+        }
+    }
+
+    private void Attack()
     {
         if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Z_Attack 1"))
         {
             animator.SetTrigger("Attack");
             agent.SetDestination(transform.position);
         }
-
     }
 
-
-
-    void Patrol()
+    private void OnTriggerEnter(Collider collision)
     {
-        if (!walkpointSet) SearchForDest();
-        if (walkpointSet) agent.SetDestination(destPoint);
-        if (Vector3.Distance(transform.position, destPoint) < 10) walkpointSet = false;
-    }
+        if (!alive) return;
 
-
-    void SearchForDest()
-    {
-        float z = UnityEngine.Random.Range(-walkRange, walkRange);
-        float x = UnityEngine.Random.Range(-walkRange, walkRange);
-
-        destPoint = new Vector3(transform.position.x + x, transform.position.y, transform.position.z + z);
-
-        if (Physics.Raycast(destPoint, Vector3.down, groundLayer))
+        if (collision.CompareTag("Danger"))
         {
-            walkpointSet = true;
+            KillZombie("Zombie Killed By Lava");
+            return;
         }
 
+        CarController carController = collision.gameObject.GetComponent<CarController>();
+        if (carController != null)
+        {
+            float mySpeed = GetComponent<Rigidbody>()?.velocity.magnitude ?? 0f;
+            float carSpeed = collision.attachedRigidbody?.velocity.magnitude ?? 0f;
+
+            if (carSpeed + mySpeed >= 1f)
+            {
+                PlayerData.PD.points += 100;
+                KillZombie("Zombie hit by car!");
+                ActivateRagdoll(collision.attachedRigidbody, carSpeed, collision);
+            }
+        }
     }
 
-    void EnableLeftAttack()
+    private void KillZombie(string log)
     {
-        boxLeftCollider.enabled = true;
-    }
-
-    void DisableLeftAttack()
-    {
-        boxLeftCollider.enabled = false;
-    }
-
-    //void ZombieDeath()
-
-    /*private void OnTriggerEnter(Collider other)
-   {
-       
-   }
-    */
-
-    void OnTriggerEnter(Collider collision)
-{
-    // === DANGER ZONE KILL LOGIC ===
-    if (collision.CompareTag("Danger") && alive)
-    {
-        Debug.Log("Zombie Killed By Lava");
+        Debug.Log(log);
         alive = false;
-        GetComponent<Animator>().enabled = false;
+        animator.enabled = false;
         PlayDeathSound();
 
         if (zombieManager != null)
         {
             zombieManager.OnZombieKilled(this.gameObject);
         }
-
-        return; // Stop here so it doesn't also trigger car collision logic
     }
 
-    // === CAR COLLISION LOGIC ===
-    if (alive)
+    private void ActivateRagdoll(Rigidbody collidingRigidbody, float RigidbodySpeed, Collider collision)
     {
-        Rigidbody myRigidbody = GetComponent<Rigidbody>();
-        float mySpeed = myRigidbody != null ? myRigidbody.linearVelocity.magnitude : 0f;
-
-        CarController carController = collision.gameObject.GetComponent<CarController>();
-        if (carController != null)
-        {
-            Rigidbody carRigidbody = collision.gameObject.GetComponent<Rigidbody>();
-            float carSpeed = carRigidbody != null ? carRigidbody.linearVelocity.magnitude : 0f;
-
-            float speedThreshold = 1f;
-
-            if (carSpeed + mySpeed >= speedThreshold)
-            {
-                Debug.Log("Zombie hit by car!");
-
-                alive = false;
-                GetComponent<Animator>().enabled = false;
-                PlayerData.PD.points += 100;
-
-                ActivateRagdoll(carRigidbody, carSpeed, collision);
-                PlayDeathSound();
-
-                if (zombieManager != null)
-                {
-                    zombieManager.OnZombieKilled(this.gameObject);
-                }
-            }
-        }
-
-        // Optional: damage the player
-        /*
-        var player = collision.GetComponent<CarController>();
-        if (player != null)
-        {
-            PlayerData.PD.currentHealth -= 10;
-        }
-        */
-    }
-}
-
-    void ActivateRagdoll(Rigidbody collidingRigidbody, float RigidbodySpeed, Collider collision)
-    {
-        // Disable the NavMeshAgent if it's present
-        NavMeshAgent agent = GetComponent<NavMeshAgent>();
         if (agent != null) agent.enabled = false;
-
         Rigidbody zombieRigidBody = GetComponent<Rigidbody>();
+        if (zombieRigidBody != null) zombieRigidBody.isKinematic = true;
 
-        // Enable physics on all child rigidbodies
         foreach (Rigidbody rb in GetComponentsInChildren<Rigidbody>())
         {
-            Vector3 forceDirection = collidingRigidbody.transform.forward + Vector3.up; // Slight upward lift
-            float forceMagnitude = RigidbodySpeed * 4f; // Scale by car speed
-
-            rb.AddForce(forceDirection.normalized * forceMagnitude, ForceMode.Impulse);
+            Vector3 forceDir = collidingRigidbody.transform.forward + Vector3.up;
+            float forceMag = RigidbodySpeed * 4f;
+            rb.AddForce(forceDir.normalized * forceMag, ForceMode.Impulse);
         }
 
         foreach (Collider col in GetComponentsInChildren<Collider>())
         {
-            Physics.IgnoreCollision(collision.GetComponent<Collider>(), col.GetComponent<Collider>(), true);
-            //Turning off collider for the wheels
+            Physics.IgnoreCollision(collision, col, true);
             foreach (Collider wheel in collision.GetComponentsInChildren<Collider>())
             {
-                Physics.IgnoreCollision(wheel.GetComponent<Collider>(), col.GetComponent<Collider>(), true);
+                Physics.IgnoreCollision(wheel, col, true);
             }
         }
-
-
-
-        if (zombieRigidBody)
-        {
-            zombieRigidBody.isKinematic = true;
-        }
-        /*
-        zombieRigidBody.AddForce(collidingRigidbody.transform.up * RigidbodySpeed*2);
-        */
     }
 
-    void PlayDeathSound()
-{
-    int randomNumber = UnityEngine.Random.Range(0, audioSourceList.Length);
-    AudioClip clip = audioSourceList[randomNumber].clip;
+    private void PlayDeathSound()
+    {
+        if (audioSourceList.Length == 0) return;
 
-    AudioSource.PlayClipAtPoint(clip, transform.position, 1f);
-}
+        int randomIndex = Random.Range(0, audioSourceList.Length);
+        AudioClip clip = audioSourceList[randomIndex]?.clip;
 
-    
+        if (clip != null)
+            AudioSource.PlayClipAtPoint(clip, transform.position, 1f);
+    }
 
+    // Animation event hooks
+    private void EnableLeftAttack() => boxLeftCollider.enabled = true;
+    private void DisableLeftAttack() => boxLeftCollider.enabled = false;
 }
