@@ -12,8 +12,8 @@ public class CarController : MonoBehaviour
     public int passengerCount = 0;
     public float m_Thrust = 20000f;
 
-    SceneHandler sceneHandler;
-    GameObject theGameController;
+    private SceneHandler sceneHandler;
+    private GameObject theGameController;
 
     [Header("Settings")]
     [SerializeField] private float motorForce, breakForce, dampeningForce, maxSteerAngle;
@@ -89,7 +89,7 @@ public class CarController : MonoBehaviour
         {
             StartCoroutine(Dash());
         }
-        sceneHandler.speed = Mathf.FloorToInt(rb.linearVelocity.magnitude);
+        sceneHandler.speed = Mathf.FloorToInt(Vector3.Dot(rb.linearVelocity, transform.forward));
 
 
     }

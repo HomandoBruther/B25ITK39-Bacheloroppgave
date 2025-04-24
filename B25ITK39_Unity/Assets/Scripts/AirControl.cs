@@ -24,7 +24,7 @@ public class AirControl : MonoBehaviour
 
     private int jumpCharge;
     private int airJumpCharge;
-    private bool isInAir = false;
+    public bool IsInAir { get; private set; } = false;
     private Rigidbody rb;
 
     private float horizontalInput, verticalInput;
@@ -37,6 +37,7 @@ public class AirControl : MonoBehaviour
         airJumpCharge = amountOfJumpCharges;
 
         rb = GetComponent<Rigidbody>();
+
 
         // Ensure Rigidbody exists
         if (rb == null)
@@ -64,18 +65,18 @@ public class AirControl : MonoBehaviour
     {
         CheckGrounded();
 
-        if (Input.GetKeyDown(KeyCode.Space) && jumpCharge > 0 && !isInAir)
+        if (Input.GetKeyDown(KeyCode.Space) && jumpCharge > 0 && !IsInAir)
         {
-            Jump(isInAir);
+            Jump(IsInAir);
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && airJumpCharge > 0 && isInAir)
+        if (Input.GetKeyDown(KeyCode.Space) && airJumpCharge > 0 && IsInAir)
         {
-            Jump(isInAir);
+            Jump(IsInAir);
         }
 
         // Apply airbrake when in the air
-        if (isInAir && Input.GetKey(KeyCode.LeftControl))
+        if (IsInAir && Input.GetKey(KeyCode.LeftControl))
         {
             rb.linearDamping = airbrakeDamping; // Increase damping for controlled slowdown
         }
@@ -95,7 +96,7 @@ public class AirControl : MonoBehaviour
     {
         GetInput();
 
-        if (isInAir)
+        if (IsInAir)
         {
             AirSteering();
         }
@@ -124,12 +125,12 @@ public class AirControl : MonoBehaviour
 
     private void CheckGrounded()
     {
-        isInAir = true;
+        IsInAir = true;
         foreach (Transform wheel in wheelPositions)
         {
             if (Physics.Raycast(wheel.position, Vector3.down, groundCheckDistance, groundLayer))
             {
-                isInAir = false;
+                IsInAir = false;
                 jumpCharge = amountOfJumpCharges; // Reset jump charge when fully grounded
                 airJumpCharge = amountOfJumpCharges;
                 break;
