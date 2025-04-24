@@ -10,6 +10,8 @@ public class CameraController : MonoBehaviour
     public GameObject jumpCameraGameObject;
     public GameObject jumpBackwardsCameraGameObject;
 
+    public int reverseCameraSpeedTrigger = -5;
+
     private GameObject activeCameraGameObject;
 
     private CinemachineCamera forwardCamera;
@@ -45,7 +47,7 @@ public class CameraController : MonoBehaviour
 
     public void ActivateForwardCamera()
     {
-        if (sceneHandler.speed >= -1)
+        if (sceneHandler.speed >= reverseCameraSpeedTrigger)
             activeCameraGameObject = forwardCameraGameObject;
         else activeCameraGameObject = backwardsCameraGameObject;
         DeactivateCameras();
@@ -53,12 +55,11 @@ public class CameraController : MonoBehaviour
 
     public void ActivateJumpCamera()
     {
-        if (sceneHandler.speed >= -1)
+        if (sceneHandler.speed >= reverseCameraSpeedTrigger)
             activeCameraGameObject = jumpCameraGameObject;
         else activeCameraGameObject = jumpBackwardsCameraGameObject;
         DeactivateCameras();
     }
-
 
 
     private void DeactivateCameras()
