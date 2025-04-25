@@ -51,7 +51,7 @@ public class enemyAIPatrol : MonoBehaviour
     }
 
 
-    
+
     // Update is called once per frame
     void Update()
     {
@@ -124,66 +124,67 @@ public class enemyAIPatrol : MonoBehaviour
    }
     */
 
-    void OnTriggerEnter(Collider collision)
-{
-    // === DANGER ZONE KILL LOGIC ===
-    if (collision.CompareTag("Danger") && alive)
-    {
-        Debug.Log("Zombie Killed By Lava");
-        alive = false;
-        GetComponent<Animator>().enabled = false;
-        PlayDeathSound();
 
-        if (zombieManager != null)
+    void OnTriggerEnter(Collider collision)
+    {
+        // === DANGER ZONE KILL LOGIC ===
+        if (collision.CompareTag("Danger") && alive)
         {
-            zombieManager.OnZombieKilled(this.gameObject);
+            Debug.Log("Zombie Killed By Lava");
+            alive = false;
+            GetComponent<Animator>().enabled = false;
+            PlayDeathSound();
+
+            if (zombieManager != null)
+            {
+                zombieManager.OnZombieKilled(this.gameObject);
+            }
+
+            return; // Stop here so it doesn't also trigger car collision logic
         }
 
-        return; // Stop here so it doesn't also trigger car collision logic
-    }
-
-    // === CAR COLLISION LOGIC ===
-    if (alive)
-    {
-        Rigidbody myRigidbody = GetComponent<Rigidbody>();
-        float mySpeed = myRigidbody != null ? myRigidbody.velocity.magnitude : 0f;
-
-        CarController carController = collision.gameObject.GetComponent<CarController>();
-        if (carController != null)
+        // === CAR COLLISION LOGIC ===
+        if (alive)
         {
-            Rigidbody carRigidbody = collision.gameObject.GetComponent<Rigidbody>();
-            float carSpeed = carRigidbody != null ? carRigidbody.velocity.magnitude : 0f;
+            Rigidbody myRigidbody = GetComponent<Rigidbody>();
+            float mySpeed = myRigidbody != null ? myRigidbody.linearVelocity.magnitude : 0f;
 
-            float speedThreshold = 1f;
-
-            if (carSpeed + mySpeed >= speedThreshold)
+            CarController carController = collision.gameObject.GetComponent<CarController>();
+            if (carController != null)
             {
-                Debug.Log("Zombie hit by car!");
+                Rigidbody carRigidbody = collision.gameObject.GetComponent<Rigidbody>();
+                float carSpeed = carRigidbody != null ? carRigidbody.linearVelocity.magnitude : 0f;
 
-                alive = false;
-                GetComponent<Animator>().enabled = false;
-                PlayerData.PD.points += 100;
+                float speedThreshold = 1f;
 
-                ActivateRagdoll(carRigidbody, carSpeed, collision);
-                PlayDeathSound();
-
-                if (zombieManager != null)
+                if (carSpeed + mySpeed >= speedThreshold)
                 {
-                    zombieManager.OnZombieKilled(this.gameObject);
+                    Debug.Log("Zombie hit by car!");
+
+                    alive = false;
+                    GetComponent<Animator>().enabled = false;
+                    PlayerData.PD.points += 100;
+
+                    ActivateRagdoll(carRigidbody, carSpeed, collision);
+                    PlayDeathSound();
+
+                    if (zombieManager != null)
+                    {
+                        zombieManager.OnZombieKilled(this.gameObject);
+                    }
                 }
             }
-        }
 
-        // Optional: damage the player
-        /*
-        var player = collision.GetComponent<CarController>();
-        if (player != null)
-        {
-            PlayerData.PD.currentHealth -= 10;
+            // Optional: damage the player
+            /*
+            var player = collision.GetComponent<CarController>();
+            if (player != null)
+            {
+                PlayerData.PD.currentHealth -= 10;
+            }
+            */
         }
-        */
     }
-}
 
     void ActivateRagdoll(Rigidbody collidingRigidbody, float RigidbodySpeed, Collider collision)
     {
@@ -208,6 +209,7 @@ public class enemyAIPatrol : MonoBehaviour
             //Turning off collider for the wheels
             foreach (Collider wheel in collision.GetComponentsInChildren<Collider>())
             {
+
                 Physics.IgnoreCollision(wheel.GetComponent<Collider>(), col.GetComponent<Collider>(), true);
             }
         }
@@ -224,13 +226,13 @@ public class enemyAIPatrol : MonoBehaviour
     }
 
     void PlayDeathSound()
-{
-    int randomNumber = UnityEngine.Random.Range(0, audioSourceList.Length);
-    AudioClip clip = audioSourceList[randomNumber].clip;
+    {
+        int randomNumber = UnityEngine.Random.Range(0, audioSourceList.Length);
+        AudioClip clip = audioSourceList[randomNumber].clip;
 
-    AudioSource.PlayClipAtPoint(clip, transform.position, 1f);
-}
+        AudioSource.PlayClipAtPoint(clip, transform.position, 1f);
+    }
 
-    
+
 
 }

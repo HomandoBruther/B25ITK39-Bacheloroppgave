@@ -19,8 +19,12 @@ public class AirControl : MonoBehaviour
     [Header("Wheels")]
     [SerializeField] private Transform[] wheelPositions;
 
-    private int jumpCharge = 1;
-    private bool isInAir = false;
+    public int amountOfJumpCharges = 1;
+    public bool enableAirJump = true;
+
+    public int JumpCharge { get; private set; }
+    private int airJumpCharge;
+    public bool IsInAir { get; private set; } = false;
     private Rigidbody rb;
 
     private float horizontalInput, verticalInput;
@@ -29,7 +33,11 @@ public class AirControl : MonoBehaviour
 
     void Start()
     {
+        JumpCharge = amountOfJumpCharges;
+        airJumpCharge = amountOfJumpCharges;
+
         rb = GetComponent<Rigidbody>();
+
 
         // Ensure Rigidbody exists
         if (rb == null)
@@ -50,20 +58,25 @@ public class AirControl : MonoBehaviour
             Debug.LogError("GameController not found in scene!");
         }
 
-        jumpCharge = 1;
+        JumpCharge = 1;
     }
 
     void Update()
     {
         CheckGrounded();
 
-        if (Input.GetKeyDown(KeyCode.Space) && jumpCharge > 0)
+        if (Input.GetKeyDown(KeyCode.Space) && JumpCharge > 0 && !IsInAir)
         {
-            Jump();
+            Jump(IsInAir);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space) && airJumpCharge > 0 && IsInAir)
+        {
+            Jump(IsInAir);
         }
 
         // Apply airbrake when in the air
-        if (isInAir && Input.GetKey(KeyCode.LeftControl))
+        if (IsInAir && Input.GetKey(KeyCode.LeftControl))
         {
             rb.linearDamping = airbrakeDamping; // Increase damping for controlled slowdown
         }
@@ -83,7 +96,7 @@ public class AirControl : MonoBehaviour
     {
         GetInput();
 
-        if (isInAir)
+        if (IsInAir)
         {
             AirSteering();
         }
@@ -95,22 +108,31 @@ public class AirControl : MonoBehaviour
         verticalInput = Input.GetAxis("Vertical");
     }
 
-    private void Jump()
+    private void Jump(bool localIsInAir)
     {
-        jumpCharge = 0;
+        if(enableAirJump) {
+            if (!localIsInAir) JumpCharge -= 1;
+            if (localIsInAir) airJumpCharge -= 1;
+        }
+        else {
+            JumpCharge -= 1;
+            airJumpCharge -= 1;
+        }
+        
         Vector3 jumpUp = transform.up;
         rb.AddForce(jumpUp * jumpForce, ForceMode.Impulse);
     }
 
     private void CheckGrounded()
     {
-        isInAir = true;
+        IsInAir = true;
         foreach (Transform wheel in wheelPositions)
         {
             if (Physics.Raycast(wheel.position, Vector3.down, groundCheckDistance, groundLayer))
             {
-                isInAir = false;
-                jumpCharge = 1; // Reset jump charge when fully grounded
+                IsInAir = false;
+                JumpCharge = amountOfJumpCharges; // Reset jump charge when fully grounded
+                airJumpCharge = amountOfJumpCharges;
                 break;
             }
         }

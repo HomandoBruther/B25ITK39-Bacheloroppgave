@@ -9,6 +9,7 @@ TagManager:
   - Danger
   - StartZone
   - Zombie
+  - Camera
   layers:
   - Default
   - TransparentFX

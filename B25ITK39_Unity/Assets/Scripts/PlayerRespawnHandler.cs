@@ -1,4 +1,5 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
 
 public class PlayerRespawnHandler : MonoBehaviour
@@ -6,6 +7,9 @@ public class PlayerRespawnHandler : MonoBehaviour
     private GameObject player;
     public Rigidbody rb;
     [SerializeField] Animator transition;
+
+    public GameObject respawnText;
+    public float dotFrequency = 0.5f;
 
     // Gather Meshes
     public MeshRenderer busMesh;
@@ -61,22 +65,47 @@ public class PlayerRespawnHandler : MonoBehaviour
     }
 
     // This respawns the player 
-    public IEnumerator Respawn(int secs)
+    private IEnumerator Respawn(int secs)
+{
+    float currentSecs = 0;
+
+    if (respawnText != null)
     {
-        yield return new WaitForSeconds(secs);
-        transition.SetTrigger("End");
-        busMesh.enabled = true;
-        FL.enabled = true;
-        FR.enabled = true;
-        RL.enabled = true;
-        RR.enabled = true;
+        TextMeshProUGUI tmp = respawnText.GetComponent<TextMeshProUGUI>();
+        string baseText = "Respawning";
 
-        player.transform.position = checkPointPos.position;
-        player.transform.localRotation = checkPointPos.localRotation;
+        tmp.text = baseText;
+        respawnText.SetActive(true);
 
-        rb.angularVelocity = new Vector3(0, 0, 0);
-        rb.linearVelocity = new Vector3(0, 0, 0);
+        while (currentSecs < secs)
+        {
+            currentSecs += dotFrequency;
+            tmp.text = tmp.text + ".";
+            yield return new WaitForSeconds(dotFrequency);
+        }
 
-        canDie = true;
+        tmp.text = baseText;
     }
+
+    transition.SetTrigger("End");
+
+    if (respawnText != null)
+        respawnText.SetActive(false);
+
+    
+    busMesh.enabled = true;
+    FL.enabled = true;
+    FR.enabled = true;
+    RL.enabled = true;
+    RR.enabled = true;
+
+    player.transform.position = checkPointPos.position;
+    player.transform.localRotation = checkPointPos.localRotation;
+
+    rb.angularVelocity = Vector3.zero;
+    rb.linearVelocity = Vector3.zero;
+
+    canDie = true;
+}
+
 }
