@@ -22,7 +22,7 @@ public class AirControl : MonoBehaviour
     public int amountOfJumpCharges = 1;
     public bool enableAirJump = true;
 
-    private int jumpCharge;
+    public int JumpCharge { get; private set; }
     private int airJumpCharge;
     public bool IsInAir { get; private set; } = false;
     private Rigidbody rb;
@@ -33,7 +33,7 @@ public class AirControl : MonoBehaviour
 
     void Start()
     {
-        jumpCharge = amountOfJumpCharges;
+        JumpCharge = amountOfJumpCharges;
         airJumpCharge = amountOfJumpCharges;
 
         rb = GetComponent<Rigidbody>();
@@ -58,14 +58,14 @@ public class AirControl : MonoBehaviour
             Debug.LogError("GameController not found in scene!");
         }
 
-        jumpCharge = 1;
+        JumpCharge = 1;
     }
 
     void Update()
     {
         CheckGrounded();
 
-        if (Input.GetKeyDown(KeyCode.Space) && jumpCharge > 0 && !IsInAir)
+        if (Input.GetKeyDown(KeyCode.Space) && JumpCharge > 0 && !IsInAir)
         {
             Jump(IsInAir);
         }
@@ -111,11 +111,11 @@ public class AirControl : MonoBehaviour
     private void Jump(bool localIsInAir)
     {
         if(enableAirJump) {
-            if (!localIsInAir) jumpCharge -= 1;
+            if (!localIsInAir) JumpCharge -= 1;
             if (localIsInAir) airJumpCharge -= 1;
         }
         else {
-            jumpCharge -= 1;
+            JumpCharge -= 1;
             airJumpCharge -= 1;
         }
         
@@ -131,7 +131,7 @@ public class AirControl : MonoBehaviour
             if (Physics.Raycast(wheel.position, Vector3.down, groundCheckDistance, groundLayer))
             {
                 IsInAir = false;
-                jumpCharge = amountOfJumpCharges; // Reset jump charge when fully grounded
+                JumpCharge = amountOfJumpCharges; // Reset jump charge when fully grounded
                 airJumpCharge = amountOfJumpCharges;
                 break;
             }
