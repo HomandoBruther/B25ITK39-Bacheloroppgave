@@ -145,7 +145,7 @@ public class CarController : MonoBehaviour
     {
         horizontalInput = Input.GetAxis("Horizontal");
         verticalInput = Input.GetAxis("Vertical");
-        isBreaking = Input.GetKey(KeyCode.Mouse0);
+        isBreaking = Input.GetKey(KeyCode.LeftControl);
     }
 
     private void HandleMotor()

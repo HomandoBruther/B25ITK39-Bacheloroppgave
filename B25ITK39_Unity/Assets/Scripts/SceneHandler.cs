@@ -48,11 +48,14 @@ public class SceneHandler : MonoBehaviour {
 
     private void UpdateText()
     {
+        float SpeedinMS = speed;
+        speed = Mathf.RoundToInt(SpeedinMS * 3.6f);
+
         scoreText.text = "Score: " + PlayerData.PD.points;
         healthText.text = "Health: " + PlayerData.PD.currentHealth + "/" + PlayerData.PD.maxHealth;
         moneyText.text = "Money: " + PlayerData.PD.money;
         timerText.text = minutes.ToString("D2") + ":" + seconds.ToString("D2");
-        speedText.text = speed + "m/s";
+        speedText.text = speed + "km/h";
     }
     
 }
