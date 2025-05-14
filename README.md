@@ -20,4 +20,4 @@ Inspired by the chaotic fun of Crazy Taxi, this project reimagines the passenger
 
 Whether you're aiming to save the most passengers or just enjoy the chaos of drifting through a city infested with zombies, Apocalypse Bus delivers arcade thrills with a unique twist.
 
-![Image](https://github.com/user-attachments/assets/5bd8432f-10e9-4774-b70b-28790c918331)
+![Image](https://github.com/user-attachments/assets/b40519d4-3384-4f6d-a1ff-29526bb1b335)
