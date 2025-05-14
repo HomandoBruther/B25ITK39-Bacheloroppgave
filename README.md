@@ -18,6 +18,6 @@ Inspired by the chaotic fun of Crazy Taxi, this project reimagines the passenger
 
 🏆 Local leaderboard to fuel friendly competition
 
-Whether you're aiming to save the most passengers or just enjoy the chaos of drifting through a city infested with zombies, Apocalypse Bus delivers arcade thrills with a unique twist.
+Whether you're aiming to save the most passengers or just enjoy the chaos of drifting through a city infested with zombies, Doomsday Transit delivers arcade thrills with a unique twist.
 
 ![Image](https://github.com/user-attachments/assets/b40519d4-3384-4f6d-a1ff-29526bb1b335)
