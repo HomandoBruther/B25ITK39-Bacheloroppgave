@@ -1,4 +1,23 @@
-# B25ITK39-Bacheloroppgave
-Repo for spillutvikling
+🧟‍♂️ Doomsday Transit: A Racing Platformer in Chaos
+Welcome to Doomsday Transit, a high-energy, arcade-style game where racing meets the undead!
+
+Inspired by the chaotic fun of Crazy Taxi, this project reimagines the passenger pick-up and drop-off loop in a post-apocalyptic world overrun by zombies. Players must dash, drift, and leap their way across an unpredictable city grid—picking up survivors, dodging obstacles, and mowing down the undead for bonus points.
+
+🎮 Key Features
+🚌 Fast-paced pickup & drop-off gameplay
+
+⚡ Precision dashing and responsive drifting mechanics
+
+✈️ Aerial control for daring jumps and stunts
+
+🧟 Zombies as score-boosting hazards (or victims)
+
+🗺️ Randomized stop system for high replayability
+
+🕒 Timer-based challenge system for intensity and mastery
+
+🏆 Local leaderboard to fuel friendly competition
+
+Whether you're aiming to save the most passengers or just enjoy the chaos of drifting through a city infested with zombies, Apocalypse Bus delivers arcade thrills with a unique twist.
 
 ![Image](https://github.com/user-attachments/assets/5bd8432f-10e9-4774-b70b-28790c918331)
