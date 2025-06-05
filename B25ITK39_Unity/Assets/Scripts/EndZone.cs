@@ -48,25 +48,35 @@ public class EndZone : MonoBehaviour
         }
     }
 
-    public IEnumerator LoadSceneWithDelay()
+    private IEnumerator LoadSceneWithDelay(string sceneName)
     {
+        isLoading = true;
+        Debug.Log("Started coroutine to load scene...");
+
+        DeactivateAllCanvases();
+        LoadingCanvas.SetActive(true);
+
         Time.timeScale = 1f;
         PlayerData.PD.points = 0;
         PlayerData.PD.currentPassengers = 0;
         PlayerData.PD.currentImportantPassengers = 0;
-        isLoading = true;
 
-        FindObjectOfType<LeaderboardManager>()?.ResetSubmission();
-        DeactivateAllCanvases();
-        LoadingCanvas.SetActive(true);
         yield return null;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+
+        Debug.Log($"Loading scene: {sceneName}");
+        SceneManager.LoadScene(sceneName);
     }
 
     public void PlayAgain()
     {
         if (!isLoading)
-            StartCoroutine(LoadSceneWithDelay());
+            StartCoroutine(LoadSceneWithDelay("StageOne"));
+    }
+
+    public void LoadMenu()
+    {
+        if (!isLoading)
+            StartCoroutine(LoadSceneWithDelay("MainMenu"));
     }
 
     public void QuitGame()
