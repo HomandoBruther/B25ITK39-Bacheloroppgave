@@ -5,7 +5,8 @@ using System.Collections;
 public class CountdownTimer : MonoBehaviour
 {
     [Header("Timer Settings")]
-    public float timeMultiplier = 1.0f; // Multiplier to adjust difficulty in Inspector
+    public float timeMultiplier = 0.1f; // Multiplier to adjust difficulty in Inspector
+    public float initialTime = 180f;
     private float countdownTime;
     private bool isCountingDown = false;
     private bool hasStarted = false; // Tracks if the timer has started at least once
@@ -43,7 +44,7 @@ public class CountdownTimer : MonoBehaviour
     public void StartCountdown(float distance)
     {
         StartCoroutine(FlashTimer());
-        countdownTime = distance * timeMultiplier;
+        countdownTime += distance * timeMultiplier;
         isCountingDown = true;
 
         if (!hasStarted)
@@ -52,6 +53,7 @@ public class CountdownTimer : MonoBehaviour
             if (timerText != null)
             {
                 timerText.gameObject.SetActive(true);
+                countdownTime = initialTime;
             }
         }
     }

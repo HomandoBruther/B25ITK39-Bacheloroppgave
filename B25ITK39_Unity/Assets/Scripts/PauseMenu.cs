@@ -110,6 +110,11 @@ public class PauseMenu : MonoBehaviour
         Application.Quit();
     }
 
+    public void EndGame()
+    {
+        EndZone.instance.EndGame();
+    }
+
     private IEnumerator LoadSceneWithDelay(string sceneName)
 {
     isLoading = true;
